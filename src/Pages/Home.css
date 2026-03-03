@@ -14,7 +14,7 @@
 }
 
 
-.contacto{
+.contacto .catalogo{
     display: flex;
     flex-direction: row;
 }

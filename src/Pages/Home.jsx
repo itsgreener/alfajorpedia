@@ -19,8 +19,10 @@ function Home() {
     <img src="../../public/Nostalgia.svg"></img>
   </section>
 
-  <section className="catalogo" id="catalog">
+  <section className="catalogo" >
     <img src="../../public/Vamo’ con todo loco.svg"></img>
+    <input type="text" placeholder="Buscar..." className="search-bar"/>
+
   </section>
 
   <section className="contacto">
