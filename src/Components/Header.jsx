@@ -24,8 +24,8 @@ function Header() {
 
    {menuOpen && (
           <div className="dropdown">
-            <a href="#">Catálogo</a>
-            <a href="#">Favoritos</a>
+            <a href="#catalog">Catálogo</a>
+            <a href="/favorites">Favoritos</a>
           </div>
         )}
       </div>

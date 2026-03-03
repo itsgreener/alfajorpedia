@@ -1,14 +1,16 @@
-import { Link } from "react-router-dom";
 import Header from "../Components/Header.jsx";
 
 function Home() {
   return (
     <>
   <Header/>
-    <div className="home">
-    </div>
-    <Link to="/catalog"></Link>
-    <Link to="/login"></Link>
+  <div>
+  <img src="../../public/eldehoy.svg"></img>
+  </div>
+
+  <section className="experiencias">
+    <MediaCarrusel/>
+  </section>
     </>
   );
 }
