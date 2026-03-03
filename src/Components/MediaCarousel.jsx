@@ -2,10 +2,10 @@ import "./MediaCarousel.css";
 
 function MediaCarousel() {
   return (
-    <div className="media-carousel">
-      <h2>Media Carousel</h2>
-    </div>
+    <>
+  <h1>media carousel</h1>
+    </>
   );
 }
 
-export default MediaCarousel;
+export default MediaCarousel

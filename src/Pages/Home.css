@@ -1,0 +1,19 @@
+.experiencias {
+   background-color: var(--black);
+}
+
+
+.left-column {
+   background-color: var(--black);
+}
+
+.right-column {
+   background-color: var(--white);
+}
+
+
+.contacto{
+    display: flex;
+    flex-direction: row;
+    width: 50vw;
+}
