@@ -5,15 +5,16 @@
 
 .left-column {
    background-color: var(--black);
+   width: 50%;
 }
 
 .right-column {
    background-color: var(--white);
+   width: 50%;
 }
 
 
 .contacto{
     display: flex;
     flex-direction: row;
-    width: 50vw;
 }
