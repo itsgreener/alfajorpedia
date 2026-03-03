@@ -1,9 +1,9 @@
-import { useAuth } from './useAuth'
-import { Navigate } from 'react-router-dom'
+import { useAuth } from './Hooks/useAuth';
+import { Navigate } from 'react-router-dom';
 
 function ProtectedRoute({ children }) {
-  const { user } = useAuth()
-  return user ? children : <Navigate to="/login" />
+  const { user } = useAuth();
+  return user ? children : <Navigate to="/login" />;
 }
 
-export default ProtectedRoute
+export default ProtectedRoute;
