@@ -2,6 +2,10 @@
    background-color: var(--black);
 }
 
+.contacto {
+  display: flex;
+  height: 300px;
+}
 
 .left-column {
    background-color: var(--black);
@@ -12,8 +16,6 @@
    background-color: var(--white);
    width: 50%;
 }
-
-
 .contacto .catalogo{
     display: flex;
     flex-direction: row;

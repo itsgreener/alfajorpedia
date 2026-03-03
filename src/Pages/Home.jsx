@@ -1,3 +1,4 @@
+import Footer from "../Components/Footer.jsx";
 import Header from "../Components/Header.jsx";
 import MediaCarousel from "../Components/MediaCarousel.jsx";
 import "./Home.css";
@@ -33,7 +34,9 @@ function Home() {
       <img src="../../public/a ningún alfajor..svg"></img>
     </div>
   </section>
-   
+
+  <Footer/>
+  
 
     </>
   )
