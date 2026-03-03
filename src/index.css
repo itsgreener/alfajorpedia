@@ -1,1 +1,4 @@
-/*estilos globales*/
+:root {
+  --black: #282828;
+  --white: white;
+}
