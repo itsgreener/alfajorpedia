@@ -1,8 +1,15 @@
+import { Link } from "react-router-dom";
+import Header from "../Components/Header.jsx";
+
 function Home() {
   return (
+    <>
+  <Header/>
     <div className="home">
-      <h1>Welcome to Alfajorpedia!</h1>
     </div>
+    <Link to="/catalog"></Link>
+    <Link to="/login"></Link>
+    </>
   );
 }
 
