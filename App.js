@@ -1,8 +1,8 @@
-import mysql from "mysql2/promise";
-import bcrypt from "bcrypt";
-
 const express = require("express");
 require("dotenv").config();
+
+const mysql = require("mysql2/promise");
+const bcrypt = require("bcrypt");
 
 const app = express();
 
