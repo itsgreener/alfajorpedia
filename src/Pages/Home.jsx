@@ -8,7 +8,7 @@ function Home() {
     <>
   <Header/>
   <div>
-  <img src="../../public/eldehoy.svg"></img>
+  <h2 className="title">Un clasico de todos los tiempos</h2>
   </div>
 
   <section className="experiencias">

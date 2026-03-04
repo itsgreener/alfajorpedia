@@ -1,3 +1,9 @@
+.title{
+   font-family: 'Coolvetica';
+   font-size: 100px;
+   color: var(--black);
+}
+
 .experiencias {
    background-color: var(--black);
 }
