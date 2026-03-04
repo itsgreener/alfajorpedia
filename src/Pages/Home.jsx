@@ -26,19 +26,23 @@ function Home() {
           </div>
         </section>
         <section className="power">
-          <p className="title">Los más power</p>
-          <p className="text">
-            Se necesitan las dos manos y un respirar pausado.{" "}
-            <strong>Alfajores que dejan huella.</strong>
-          </p>
+          <div className="power-texts">
+            <p className="title power-title">Los más power</p>
+            <p className="text power-text">
+              Se necesitan las dos manos y un respirar pausado.{" "}
+              <strong>Alfajores que dejan huella.</strong>
+            </p>
+          </div>
           <AlfajorGroup />
         </section>
         <section className="height">
-          <p className="title">Los más altos</p>
-          <p className="text">
-            <strong>Triple capa para arriba.</strong> Cada piso es una decisión
-            que alguien tomó bien.
-          </p>
+          <div className="height-texts">
+            <p className="text height-text">
+              <strong>Triple capa para arriba.</strong> Cada piso es una
+              decisión que alguien tomó bien.
+            </p>
+            <p className="title height-title">Los más altos</p>
+          </div>
           <AlfajorGroup />
         </section>
         <section className="spicy">
