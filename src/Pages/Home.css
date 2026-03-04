@@ -2,9 +2,30 @@
    font-family: 'Coolvetica';
    font-size: 100px;
    color: var(--black);
+   width: 55%;
+   line-height: .9;
 }
 
-.experiencias {
+.text{
+   font-family: 'Haas';
+   font-size: 30px;
+   color: var(--black);
+}  
+
+.experiences{
+   color: var(--white);
+}
+
+.head{
+   width: 50%;
+}
+
+.header-section{
+   display: flex;
+   flex-direction: column;
+}
+
+.experiences-section {
    background-color: var(--black);
 }
 

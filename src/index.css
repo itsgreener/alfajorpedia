@@ -1,8 +1,20 @@
 @font-face {
-  font-family: 'Coolvetica';
-  src: url('./assets/fonts/Coolvetica_Rg.otf') format('opentype');
+  font-family: "Coolvetica";
+  src: url("./assets/fonts/Coolvetica_Rg.otf") format("opentype");
   font-weight: 400;
   font-style: normal;
+}
+@font-face {
+  font-family: "Haas";
+  src: url("./assets/fonts/NeueHaasDisplayXThin.ttf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Haas";
+  src: url("./assets/fonts/NeueHaasDisplayBold.ttf") format("opentype");
+  font-weight: 700;
+  font-style: bold;
 }
 
 :root {
