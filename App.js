@@ -31,9 +31,22 @@ const pool = mysql.createPool({
   database: process.env.DB_NAME,
 });
 
-function auth(req, res, next) {
-  if (req.headers["x-api-key"] !== process.env.API_KEY) {
-    return res.status(401).json({ error: "unauthorized" });
+app.get("/api/alfajores", async (_req, res) => {
+  try {
+    const [rows] = await pool.query(`
+      SELECT id, nombre_alfajor, pais, puntuacion, calorias, descripcion, imagen_url, img_bandera_url
+      FROM alfajores
+      ORDER BY id DESC
+    `);
+    res.json(rows);
+  } catch (e) {
+    res.status(500).json({ error: "server error" });
+  }
+});
+
+function auth(req,res,next){
+  if(req.headers["x-api-key"] !== process.env.API_KEY){
+    return res.status(401).json({error:"unauthorized"});
   }
   next();
 }
