@@ -9,7 +9,7 @@ const app = express();
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "https://alfajorpedia.com");
   res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
- res.header("Access-Control-Allow-Headers", "Content-Type, X-API-KEY");
+  res.header("Access-Control-Allow-Headers", "Content-Type, X-API-KEY");
 
   if (req.method === "OPTIONS") {
     return res.status(200).end();
@@ -28,12 +28,12 @@ const pool = mysql.createPool({
   host: process.env.DB_HOST || "127.0.0.1",
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
-  database: process.env.DB_NAME
+  database: process.env.DB_NAME,
 });
 
-function auth(req,res,next){
-  if(req.headers["x-api-key"] !== process.env.API_KEY){
-    return res.status(401).json({error:"unauthorized"});
+function auth(req, res, next) {
+  if (req.headers["x-api-key"] !== process.env.API_KEY) {
+    return res.status(401).json({ error: "unauthorized" });
   }
   next();
 }
@@ -46,8 +46,8 @@ app.post("/sync-alfajores", auth, async (req, res) => {
     }
 
     const clean = rows
-      .filter(r => r?.nombre_alfajor && r?.pais)
-      .map(r => ({
+      .filter((r) => r?.nombre_alfajor && r?.pais)
+      .map((r) => ({
         nombre_alfajor: String(r.nombre_alfajor).trim(),
         pais: String(r.pais).trim(),
         puntuacion: Number(r.puntuacion),
@@ -55,11 +55,12 @@ app.post("/sync-alfajores", auth, async (req, res) => {
         imagen_url: r.imagen == null ? null : String(r.imagen),
         img_bandera_url: r.img_bandera == null ? null : String(r.img_bandera),
       }))
-      .filter(r => Number.isFinite(r.puntuacion));
+      .filter((r) => Number.isFinite(r.puntuacion));
 
-    if (clean.length === 0) return res.status(400).json({ error: "no valid rows" });
+    if (clean.length === 0)
+      return res.status(400).json({ error: "no valid rows" });
 
-    const values = clean.map(r => [
+    const values = clean.map((r) => [
       r.nombre_alfajor,
       r.pais,
       r.puntuacion,
@@ -102,14 +103,15 @@ app.post("/sync-usuarios", auth, async (req, res) => {
     const rounds = Number(process.env.BCRYPT_ROUNDS || 10);
 
     const clean = rows
-      .filter(r => r?.nombre && r?.email && r?.contraseña)
-      .map(r => ({
+      .filter((r) => r?.nombre && r?.email && r?.contraseña)
+      .map((r) => ({
         nombre: String(r.nombre).trim(),
         email: String(r.email).trim().toLowerCase(),
         pass: String(r.contraseña),
       }));
 
-    if (clean.length === 0) return res.status(400).json({ error: "no valid rows" });
+    if (clean.length === 0)
+      return res.status(400).json({ error: "no valid rows" });
 
     const values = [];
     for (const r of clean) {
@@ -143,4 +145,3 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
