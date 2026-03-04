@@ -20,7 +20,7 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/api/health", (_req, res) => {
+app.get("/api/health", auth, (_req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
@@ -88,7 +88,7 @@ app.post("/sync-alfajores", auth, async (req, res) => {
 
     res.json({ ok: true, upserted: clean.length });
   } catch (e) {
-    res.status(500).json({ error: "server error" });
+    res.status(500).json({ error: "server error: " + e.message });
   }
 });
 
@@ -134,7 +134,7 @@ app.post("/sync-usuarios", auth, async (req, res) => {
 
     res.json({ ok: true, upserted: clean.length });
   } catch (e) {
-    res.status(500).json({ error: "server error" });
+    res.status(500).json({ error: "server error: " + e.message });
   }
 });
 
