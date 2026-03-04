@@ -1,6 +1,7 @@
 import Footer from "../Components/Footer.jsx";
 import Header from "../Components/Header.jsx";
 import MediaCarousel from "../Components/MediaCarousel.jsx";
+import AlfajorGroup from "../Components/AlfajorGroup.jsx";
 import "./Home.css";
 
 function Home() {
@@ -14,6 +15,30 @@ function Home() {
           pretensiones. Lleva décadas sin cambiar la receta ni el envoltorio. No
           tiene community manager. <strong>No lo necesita.</strong>
         </p>
+      </section>
+      <section className="power">
+        <p className="title">Los más power</p>
+        <p className="text">
+          Se necesitan las dos manos y un respirar pausado.{" "}
+          <strong>Alfajores que dejan huella.</strong>
+        </p>
+        <AlfajorGroup />
+      </section>
+      <section className="height">
+        <p className="title">Los más altos</p>
+        <p className="text">
+          <strong>Triple capa para arriba.</strong> Cada piso es una decisión
+          que alguien tomó bien.
+        </p>
+        <AlfajorGroup />
+      </section>
+      <section className="spicy">
+        <p className="title">Los más picantes</p>
+        <p className="text">
+          <strong>Los que se atreven.</strong> Alfajores que rompen las reglas y
+          se salen con la suya.
+        </p>
+        <AlfajorGroup />
       </section>
 
       <section className="experiences-section">

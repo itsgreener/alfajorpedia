@@ -1,14 +1,14 @@
 .title{
    font-family: 'Coolvetica';
-   font-size: 100px;
+   font-size: 110px;
    color: var(--black);
-   width: 55%;
+   width: 60%;
    line-height: .9;
 }
 
 .text{
    font-family: 'Haas';
-   font-size: 30px;
+   font-size: 26px;
    color: var(--black);
 }  
 
@@ -17,7 +17,7 @@
 }
 
 .head{
-   width: 50%;
+   width: 55%;
 }
 
 .header-section{
