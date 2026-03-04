@@ -64,6 +64,7 @@ app.post("/sync-alfajores", auth, async (req, res) => {
         nombre_alfajor: String(r.nombre_alfajor).trim(),
         pais: String(r.pais).trim(),
         puntuacion: Number(r.puntuacion),
+        calorias: r.calorias == null ? null : Number(r.calorias),
         descripcion: r.descripcion == null ? null : String(r.descripcion),
         imagen_url: r.imagen == null ? null : String(r.imagen),
         img_bandera_url: r.img_bandera == null ? null : String(r.img_bandera),
@@ -82,16 +83,17 @@ app.post("/sync-alfajores", auth, async (req, res) => {
       r.img_bandera_url,
     ]);
 
-    const sql = `
-      INSERT INTO alfajores
-        (nombre_alfajor, pais, puntuacion, descripcion, imagen_url, img_bandera_url)
-      VALUES ?
-      ON DUPLICATE KEY UPDATE
-        puntuacion = VALUES(puntuacion),
-        descripcion = VALUES(descripcion),
-        imagen_url = VALUES(imagen_url),
-        img_bandera_url = VALUES(img_bandera_url)
-    `;
+const sql = `
+  INSERT INTO alfajores
+    (nombre_alfajor, pais, puntuacion, calorias, descripcion, imagen_url, img_bandera_url)
+  VALUES ?
+  ON DUPLICATE KEY UPDATE
+    puntuacion = VALUES(puntuacion),
+    calorias = VALUES(calorias),
+    descripcion = VALUES(descripcion),
+    imagen_url = VALUES(imagen_url),
+    img_bandera_url = VALUES(img_bandera_url)
+`;
 
     const conn = await pool.getConnection();
     try {
