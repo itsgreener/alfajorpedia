@@ -1,62 +1,47 @@
 nav {
-  background-color: var(--black);
+ background-color: var(--black);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 24px;
+  padding: 0 2vw;
   height: 48px;
-  position: relative;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 2vw;
+  padding: 5%;
+  
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5vw;
+  padding: 5%;
 }
 
 .nav-brand {
   color: var(--white);
-  font-size: 15px;
+  font-size: 0.9rem;
   font-weight: bold;
   letter-spacing: 0.5px;
   text-transform: lowercase;
 }
 
-.nav-tagline {
+.nav-link {
   color: var(--white);
-  font-size: 11px;
-  letter-spacing: 2px;
+  font-size: 0.75rem;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
-}
-
-.nav-menu-btn {
+  text-decoration: none;
   background: none;
   border: none;
   cursor: pointer;
-  padding: 4px;
-  display: flex;
-  align-items: center;
+  padding: 0;
 }
 
-.nav-right {
-  position: relative;
-}
-
-.dropdown {
-  position: absolute;
-  right: 0;
-  top: calc(100% + 8px);
-  background: var(--black);
-  border-radius: 4px;
-  min-width: 180px;
-  z-index: 100;
-  overflow: hidden;
-}
-
-.dropdown a {
-  display: block;
-  color: var(--white);
-  text-decoration: none;
-  padding: 10px 16px;
-  font-size: 13px;
-  transition: background 0.15s;
-}
-
-.dropdown a:hover {
-  background: #333;
-  color: var(--white);
+.nav-link:hover {
+  opacity: 0.7;
 }
