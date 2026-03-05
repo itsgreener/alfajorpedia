@@ -1,7 +1,8 @@
 .alfajor-card {
   display: flex;
   flex-direction: column;
-  width: 250px;
+  width: 100%;
+  min-width: 250px;
   background: var(--white);
 }
 
@@ -28,7 +29,7 @@
 }
 
 .card_name {
-  font-size: 20px;
+  font-size: 25px;
   font-weight: bold;
   color: var(--black);
 }
@@ -40,12 +41,12 @@
 }
 
 .card_weight {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--black);
 }
 
 .card_calories {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--black);
 }
 

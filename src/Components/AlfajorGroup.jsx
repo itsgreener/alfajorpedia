@@ -3,13 +3,9 @@ import "./AlfajorGroup.css";
 
 function AlfajorGroup({ data, amount }) {
   return (
-    <div className="alfajor-group">
+    <div className="alfajor-group" style={{ "--columns": amount }}>
       {data.slice(0, amount).map((alfajor, index) => (
-        <div
-          className="card alfajor-individual"
-          key={index + alfajor.name}
-          style={{ "--rows": amount }}
-        >
+        <div className="card" key={index + alfajor.name}>
           <AlfajorCard alfajor={alfajor} onClick={() => console.log("Test")} />
         </div>
       ))}
