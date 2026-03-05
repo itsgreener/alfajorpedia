@@ -23,9 +23,8 @@
 
 .alfajor-detail-name {
   font-family: "Coolvetica";
-  font-size: 4rem;
-  font-weight: 900;
-  line-height: 1;
+  font-size: 5rem;
+  color: var(--black);
 }
 
 .alfajor-detail-meta {
@@ -34,19 +33,20 @@
   gap: 1.5vw;
   color: #aaa;
   font-family: "Haas";
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 
 .alfajor-detail-tagline {
   font-family: "Haas";
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 700;
   color: var(--black);
+  line-height: 1.4;
 }
 
 .alfajor-detail-description {
   font-family: "Haas";
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: var(--black);
   line-height: 1.6;
 }
@@ -54,8 +54,8 @@
 .alfajor-detail-footer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   margin-top: 1vh;
+  justify-content: space-between;
 }
 
 .alfajor-detail-socials {
@@ -68,7 +68,6 @@
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0;
 }
 
 .alfajor-detail-fav:hover {
