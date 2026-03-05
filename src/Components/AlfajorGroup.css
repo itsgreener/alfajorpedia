@@ -1,0 +1,5 @@
+.alfajor-group {
+  display: grid;
+  grid-template-columns: repeat(var(--rows), 1fr);
+  gap: 16px;
+}

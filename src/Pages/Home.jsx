@@ -3,6 +3,7 @@ import Header from "../Components/Header.jsx";
 import MediaCarousel from "../Components/MediaCarousel.jsx";
 import AlfajorGroup from "../Components/AlfajorGroup.jsx";
 import ContactForm from "../Components/ContactForm.jsx";
+import { alfajores } from "../Assets/Data.js";
 import "./Home.css";
 
 function Home() {
@@ -34,7 +35,10 @@ function Home() {
               <strong>Alfajores que dejan huella.</strong>
             </p>
           </div>
-          <AlfajorGroup />
+          <AlfajorGroup
+            amount={3}
+            data={alfajores}
+          />
         </section>
         <section className="height">
           <div className="height-texts">
@@ -44,7 +48,10 @@ function Home() {
             </p>
             <p className="title height-title">Los más altos</p>
           </div>
-          <AlfajorGroup />
+          <AlfajorGroup
+            amount={4}
+            data={alfajores}
+          />
         </section>
         <section className="spicy">
           <div className="spicy-texts">
@@ -54,7 +61,10 @@ function Home() {
               reglas y se salen con la suya.
             </p>
           </div>
-          <AlfajorGroup />
+          <AlfajorGroup
+            amount={4}
+            data={alfajores}
+          />
         </section>
       </div>
 
