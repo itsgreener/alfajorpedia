@@ -3,12 +3,15 @@ import Header from "../Components/Header.jsx";
 import MediaCarousel from "../Components/MediaCarousel.jsx";
 import AlfajorGroup from "../Components/AlfajorGroup.jsx";
 import ContactForm from "../Components/ContactForm.jsx";
+import AlfajorModal from "../Components/AlfajorModal.jsx";
 import { alfajores } from "../Assets/Data.js";
 import "./Home.css";
+
 
 function Home() {
   return (
     <>
+    <AlfajorModal alfajor={alfajores[0]} />
       <Header />
       <div className="body">
         <section className="card">

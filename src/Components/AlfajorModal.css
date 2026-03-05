@@ -1,0 +1,76 @@
+.alfajor-detail {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: var(--white);
+  border-radius: 16px;
+  padding: 4vh 4vw;
+  gap: 4vw;
+}
+
+.alfajor-detail-img {
+  width: 30vw;
+  max-width: 400px;
+  object-fit: contain;
+}
+
+.alfajor-detail-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+  flex: 1;
+}
+
+.alfajor-detail-name {
+  font-family: "Coolvetica";
+  font-size: 4rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.alfajor-detail-meta {
+  display: flex;
+  align-items: center;
+  gap: 1.5vw;
+  color: #aaa;
+  font-family: "Haas";
+  font-size: 1rem;
+}
+
+.alfajor-detail-tagline {
+  font-family: "Haas";
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--black);
+}
+
+.alfajor-detail-description {
+  font-family: "Haas";
+  font-size: 1rem;
+  color: var(--black);
+  line-height: 1.6;
+}
+
+.alfajor-detail-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1vh;
+}
+
+.alfajor-detail-socials {
+  display: flex;
+  gap: 1.2vw;
+  align-items: center;
+}
+
+.alfajor-detail-fav {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.alfajor-detail-fav:hover {
+  opacity: 0.6;
+}
