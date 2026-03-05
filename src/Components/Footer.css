@@ -1,24 +1,36 @@
 .footer {
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: flex-start;
-  gap: 5vw;
   padding: 4vh 5vw;
   background-color: var(--white);
 }
 
-/* Logo greener */
-.footer-logo img {
-  width: 8vw;
-  margin-top: 4vh;
+/* ── LADO IZQUIERDO ── */
+.footer-left {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 2vw;
 }
 
-/* Marca + newsletter */
+/* Logo e imagen en columna */
+.footer-logo {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5vh;
+}
+
+.footer-logo img {
+  width: 8vw;
+}
+
 .footer-brand h2 {
   font-size: 5.5rem;
   font-weight: 800;
   line-height: 1;
   margin-bottom: 0.5vh;
-  margin-top: 1.5vh;
 }
 
 .footer-brand > p {
@@ -53,13 +65,12 @@
   font-size: 0.85rem;
 }
 
-/* Columnas de links */
-.footer-links {
+/* ── LADO DERECHO ── */
+.footer-right {
   display: flex;
+  flex-direction: row;
+  align-items: flex-start;
   gap: 3vw;
-  margin-left: 40vh;
-  margin-top: 5vh;
-  margin-bottom: 3vh;
 }
 
 .footer-col {
@@ -89,5 +100,6 @@
   flex-direction: row;
   gap: 1.5vw;
   align-items: center;
-  align-self: flex-end;
+  margin-top: 1vh;
+  justify-content: flex-end;
 }
