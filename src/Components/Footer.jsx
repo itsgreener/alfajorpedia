@@ -5,8 +5,8 @@ function Footer() {
     <footer className="footer">
       <div className="footer-left">
         <div className="footer-logo">
-          <img src="../../public/Logo Greener.svg" alt="Greener logo" />
-          <img src="../../public/staylucid.gif" alt="Stay Lucid" />
+          <img src="/Logo Greener.svg" alt="Greener logo" />
+          <img src="/staylucid.gif" alt="Stay Lucid" />
         </div>
 
         <div className="footer-brand">

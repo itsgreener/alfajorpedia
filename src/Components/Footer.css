@@ -3,11 +3,10 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 4vh 5vw;
+  padding: 5% 4.5%;
   background-color: var(--white);
 }
 
-/* ── LADO IZQUIERDO ── */
 .footer-left {
   display: flex;
   flex-direction: row;
@@ -15,7 +14,6 @@
   gap: 2vw;
 }
 
-/* Logo e imagen en columna */
 .footer-logo {
   display: flex;
   flex-direction: column;
@@ -87,7 +85,7 @@
 
 .footer-col a {
   text-decoration: none;
-  color: #111;
+  color: var(--black);
   font-size: 0.9rem;
 }
 

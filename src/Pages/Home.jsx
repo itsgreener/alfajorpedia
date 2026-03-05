@@ -27,7 +27,7 @@ function Home() {
             <p className="text">¡Imagen de alfajor!</p>
           </div>
         </section>
-        <section className="power">
+        <section className="group">
           <div className="power-texts">
             <p className="title power-title">Los más power</p>
             <p className="text power-text">
@@ -40,7 +40,7 @@ function Home() {
             data={alfajores}
           />
         </section>
-        <section className="height">
+        <section className="group">
           <div className="height-texts">
             <p className="text height-text">
               <strong>Triple capa para arriba.</strong> Cada piso es una
@@ -53,7 +53,7 @@ function Home() {
             data={alfajores}
           />
         </section>
-        <section className="spicy">
+        <section className="group">
           <div className="spicy-texts">
             <p className="title spicy-title">Los más picantes</p>
             <p className="text spicy-text">
