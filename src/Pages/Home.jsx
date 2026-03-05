@@ -2,6 +2,7 @@ import Footer from "../Components/Footer.jsx";
 import Header from "../Components/Header.jsx";
 import MediaCarousel from "../Components/MediaCarousel.jsx";
 import AlfajorGroup from "../Components/AlfajorGroup.jsx";
+import ContactForm from "../Components/ContactForm.jsx";
 import "./Home.css";
 
 function Home() {
@@ -67,16 +68,16 @@ function Home() {
           <p className="title">Catálogo</p>
           <input type="text" placeholder="Buscar..." className="search-bar" />
         </section>
-      </div>
 
-      <section className="contacto">
-        <div className="left-column">
-          <p className="title white-text">Nuestra ambición tiene freno</p>
-        </div>
-        <div className="right-column">
-          <p className="title">¿Falta tu alfajor? Avísanos.</p>
-        </div>
-      </section>
+        <section className="contacto">
+          <div className="left-column">
+            <p className="title white-text">Nuestra ambición tiene freno</p>
+          </div>
+          <div className="right-column">
+            <ContactForm />
+          </div>
+        </section>
+      </div>
       <Footer />
     </>
   );
