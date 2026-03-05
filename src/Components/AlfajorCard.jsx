@@ -14,7 +14,7 @@ function AlfajorCard({ alfajor, onClick }) {
         <p className="card_name">{name}</p>
 
         <div className="card_meta">
-          <span>{flag}</span>
+          <img src={flag} alt="Flag" className="card_flag"/>
           <span className="card_weight">{weight}</span>
           <span className="card_calories">{calories} Cal</span>
         </div>

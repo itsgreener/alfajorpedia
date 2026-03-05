@@ -34,6 +34,11 @@
   color: var(--black);
 }
 
+.card_flag {
+  width: 30px;
+  object-fit: cover;
+}
+
 .card_meta {
   display: flex;
   align-items: center;
