@@ -1,9 +1,9 @@
 nav {
- background-color: var(--black);
+  background-color: var(--black);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 2vw;
+  padding: 0 4.5%;
   height: 48px;
 }
 
@@ -11,15 +11,12 @@ nav {
   display: flex;
   align-items: center;
   gap: 2vw;
-  padding: 5%;
-  
 }
 
 .nav-right {
   display: flex;
   align-items: center;
   gap: 1.5vw;
-  padding: 5%;
 }
 
 .nav-brand {
