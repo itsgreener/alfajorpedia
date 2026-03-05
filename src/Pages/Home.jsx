@@ -47,19 +47,26 @@ function Home() {
           <AlfajorGroup />
         </section>
         <section className="spicy">
-          <p className="title">Los más picantes</p>
-          <p className="text">
-            <strong>Los que se atreven.</strong> Alfajores que rompen las reglas
-            y se salen con la suya.
-          </p>
+          <div className="spicy-texts">
+            <p className="title spicy-title">Los más picantes</p>
+            <p className="text spicy-text">
+              <strong>Los que se atreven.</strong> Alfajores que rompen las
+              reglas y se salen con la suya.
+            </p>
+          </div>
           <AlfajorGroup />
         </section>
+      </div>
 
-        <section className="experiences-section">
-          <p className="title white-text">Experiencias</p>
+      <section className="experiences-section">
+        <div className="experiences-content">
+          <div className="experiences-title">
+            <p className="title white-text">Experiencias</p>
+          </div>
           <MediaCarousel />
-        </section>
-
+        </div>
+      </section>
+      <div className="body">
         <section className="nostalgia">
           <p className="title">Nostalgia</p>
         </section>
@@ -68,16 +75,18 @@ function Home() {
           <p className="title">Catálogo</p>
           <input type="text" placeholder="Buscar..." className="search-bar" />
         </section>
-
-        <section className="contacto">
-          <div className="left-column">
-            <p className="title white-text">Nuestra ambición tiene freno</p>
-          </div>
-          <div className="right-column">
-            <ContactForm />
-          </div>
-        </section>
       </div>
+
+      <section className="contacto">
+        <div className="left-column">
+          <p className="title white-text left-title">
+            Nuestra ambición no tiene freno
+          </p>
+        </div>
+        <div className="right-column">
+          <ContactForm />
+        </div>
+      </section>
       <Footer />
     </>
   );

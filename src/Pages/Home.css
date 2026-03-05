@@ -64,17 +64,40 @@
   text-align: right;
 }
 
-.height-text{
+.height-text {
   width: 32.5%;
   transform: translateX(33%);
 }
 
-.height-title{
+.height-title {
   width: 30%;
 }
 
+.spicy-texts {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+}
+.spicy-title {
+  width: 30%;
+}
+.spicy-text {
+  width: 33%;
+}
+
 .experiences-section {
+  display: flex;
+  flex-direction: column;
   background-color: var(--black);
+}
+
+.experiences-content {
+  margin: 0 4.5%;
+}
+
+.experiences-title {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .contacto {
@@ -84,12 +107,18 @@
 
 .left-column {
   background-color: var(--black);
-  width: 50%;
+  width: 35%;
+}
+
+.left-title {
+  margin: 12.75%;
+  justify-content: center;
+  align-items: center;
 }
 
 .right-column {
-  background-color: var(--white);
-  width: 50%;
+  margin-right: 9%;
+  width: auto;
 }
 .contacto .catalogo {
   display: flex;
