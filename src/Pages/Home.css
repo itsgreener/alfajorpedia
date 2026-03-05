@@ -109,11 +109,15 @@
 .contacto {
   display: flex;
   flex-direction: row;
+   align-items: stretch; 
 }
 
 .left-column {
   background-color: var(--black);
   width: 35%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .left-title {
