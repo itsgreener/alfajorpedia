@@ -2,7 +2,7 @@ export const alfajores = [
   {
     id: 1,
     name: "Milka",
-    flag: "/Mockup/arg.png",
+    flag: "/Mockup/SriLanka.png",
     weight: "85g",
     calories: 300,
     rating: 4.2,
@@ -13,7 +13,7 @@ export const alfajores = [
   {
     id: 2,
     name: "Oreo",
-    flag: "/Mockup/arg.png",
+    flag: "/Mockup/SriLanka.png",
     weight: "154g",
     calories: 160,
     rating: 4.6,
@@ -24,7 +24,7 @@ export const alfajores = [
   {
     id: 3,
     name: "Toblerone",
-    flag: "/Mockup/arg.png",
+    flag: "/Mockup/SriLanka.png",
     weight: "100g",
     calories: 540,
     rating: 4.4,
@@ -35,7 +35,7 @@ export const alfajores = [
   {
     id: 4,
     name: "Pringles",
-    flag: "/Mockup/arg.png",
+    flag: "/Mockup/SriLanka.png",
     weight: "165g",
     calories: 150,
     rating: 4.1,

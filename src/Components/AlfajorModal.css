@@ -73,3 +73,8 @@
 .alfajor-detail-fav:hover {
   opacity: 0.6;
 }
+
+.alfajor-detail-flag {
+  width: 45px;
+  object-fit: cover;
+}

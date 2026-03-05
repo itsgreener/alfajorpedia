@@ -12,7 +12,7 @@ function AlfajorDetail({ alfajor }) {
         <p className="alfajor-detail-name">{alfajor.name}</p>
 
         <div className="alfajor-detail-meta">
-          <img src={alfajor.flag} alt="Bandera" />
+          <img className="alfajor-detail-flag" src={alfajor.flag} alt="Bandera" />
           <span>{alfajor.weight}g</span>
           <span>{alfajor.calories} Cal</span>
           <span>★{alfajor.rating}</span>
