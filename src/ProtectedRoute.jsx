@@ -1,9 +1,9 @@
 import { useAuth } from './Hooks/useAuth';
-import { Navigate } from 'react-router-dom';
+import LoginModal from './Components/LoginModal.jsx';
 
-function ProtectedRoute({ children }) {
+function ProtectedPath({ children }) {
   const { user } = useAuth();
-  return user ? children : <Navigate to="/login" />;
+  return user ? children : <LoginModal />;
 }
 
-export default ProtectedRoute;
+export default ProtectedPath;

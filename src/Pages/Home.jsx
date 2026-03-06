@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { alfajores } from "../Assets/Data.js";
+import ProtectedPath from "../ProtectedRoute.jsx";
 import Footer from "../Components/Footer.jsx";
 import Header from "../Components/Header.jsx";
 import MediaCarousel from "../Components/MediaCarousel.jsx";
@@ -24,7 +25,11 @@ function Home() {
     <>
       <Header
         onFavoriteClick={() => {
-          setModalContent(<FavoriteModal />);
+          setModalContent(
+            <ProtectedPath>
+              <FavoriteModal />
+            </ProtectedPath>,
+          );
           setModalOpen(true);
         }}
         onSubscribeClick={() => {
