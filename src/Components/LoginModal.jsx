@@ -1,4 +1,4 @@
-function LoginPopup() {
+function LoginModal() {
   return (
     <div className="login-popup">
       <h2>Iniciar sesión</h2>
@@ -7,4 +7,4 @@ function LoginPopup() {
   );
 }
 
-export default LoginPopup;
+export default LoginModal;

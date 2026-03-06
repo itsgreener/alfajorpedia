@@ -1,6 +1,6 @@
 import "./Header.css";
 
-function Header() {
+function Header({ onFavoriteClick, onSubscribeClick }) {
   return (
     <nav>
       <div className="nav-left">
@@ -11,10 +11,13 @@ function Header() {
           CATÁLOGO
         </a>
       </div>
-
       <div className="nav-right">
-        <button className="nav-link">FAVORITOS</button>
-        <button className="nav-link">SUBSCRÍBETE</button>
+        <button className="nav-link" onClick={onFavoriteClick}>
+          FAVORITOS
+        </button>
+        <button className="nav-link" onClick={onSubscribeClick}>
+          SUSCRÍBETE
+        </button>
 
         <svg
           xmlns="http://www.w3.org/2000/svg"

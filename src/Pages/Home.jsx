@@ -7,6 +7,8 @@ import AlfajorGroup from "../Components/AlfajorGroup.jsx";
 import ContactForm from "../Components/ContactForm.jsx";
 import AlfajorModal from "../Components/AlfajorModal.jsx";
 import EmptyModal from "../Components/EmptyModal.jsx";
+import FavoriteModal from "../Components/FavoriteModal.jsx";
+import LoginModal from "../Components/LoginModal.jsx";
 import "./Home.css";
 
 function Home() {
@@ -20,16 +22,26 @@ function Home() {
 
   return (
     <>
-      <Header />
-      <div className="body">
+      <Header
+        onFavoriteClick={() => {
+          setModalContent(<FavoriteModal />);
+          setModalOpen(true);
+        }}
+        onSubscribeClick={() => {
+          setModalContent(<LoginModal />);
+          setModalOpen(true);
+        }}
+      />
+      <div className="body" id="home">
         <section className="card hover">
           <div
             className="header-content-row"
             onClick={() => openAlfajorModal(alfajores[2])}
           >
             <div className="header-text-col">
-              <p className="title head-title">
-                Un clásico de todos los tiempos
+              <p className="big-title">
+                Un clásico de <br />
+                todos los tiempos
               </p>
               <p className="text head-text">
                 Tres capas de dulce de leche, papel que se pega a los dedos, y
@@ -114,7 +126,7 @@ function Home() {
           <p className="title">Nostalgia</p>
         </section>
 
-        <section className="catalogo">
+        <section className="catalogo" id="catalogo">
           <p className="title">Catálogo</p>
           <input type="text" placeholder="Buscar..." className="search-bar" />
         </section>

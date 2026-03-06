@@ -1,10 +1,10 @@
-function RegisterPopup() {
+function RegisterModal() {
   return (
-    <div className="register-popup">
+    <div className="register-modal">
       <h2>Registrarse</h2>
       {/* Aquí puedes agregar el formulario de registro */}
     </div>
   );
 }
 
-export default RegisterPopup;
+export default RegisterModal;
