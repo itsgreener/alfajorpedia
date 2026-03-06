@@ -2,6 +2,8 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 100%;
+  max-height: 500px;
   min-width: 250px;
   background: var(--white);
 }
@@ -22,10 +24,18 @@
 }
 
 .card_body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10%;
+}
+
+.card_content {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding: 10%;
 }
 
 .card_name {
@@ -59,6 +69,12 @@
   font-size: 15px;
   color: var(--black);
   line-height: 1.5;
+  max-height: 80px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .card_actions {
