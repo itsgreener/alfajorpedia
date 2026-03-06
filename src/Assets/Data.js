@@ -8,6 +8,7 @@ export const alfajores = [
     rating: 4.2,
     description:
       "Cras dignissim lobortis mauris non laoreet. Nullam dignissim iaculis dolor ut tincidunt.",
+    tagline: "El clásico de siempre, ahora con un toque de chocolate suizo.",
     image: "/Mockup/Milka.png",
   },
   {

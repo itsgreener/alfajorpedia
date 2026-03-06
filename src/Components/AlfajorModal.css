@@ -2,14 +2,12 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  background: var(--white);
-  border-radius: 16px;
-  padding: 4vh 4vw;
+  padding: 4%;
   gap: 4vw;
 }
 
 .alfajor-detail-img {
-  width: 30vw;
+  width: 30%;
   max-width: 400px;
   object-fit: contain;
 }
@@ -17,14 +15,13 @@
 .alfajor-detail-info {
   display: flex;
   flex-direction: column;
-  gap: 2vh;
+  gap: 10px;
   flex: 1;
 }
 
 .alfajor-detail-name {
   font-family: "Coolvetica";
-  font-size: 5rem;
-  color: var(--black);
+  font-size: 80px;
 }
 
 .alfajor-detail-meta {
@@ -33,28 +30,24 @@
   gap: 1.5vw;
   color: #aaa;
   font-family: "Haas";
-  font-size: 1.1rem;
+  font-size: 18px;
 }
 
 .alfajor-detail-tagline {
   font-family: "Haas";
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--black);
+  font-size: 20px;
+  font-weight: bold;
   line-height: 1.4;
 }
 
 .alfajor-detail-description {
   font-family: "Haas";
-  font-size: 1.1rem;
-  color: var(--black);
-  line-height: 1.6;
+  font-size: 18px;
 }
 
 .alfajor-detail-footer {
   display: flex;
   align-items: center;
-  margin-top: 1vh;
   justify-content: space-between;
 }
 
