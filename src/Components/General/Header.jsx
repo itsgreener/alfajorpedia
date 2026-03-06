@@ -12,13 +12,14 @@ function Header({ onFavoriteClick, onSubscribeClick }) {
         </a>
       </div>
       <div className="nav-right">
-        <button className="nav-link" onClick={onFavoriteClick}>
-          FAVORITOS
-        </button>
-        <button className="nav-link" onClick={onSubscribeClick}>
-          SUSCRÍBETE
-        </button>
-
+        <div className="nav-right-text">
+          <button className="nav-link" onClick={onFavoriteClick}>
+            FAVORITOS
+          </button>
+          <button className="nav-link" onClick={onSubscribeClick}>
+            SUSCRÍBETE
+          </button>
+        </div>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="18"

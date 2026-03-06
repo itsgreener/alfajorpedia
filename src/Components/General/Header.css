@@ -42,3 +42,10 @@ nav {
 .nav-link:hover {
   opacity: 0.7;
 }
+
+.nav-right-text{
+  display: flex;
+  flex-direction: row;
+  gap: 2vw;
+  margin-right: 1.5vw;
+}
