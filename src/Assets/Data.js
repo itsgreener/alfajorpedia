@@ -7,7 +7,7 @@ export const alfajores = [
     calories: 300,
     rating: 4.2,
     description:
-      "Cras dignissim lobortis mauris non laoreet. Nullam dignissim iaculis dolor ut tincidunt.",
+      "Nació en Balcarce, una ciudad que se toma el dulce de leche como asunto de estado. Tres capas, cobertura de chocolate con leche, y un tamaño que obliga a prestar atención. No grita, no hace ruido, pero cuando aparece en una mesa nadie mira para otro lado.",
     tagline: "El clásico de siempre, ahora con un toque de chocolate suizo.",
     image: "/Mockup/Milka.png",
   },

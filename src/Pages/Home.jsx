@@ -1,17 +1,25 @@
+import { useState } from "react";
+import { alfajores } from "../Assets/Data.js";
 import Footer from "../Components/Footer.jsx";
 import Header from "../Components/Header.jsx";
 import MediaCarousel from "../Components/MediaCarousel.jsx";
 import AlfajorGroup from "../Components/AlfajorGroup.jsx";
 import ContactForm from "../Components/ContactForm.jsx";
 import AlfajorModal from "../Components/AlfajorModal.jsx";
-import { alfajores } from "../Assets/Data.js";
+import EmptyModal from "../Components/EmptyModal.jsx";
 import "./Home.css";
 
-
 function Home() {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState(null);
+
+  function openAlfajorModal(alfajor) {
+    setModalContent(<AlfajorModal alfajor={alfajor} />);
+    setModalOpen(true);
+  }
+
   return (
     <>
-    <AlfajorModal alfajor={alfajores[0]} />
       <Header />
       <div className="body">
         <section className="card">
@@ -41,6 +49,7 @@ function Home() {
           <AlfajorGroup
             amount={3}
             data={alfajores}
+            onClick={(alfajor) => openAlfajorModal(alfajor)}
           />
         </section>
         <section className="group">
@@ -51,10 +60,7 @@ function Home() {
             </p>
             <p className="title height-title">Los más altos</p>
           </div>
-          <AlfajorGroup
-            amount={4}
-            data={alfajores}
-          />
+          <AlfajorGroup amount={4} data={alfajores} />
         </section>
         <section className="group">
           <div className="spicy-texts">
@@ -64,10 +70,7 @@ function Home() {
               reglas y se salen con la suya.
             </p>
           </div>
-          <AlfajorGroup
-            amount={4}
-            data={alfajores}
-          />
+          <AlfajorGroup amount={4} data={alfajores} />
         </section>
       </div>
 
@@ -101,6 +104,11 @@ function Home() {
         </div>
       </section>
       <Footer />
+      {modalOpen && (
+        <EmptyModal onClose={() => setModalOpen(false)}>
+          {modalContent}
+        </EmptyModal>
+      )}
     </>
   );
 }

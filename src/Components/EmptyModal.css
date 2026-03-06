@@ -1,0 +1,78 @@
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-container {
+  position: relative;
+  width: min(1388px, 90vw);
+  min-height: 400px;
+  background-color: var(--white);
+  border-radius: 25px;
+  box-shadow:
+    0 0 0 15px rgba(0, 0, 0, 0.04),
+    0 0 30px 15px rgba(0, 0, 0, 0.08);
+  padding: 40px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--white);
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #555;
+  transition: background-color 0.2s;
+}
+
+.modal-close:hover {
+  background-color: #e0e0e0;
+}
+
+.modal-content {
+  width: 100%;
+  height: 100%;
+}
+
+.modal-placeholder {
+  color: #aaa;
+  text-align: center;
+  margin-top: 80px;
+  font-size: 15px;
+}
+
+.app-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: var(--white);
+}
+
+.open-btn {
+  padding: 12px 28px;
+  border-radius: 12px;
+  border: none;
+  background-color: var(--black);
+  color: var(--white);
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.open-btn:hover {
+  background-color: var(--black);
+}
