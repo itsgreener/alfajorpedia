@@ -1,6 +1,6 @@
 import "./Footer.css";
 
-function Footer() {
+function Footer({ onSubscribeClick, onFavoriteClick }) {
   return (
     <footer className="footer">
       <div className="footer-left">
@@ -15,35 +15,37 @@ function Footer() {
             Contenido del que <strong>importa.</strong>
           </p>
 
-           <div className="footer-newsletter">
-          <p>
-            <strong>Recibe nuestra newsletter</strong>
-          </p>
-          <div className="footer-newsletter-input">
-            <input type="email" placeholder="Introduce tu email" />
-            <button>&gt;</button>
+          <div className="footer-newsletter">
+            <p>
+              <strong>Recibe nuestra newsletter</strong>
+            </p>
+            <div className="footer-newsletter-input">
+              <input type="email" placeholder="Introduce tu email" />
+              <button>&gt;</button>
+            </div>
           </div>
         </div>
-        </div>
-
-       
       </div>
 
       <div className="footer-right">
         <div className="footer-col">
           <p className="footer-col-title">Menú</p>
-          <a href="#">Catálogo</a>
-          <a href="#">Favoritos</a>
-          <a href="#">Contacto</a>
-          <a href="#">Regístrate</a>
+          <a href="#catalog">Catálogo</a>
+          <button className="footer-button" onClick={onFavoriteClick}>
+            Favoritos
+          </button>
+          <a href="#contact">Contacto</a>
+          <button className="footer-button" onClick={onSubscribeClick}>
+            Regístrate
+          </button>
         </div>
 
         <div className="footer-col">
           <p className="footer-col-title">Información</p>
-          <a href="#">Condiciones Generales</a>
-          <a href="#">Aviso Legal</a>
-          <a href="#">Política de Cookies</a>
-          <a href="#">Política de Privacidad</a>
+          <a href="#home">Condiciones Generales</a>
+          <a href="#home">Aviso Legal</a>
+          <a href="#home">Política de Cookies</a>
+          <a href="#home">Política de Privacidad</a>
           <div className="footer-social">
             <svg
               xmlns="http://www.w3.org/2000/svg"

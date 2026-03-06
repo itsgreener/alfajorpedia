@@ -55,8 +55,8 @@
 }
 
 .footer-newsletter-input button {
-  background-color: #111;
-  color: #fff;
+  background-color: var(--black);
+  color: var(--white);
   border: none;
   padding: 1vh 1vw;
   cursor: pointer;
@@ -100,4 +100,13 @@
   align-items: center;
   margin-top: 1vh;
   justify-content: flex-end;
+}
+.footer-button {
+  color: var(--black);
+  font-size: 0.9rem;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
 }

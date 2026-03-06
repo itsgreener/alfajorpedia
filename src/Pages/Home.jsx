@@ -21,21 +21,24 @@ function Home() {
     setModalOpen(true);
   }
 
+  function onFavoriteClick() {
+    setModalContent(
+      <ProtectedPath>
+        <FavoriteModal />
+      </ProtectedPath>,
+    );
+    setModalOpen(true);
+  }
+  function onSubscribeClick() {
+    setModalContent(<LoginModal />);
+    setModalOpen(true);
+  }
+
   return (
     <>
       <Header
-        onFavoriteClick={() => {
-          setModalContent(
-            <ProtectedPath>
-              <FavoriteModal />
-            </ProtectedPath>,
-          );
-          setModalOpen(true);
-        }}
-        onSubscribeClick={() => {
-          setModalContent(<LoginModal />);
-          setModalOpen(true);
-        }}
+        onFavoriteClick={() => onFavoriteClick()}
+        onSubscribeClick={() => onSubscribeClick()}
       />
       <div className="body" id="home">
         <section className="card hover">
@@ -131,7 +134,7 @@ function Home() {
           <p className="title">Nostalgia</p>
         </section>
 
-        <section className="catalogo" id="catalogo">
+        <section className="catalogo" id="catalog">
           <p className="title">Catálogo</p>
           <input type="text" placeholder="Buscar..." className="search-bar" />
         </section>
@@ -147,7 +150,10 @@ function Home() {
           <ContactForm />
         </div>
       </section>
-      <Footer />
+      <Footer
+        onFavoriteClick={() => onFavoriteClick()}
+        onSubscribeClick={() => onSubscribeClick()}
+      />
       {modalOpen && (
         <EmptyModal onClose={() => setModalOpen(false)}>
           {modalContent}

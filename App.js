@@ -1,8 +1,7 @@
-const express = require("express");
-require("dotenv").config();
-
 const mysql = require("mysql2/promise");
 const bcrypt = require("bcrypt");
+const express = require("express");
+require("dotenv").config();
 
 const app = express();
 
@@ -40,7 +39,7 @@ app.get("/api/alfajores", async (_req, res) => {
     `);
     res.json(rows);
   } catch (e) {
-    res.status(500).json({ error: "server error" });
+    res.status(500).json({ error: e.message });
   }
 });
 
@@ -151,7 +150,7 @@ app.post("/sync-usuarios", auth, async (req, res) => {
 
     res.json({ ok: true, upserted: clean.length });
   } catch (e) {
-    res.status(500).json({ error: "server error: " + e.message });
+    res.status(500).json({ error: e.message });
   }
 });
 

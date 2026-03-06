@@ -7,7 +7,7 @@ function Header({ onFavoriteClick, onSubscribeClick }) {
         <a href="#home" className="nav-link">
           ALFAJORPEDIA
         </a>
-        <a href="#catalogo" className="nav-link">
+        <a href="#catalog" className="nav-link">
           CATÁLOGO
         </a>
       </div>
