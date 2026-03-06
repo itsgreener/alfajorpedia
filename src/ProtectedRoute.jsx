@@ -1,5 +1,5 @@
+import LoginModal from './Components/Modals/LoginModal';
 import { useAuth } from './Hooks/useAuth';
-import LoginModal from './Components/LoginModal.jsx';
 
 function ProtectedPath({ children }) {
   const { user } = useAuth();

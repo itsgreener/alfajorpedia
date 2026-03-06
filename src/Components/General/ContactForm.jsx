@@ -7,8 +7,8 @@ function ContactForm() {
 
       <div className="contact-form-body">
         <p>
-          No vamos a parar hasta encontrar{" "}
-          <strong>hasta el último alfajor del planeta.</strong>
+          No vamos a parar hasta encontrar
+          <strong> hasta el último alfajor del planeta.</strong>
         </p>
 
         <div className="contact-form-fields">

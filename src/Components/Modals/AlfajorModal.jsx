@@ -1,4 +1,4 @@
-import AddFavoritesButton from "./AddFavoritesButton";
+import AddFavoritesButton from "../Cards/AddFavoritesButton";
 import "./AlfajorModal.css";
 
 function AlfajorDetail({ alfajor }) {

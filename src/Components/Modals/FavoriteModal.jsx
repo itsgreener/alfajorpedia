@@ -1,3 +1,5 @@
+import "./FavoriteModal.css";
+
 function FavoriteModal() {
   return (
     <div className="favorite-modal">

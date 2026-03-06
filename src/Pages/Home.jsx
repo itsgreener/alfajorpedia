@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { alfajores } from "../Assets/Data.js";
 import ProtectedPath from "../ProtectedRoute.jsx";
-import Footer from "../Components/Footer.jsx";
-import Header from "../Components/Header.jsx";
-import MediaCarousel from "../Components/MediaCarousel.jsx";
-import AlfajorGroup from "../Components/AlfajorGroup.jsx";
-import ContactForm from "../Components/ContactForm.jsx";
-import AlfajorModal from "../Components/AlfajorModal.jsx";
-import EmptyModal from "../Components/EmptyModal.jsx";
-import FavoriteModal from "../Components/FavoriteModal.jsx";
-import LoginModal from "../Components/LoginModal.jsx";
+import Footer from "../Components/General/Footer.jsx";
+import Header from "../Components/General/Header.jsx";
+import MediaCarousel from "../Components/Groups/MediaCarousel.jsx";
+import AlfajorGroup from "../Components/Groups/AlfajorGroup.jsx";
+import ContactForm from "../Components/General/ContactForm.jsx";
+import AlfajorModal from "../Components/Modals/AlfajorModal.jsx";
+import EmptyModal from "../Components/Modals/EmptyModal.jsx";
+import FavoriteModal from "../Components/Modals/FavoriteModal.jsx";
+import LoginModal from "../Components/Modals/LoginModal.jsx";
 import "./Home.css";
 
 function Home() {

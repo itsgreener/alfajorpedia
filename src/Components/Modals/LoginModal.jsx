@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "../Hooks/useAuth";
+import { useAuth } from "../../Hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import "./LoginModal.css";
 
 function LoginModal() {
   const [email, setEmail] = useState("");

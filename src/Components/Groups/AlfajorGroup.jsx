@@ -1,4 +1,4 @@
-import AlfajorCard from "./AlfajorCard";
+import AlfajorCard from "../Cards/AlfajorCard";
 import "./AlfajorGroup.css";
 
 function AlfajorGroup({ data, amount, onClick }) {
