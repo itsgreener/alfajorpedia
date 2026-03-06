@@ -22,7 +22,7 @@
   color: var(--white);
 }
 
-.group{
+.group {
   display: flex;
   flex-direction: column;
   gap: 50px;
@@ -41,6 +41,16 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
+}
+
+.header-image {
+  width: 30%;
+}
+
+.header-image-content {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .head-text {
@@ -109,7 +119,7 @@
 .contacto {
   display: flex;
   flex-direction: row;
-   align-items: stretch; 
+  align-items: stretch;
 }
 
 .left-column {

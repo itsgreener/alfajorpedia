@@ -22,8 +22,11 @@ function Home() {
     <>
       <Header />
       <div className="body">
-        <section className="card">
-          <div className="header-content-row">
+        <section className="card hover">
+          <div
+            className="header-content-row"
+            onClick={() => openAlfajorModal(alfajores[2])}
+          >
             <div className="header-text-col">
               <p className="title head-title">
                 Un clásico de todos los tiempos
@@ -35,7 +38,9 @@ function Home() {
                 <strong>No lo necesita.</strong>
               </p>
             </div>
-            <p className="text">¡Imagen de alfajor!</p>
+            <div className="header-image">
+              <img className="header-image-content" src="/Mockup/Surprise.png" alt="oreo" />
+            </div>
           </div>
         </section>
         <section className="group">
