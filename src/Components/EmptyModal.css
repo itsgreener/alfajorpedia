@@ -14,9 +14,6 @@
   min-height: 400px;
   background-color: var(--white);
   border-radius: 25px;
-  box-shadow:
-    0 0 0 15px rgba(0, 0, 0, 0.04),
-    0 0 30px 15px rgba(0, 0, 0, 0.08);
   padding: 40px;
 }
 

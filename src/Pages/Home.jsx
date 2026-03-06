@@ -60,7 +60,11 @@ function Home() {
             </p>
             <p className="title height-title">Los más altos</p>
           </div>
-          <AlfajorGroup amount={4} data={alfajores} />
+          <AlfajorGroup
+            amount={4}
+            data={alfajores}
+            onClick={(alfajor) => openAlfajorModal(alfajor)}
+          />
         </section>
         <section className="group">
           <div className="spicy-texts">
@@ -70,7 +74,11 @@ function Home() {
               reglas y se salen con la suya.
             </p>
           </div>
-          <AlfajorGroup amount={4} data={alfajores} />
+          <AlfajorGroup
+            amount={4}
+            data={alfajores}
+            onClick={(alfajor) => openAlfajorModal(alfajor)}
+          />
         </section>
       </div>
 

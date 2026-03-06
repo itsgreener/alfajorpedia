@@ -1,3 +1,5 @@
+import "./EmptyModal.css";
+
 function EmptyModal({ onClose, children }) {
   return (
     <div className="modal-overlay">
