@@ -7,8 +7,14 @@
 
 .title {
   font-family: "Coolvetica";
-  font-size: 100px;
+  font-size: 80px;
   color: var(--black);
+  line-height: 0.9;
+}
+
+.big-title {
+  font-family: "Coolvetica";
+  font-size: 105px;
   line-height: 0.9;
 }
 
@@ -64,12 +70,7 @@
 }
 
 .power-text {
-  width: 35%;
-  transform: translateX(-23%);
-}
-
-.power-title {
-  width: 30%;
+  margin-left: 1.5%;
 }
 
 .height-texts {
@@ -81,12 +82,7 @@
 }
 
 .height-text {
-  width: 32.5%;
-  transform: translateX(33%);
-}
-
-.height-title {
-  width: 30%;
+  margin-right: -1.5%;
 }
 
 .spicy-texts {
@@ -94,11 +90,9 @@
   flex-direction: row;
   align-items: flex-end;
 }
-.spicy-title {
-  width: 30%;
-}
+
 .spicy-text {
-  width: 33%;
+  margin-left: 1.5%;
 }
 
 .experiences-section {

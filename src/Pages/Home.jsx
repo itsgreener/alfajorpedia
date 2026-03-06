@@ -39,16 +39,24 @@ function Home() {
               </p>
             </div>
             <div className="header-image">
-              <img className="header-image-content" src="/Mockup/Surprise.png" alt="oreo" />
+              <img
+                className="header-image-content"
+                src="/Mockup/Surprise.png"
+                alt="oreo"
+              />
             </div>
           </div>
         </section>
         <section className="group">
           <div className="power-texts">
-            <p className="title power-title">Los más power</p>
+            <p className="title">
+              Los más <br />
+              <span className="big-title">power</span>
+            </p>
             <p className="text power-text">
-              Se necesitan las dos manos y un respirar pausado.{" "}
-              <strong>Alfajores que dejan huella.</strong>
+              Se necesitan las dos manos y un respirar
+              <br /> pausado.
+              <strong> Alfajores que dejan huella.</strong>
             </p>
           </div>
           <AlfajorGroup
@@ -60,10 +68,13 @@ function Home() {
         <section className="group">
           <div className="height-texts">
             <p className="text height-text">
-              <strong>Triple capa para arriba.</strong> Cada piso es una
+              <strong>Triple capa para arriba.</strong> Cada piso es <br /> una
               decisión que alguien tomó bien.
             </p>
-            <p className="title height-title">Los más altos</p>
+            <p className="title">
+              Los más <br />
+              <span className="big-title">altos</span>
+            </p>
           </div>
           <AlfajorGroup
             amount={4}
@@ -73,10 +84,13 @@ function Home() {
         </section>
         <section className="group">
           <div className="spicy-texts">
-            <p className="title spicy-title">Los más picantes</p>
+            <p className="title">
+              Los más <br />
+              <span className="big-title">picantes</span>
+            </p>
             <p className="text spicy-text">
-              <strong>Los que se atreven.</strong> Alfajores que rompen las
-              reglas y se salen con la suya.
+              <strong>Los que se atreven.</strong> Alfajores que <br /> rompen
+              las reglas y se salen con la suya.
             </p>
           </div>
           <AlfajorGroup
