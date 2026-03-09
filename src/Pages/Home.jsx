@@ -11,6 +11,7 @@ import EmptyModal from "../Components/Modals/EmptyModal.jsx";
 import FavoriteModal from "../Components/Modals/FavoriteModal.jsx";
 import LoginModal from "../Components/Modals/LoginModal.jsx";
 import "./Home.css";
+import RegisterModal from "../Components/Modals/RegisterModal.jsx";
 
 function Home() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -23,14 +24,16 @@ function Home() {
 
   function onFavoriteClick() {
     setModalContent(
-      <ProtectedPath>
+      <ProtectedPath setModalContent={setModalContent}>
         <FavoriteModal />
       </ProtectedPath>,
     );
     setModalOpen(true);
   }
   function onSubscribeClick() {
-    setModalContent(<LoginModal />);
+    setModalContent(
+      <LoginModal onRegister={() => setModalContent(<RegisterModal />)} />,
+    );
     setModalOpen(true);
   }
 
