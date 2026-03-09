@@ -112,29 +112,137 @@
 
 .contacto {
   display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.contacto-top {
+  background: #111;
+  width: 100%;
+  min-height: 14vh;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 2vh 4vw;
+  box-sizing: border-box;
+}
+
+.contacto-top-title {
+  margin: 0;
+  font-family: "Coolvetica";
+  font-size: 4vw;
+  line-height: 0.95;
+  color: #f5f5f5;
+}
+
+.contacto-main {
+  background: #f1f1f1;
+  width: 100%;
+  min-height: 43vh;
+  display: flex;
   flex-direction: row;
+  justify-content: space-between;
   align-items: stretch;
+  padding: 7vh 6vw 6vh;
+  box-sizing: border-box;
 }
 
-.left-column {
-  background-color: var(--black);
-  width: 35%;
+.contacto-left {
+  width: 34%;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
 }
 
-.left-title {
-  margin: 12.75%;
-  justify-content: center;
-  align-items: center;
+.contacto-title {
+  margin: 0;
+  font-family: "Coolvetica";
+  font-size: 4vw;
+  line-height: 0.9;
+  color: #111;
 }
 
-.right-column {
-  margin-right: 9%;
-  width: auto;
+.contacto-text {
+  margin-top: 14%;
+  font-family: "Haas";
+  font-size: 1.6vw;
+  line-height: 1.25;
+  color: #111;
+  
 }
-.contacto .catalogo {
+
+.contacto-text strong {
+  font-weight: 700;
+}
+
+.contacto-right {
+  width: 56%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.contacto-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2.2vh;
+}
+
+.contacto-form-row {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  gap: 1.5vw;
 }
+
+.contacto-form-row input {
+  width: 48.9%;
+}
+
+.contacto-form input,
+.contacto-form textarea {
+  background: transparent;
+  border: 0.08vw solid #111;
+  border-radius: 0.35vw;
+  font-family: "Haas";
+  font-size: 1.45vw;
+  color: #111;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.contacto-form input {
+  height: 4.3vh;
+  padding: 0 1vw;
+}
+
+.contacto-form textarea {
+  width: 100%;
+  min-height: 20vh;
+  resize: none;
+  padding: 1.2vh 1vw;
+}
+
+.contacto-form input::placeholder,
+.contacto-form textarea::placeholder {
+  color: #b3b3b3;
+}
+
+.contacto-form-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.contacto-form-actions button {
+  min-width: 4.8vw;
+  height: 3.2vh;
+  padding: 0 1vw;
+  border: none;
+  border-radius: 0.35vw;
+  background: #111;
+  color: #f5f5f5;
+  font-family: "Haas";
+  font-size: 1vw;
+  cursor: pointer;
+}
+

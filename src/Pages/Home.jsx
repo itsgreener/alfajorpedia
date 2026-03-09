@@ -5,7 +5,6 @@ import Footer from "../Components/General/Footer.jsx";
 import Header from "../Components/General/Header.jsx";
 import MediaCarousel from "../Components/Groups/MediaCarousel.jsx";
 import AlfajorGroup from "../Components/Groups/AlfajorGroup.jsx";
-import ContactForm from "../Components/General/ContactForm.jsx";
 import AlfajorModal from "../Components/Modals/AlfajorModal.jsx";
 import EmptyModal from "../Components/Modals/EmptyModal.jsx";
 import FavoriteModal from "../Components/Modals/FavoriteModal.jsx";
@@ -144,15 +143,43 @@ function Home() {
       </div>
 
       <section className="contacto">
-        <div className="left-column">
-          <p className="title white-text left-title">
-            Nuestra ambición no tiene freno
-          </p>
+  <div className="contacto-top">
+    <p className="contacto-top-title">Nuestra ambición no tiene freno.</p>
+  </div>
+
+  <div className="contacto-main">
+    <div className="contacto-left">
+      <p className="contacto-title">
+        ¿Falta tu alfajor?
+        <br />
+        Avísanos.
+      </p>
+
+      <p className="contacto-text">
+        No vamos a parar hasta encontrar
+        <br />
+        <strong>hasta el último alfajor del planeta.</strong>
+      </p>
+    </div>
+
+    <div className="contacto-right">
+      <form className="contacto-form">
+        <div className="contacto-form-row">
+          <input type="text" placeholder="nombre" />
+          <input type="email" placeholder="email" />
         </div>
-        <div className="right-column">
-          <ContactForm />
+
+        <textarea placeholder="texto" />
+
+        <div className="contacto-form-actions">
+          <button type="submit">Enviar</button>
         </div>
-      </section>
+      </form>
+    </div>
+  </div>
+</section>
+
+
       <Footer
         onFavoriteClick={() => onFavoriteClick()}
         onSubscribeClick={() => onSubscribeClick()}

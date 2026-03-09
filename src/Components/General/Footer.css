@@ -23,6 +23,10 @@
   align-items: center;
   justify-content: center;
 }
+.footer-top-logo img {
+  max-width: 60%;
+ 
+}
 
 .footer-main {
   display: flex;

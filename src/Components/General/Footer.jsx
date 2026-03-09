@@ -5,7 +5,7 @@ function Footer({ onSubscribeClick, onFavoriteClick }) {
     <footer className="footer">
       <div className="footer-top">
         <div className="footer-top-logo">
-          <img src="../../../public/logoGreener.svg" alt="Logo Greener" />
+          <img src="../../../public/logoGreener.gif" alt="Logo Greener" />
         </div>
       </div>
 
