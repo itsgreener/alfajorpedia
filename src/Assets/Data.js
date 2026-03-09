@@ -1,4 +1,4 @@
-export const alfajores = [
+export const alfajoresData = [
   {
     id: 1,
     name: "Milka",
@@ -10,6 +10,7 @@ export const alfajores = [
       "Nació en Balcarce, una ciudad que se toma el dulce de leche como asunto de estado. Tres capas, cobertura de chocolate con leche, y un tamaño que obliga a prestar atención. No grita, no hace ruido, pero cuando aparece en una mesa nadie mira para otro lado.",
     tagline: "El clásico de siempre, ahora con un toque de chocolate suizo.",
     image: "/Mockup/Milka.png",
+    isFav: false,
   },
   {
     id: 2,
@@ -21,6 +22,7 @@ export const alfajores = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dignissim lobortis mauris non laoreet.",
     image: "/Mockup/Lluvia.png",
+    isFav: false,
   },
   {
     id: 3,
@@ -32,6 +34,7 @@ export const alfajores = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dignissim lobortis mauris non laoreet. Nullam dignissim iaculis dolor ut tincidunt.",
     image: "/Mockup/Surprise.png",
+    isFav: false,
   },
   {
     id: 4,
@@ -43,6 +46,7 @@ export const alfajores = [
     description:
       "Lorem ipsum dolor sit amet. Cras dignissim lobortis mauris non laoreet. Nullam dignissim iaculis dolor ut tincidunt.",
     image: "/Mockup/Guaya.png",
+    isFav: false,
   },
 ];
 

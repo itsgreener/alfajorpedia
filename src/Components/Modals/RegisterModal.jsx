@@ -6,7 +6,7 @@ import FavoriteModal from "./FavoriteModal.jsx";
 import ProtectedPath from "../../Context/ProtectedRoute.jsx";
 import "./RegisterModal.css";
 
-function RegisterModal({ onModalOpen, closeModal, fromFavorite = false }) {
+function RegisterModal({ onModalOpen, closeModal, fromProtected = false }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [checked, setChecked] = useState(false);
@@ -48,7 +48,7 @@ function RegisterModal({ onModalOpen, closeModal, fromFavorite = false }) {
 
     register({ email, password });
     onModalOpen(
-      fromFavorite ? (
+      fromProtected ? (
         <ProtectedPath onModalOpen={onModalOpen} closeModal={closeModal}>
           <FavoriteModal />
         </ProtectedPath>

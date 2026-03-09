@@ -1,7 +1,7 @@
-import "./AlfajorCard.css";
 import AddFavoritesButton from "./AddFavoritesButton";
+import "./AlfajorCard.css";
 
-function AlfajorCard({ alfajor, onClick }) {
+function AlfajorCard({ alfajor, onClick, onFavChange }) {
   const { name, flag, weight, calories, description, image } = alfajor;
 
   return (
@@ -10,7 +10,7 @@ function AlfajorCard({ alfajor, onClick }) {
         <img src={image} alt={name} className="card_image" />
       </div>
 
-      <div className="card_body" >
+      <div className="card_body">
         <div className="card_content">
           <p className="card_name">{name}</p>
           <div className="card_meta">
@@ -22,12 +22,8 @@ function AlfajorCard({ alfajor, onClick }) {
         </div>
         <div className="card_actions">
           <AddFavoritesButton
-            active={false}
-            onChange={(liked) =>
-              console.log(
-                `You pressed the like button! ${name} is now ${liked ? "liked" : "disliked"}`,
-              )
-            }
+            active={alfajor.isFav}
+            onChange={(like) => onFavChange(alfajor.id, like)}
           />
         </div>
       </div>

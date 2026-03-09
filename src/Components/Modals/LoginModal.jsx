@@ -3,7 +3,7 @@ import { useAuth } from "../../Hooks/useAuth";
 import RegisterModal from "./RegisterModal";
 import "./LoginModal.css";
 
-function LoginModal({ onModalOpen, closeModal, fromFavorite = false }) {
+function LoginModal({ onModalOpen, closeModal, fromProtected = false }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useAuth();
@@ -22,7 +22,7 @@ function LoginModal({ onModalOpen, closeModal, fromFavorite = false }) {
         onSubmit={(e) => {
           e.preventDefault();
           login({ email, password });
-          !fromFavorite && closeModal(false);
+          !fromProtected && closeModal(false);
         }}
       >
         <input
@@ -53,7 +53,7 @@ function LoginModal({ onModalOpen, closeModal, fromFavorite = false }) {
               <RegisterModal
                 onModalOpen={onModalOpen}
                 closeModal={closeModal}
-                fromFavorite={fromFavorite}
+                fromProtected={fromProtected}
               />,
             )
           }

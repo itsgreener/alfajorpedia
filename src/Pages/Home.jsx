@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { alfajores } from "../Assets/Data.js";
-import { socialPosts } from "../Assets/Data.js";
+import { alfajoresData, socialPosts } from "../Assets/Data.js";
 import ProtectedPath from "../Context/ProtectedRoute.jsx";
 import Footer from "../Components/General/Footer.jsx";
 import Header from "../Components/General/Header.jsx";
@@ -15,11 +14,19 @@ import "./Home.css";
 function Home() {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState(null);
+  const [alfajores, setAlfajores] = useState(alfajoresData);
 
   function onModalOpen(content) {
     setModalContent(content);
     setModalOpen(true);
   }
+
+  function setFavAlfajor(id, like) {
+    setAlfajores((prev) =>
+      prev.map((a) => (a.id === id ? { ...a, isFav: like } : a)),
+    );
+    console.log(`Alfajor ${id} is now ${like ? "a favorite" : "not a favorite"}`);
+  };
 
   return (
     <>
@@ -41,7 +48,14 @@ function Home() {
         <section className="card hover">
           <div
             className="header-content-row"
-            onClick={() => onModalOpen(<AlfajorModal alfajor={alfajores[2]} />)}
+            onClick={() =>
+              onModalOpen(
+                <AlfajorModal
+                  alfajor={alfajores[2]}
+                  onFavChange={setFavAlfajor}
+                />,
+              )
+            }
           >
             <div className="header-text-col">
               <p className="big-title">
@@ -80,8 +94,11 @@ function Home() {
             amount={3}
             data={alfajores}
             onClick={(alfajor) =>
-              onModalOpen(<AlfajorModal alfajor={alfajor} />)
+              onModalOpen(
+                <AlfajorModal alfajor={alfajor} onFavChange={setFavAlfajor} />,
+              )
             }
+            onFavChange={setFavAlfajor}
           />
         </section>
         <section className="group">
@@ -99,8 +116,11 @@ function Home() {
             amount={4}
             data={alfajores}
             onClick={(alfajor) =>
-              onModalOpen(<AlfajorModal alfajor={alfajor} />)
+              onModalOpen(
+                <AlfajorModal alfajor={alfajor} onFavChange={setFavAlfajor} />,
+              )
             }
+            onFavChange={setFavAlfajor}
           />
         </section>
         <section className="group">
@@ -118,8 +138,11 @@ function Home() {
             amount={4}
             data={alfajores}
             onClick={(alfajor) =>
-              onModalOpen(<AlfajorModal alfajor={alfajor} />)
+              onModalOpen(
+                <AlfajorModal alfajor={alfajor} onFavChange={setFavAlfajor} />,
+              )
             }
+            onFavChange={setFavAlfajor}
           />
         </section>
       </div>

@@ -1,7 +1,7 @@
-import AddFavoritesButton from "../Cards/AddFavoritesButton";
+import AddFavoritesButton from "../Cards/AddFavoritesButton.jsx";
 import "./AlfajorModal.css";
 
-function AlfajorDetail({ alfajor }) {
+function AlfajorModal({ alfajor, onFavChange }) {
   return (
     <div className="alfajor-detail">
       <img
@@ -75,12 +75,8 @@ function AlfajorDetail({ alfajor }) {
           </div>
 
           <AddFavoritesButton
-            active={false}
-            onChange={(like) =>
-              console.log(
-                like ? "Agregado a favoritos" : "Removido de favoritos",
-              )
-            }
+            active={alfajor.isFav}
+            onChange={(like) => onFavChange(alfajor.id, like)}
           />
         </div>
       </div>
@@ -88,4 +84,4 @@ function AlfajorDetail({ alfajor }) {
   );
 }
 
-export default AlfajorDetail;
+export default AlfajorModal;
