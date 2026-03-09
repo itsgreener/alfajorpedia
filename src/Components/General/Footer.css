@@ -1,112 +1,173 @@
 .footer {
+  background: #111;
+  min-height: 55vh;
+  padding: 5vh 4vw 6vh;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: flex-start;
-  padding: 5% 4.5%;
-  background-color: var(--white);
+  box-sizing: border-box;
+}
+
+
+.footer-top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1vh;
+}
+
+.footer-top-logo {
+  width: 80vw;
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-main {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5vh;
 }
 
 .footer-left {
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  gap: 2vw;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 4vh;
+  width: 45%;
 }
 
-.footer-logo {
+.footer-brand {
+  margin: 0;
+  font-family: "Haas", sans-serif;
+  color: #f5f5f5;
+  font-size: 2.5vw;
+}
+
+.footer-brand-bold {
+  font-weight: 700;
+  
+}
+
+.footer-brand-light {
+  font-weight: 300;
+}
+
+.footer-newsletter {
   display: flex;
   flex-direction: column;
-  gap: 1.5vh;
-}
-
-.footer-logo img {
-  width: 8vw;
-}
-
-.footer-brand h2 {
-  font-size: 5.5rem;
-  font-weight: 800;
-  line-height: 1;
-  margin-bottom: 0.5vh;
-}
-
-.footer-brand > p {
-  font-size: 1.2rem;
-  margin-bottom: 2vh;
+  gap: 1.2vh;
 }
 
 .footer-newsletter p {
-  font-size: 0.85rem;
+  margin: 0;
+  font-family: "Haas", sans-serif;
+  font-size: 1.1vw;
+  line-height: 1;
   font-weight: 700;
-  margin-bottom: 1vh;
+  color: #f5f5f5;
 }
 
 .footer-newsletter-input {
   display: flex;
+  align-items: stretch;
+  width: 16vw;
+  height: 4.2vh;
 }
 
 .footer-newsletter-input input {
-  border: 1px solid #111;
-  padding: 1vh 1vw;
-  font-size: 0.85rem;
+  flex: 1;
+  border: 0.08vw solid #bdbdbd;
+  border-right: none;
+  background: #f1f1f1;
+  color: #111;
+  padding: 0 0.8vw;
+  font-family: "Haas", sans-serif;
+  font-size: 0.9vw;
   outline: none;
-  width: 14vw;
+  box-sizing: border-box;
+}
+
+.footer-newsletter-input input::placeholder {
+  color: #9a9a9a;
 }
 
 .footer-newsletter-input button {
-  background-color: var(--black);
-  color: var(--white);
-  border: none;
-  padding: 1vh 1vw;
+  width: 2.4vw;
+  border: 0.08vw solid #bdbdbd;
+  background: #f1f1f1;
+  color: #111;
+  font-size: 1.2vw;
+  line-height: 1;
   cursor: pointer;
-  font-size: 0.85rem;
+  padding: 0;
 }
 
-/* ── LADO DERECHO ── */
+.footer-social {
+  display: flex;
+  align-items: center;
+  gap: 1.6vw;
+  margin-top: 1vh;
+}
+
+.footer-social-item {
+  width: 2.2vw;
+  height: 2.2vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-social-item svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+
 .footer-right {
   display: flex;
-  flex-direction: row;
+  gap: 5vw;
   align-items: flex-start;
-  gap: 3vw;
+  padding-right: 1.5vw;
+  width: 32%;
+  justify-content: flex-end;
 }
 
 .footer-col {
   display: flex;
   flex-direction: column;
-  gap: 1.5vh;
-  text-align: right;
+  align-items: flex-end;
+  gap: 2vh;
+  min-width: 10vw;
 }
 
 .footer-col-title {
+  margin: 0 0 0.5vh;
+  font-family: "Haas", sans-serif;
+  font-size: 1.1vw;
   font-weight: 700;
-  font-size: 0.9rem;
+  color: #f5f5f5;
 }
 
-.footer-col a {
-  text-decoration: none;
-  color: var(--black);
-  font-size: 0.9rem;
-}
-
-.footer-col a:hover {
-  text-decoration: underline;
-}
-
-.footer-social {
-  display: flex;
-  flex-direction: row;
-  gap: 1.5vw;
-  align-items: center;
-  margin-top: 1vh;
-  justify-content: flex-end;
-}
-.footer-button {
-  color: var(--black);
-  font-size: 0.9rem;
-  text-decoration: none;
+.footer-col a,
+.footer-link-btn {
+  margin: 0;
+  padding: 0;
   background: none;
   border: none;
+  text-decoration: none;
+  text-align: right;
+  font-family: "Haas", sans-serif;
+  font-size: 1.15vw;
+  font-weight: 400;
+  line-height: 1.35;
+  color: #f1f1f1;
   cursor: pointer;
-  padding: 0;
+}
+
+.footer-col a:hover,
+.footer-link-btn:hover {
+  opacity: 0.75;
 }
