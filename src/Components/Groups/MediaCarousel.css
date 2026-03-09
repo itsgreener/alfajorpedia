@@ -1,0 +1,72 @@
+.media-carousel {
+  --slot-width: 16vw;
+  --slot-gap: 1.2vw;
+  --slot-total: calc(var(--slot-width) + var(--slot-gap));
+
+  width: 100%;
+  min-height: 90vh;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 18vh 4vw 4vh;
+  box-sizing: border-box;
+}
+
+.carousel-viewport {
+  width: calc((5 * var(--slot-width)) + (4 * var(--slot-gap)));
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-track {
+  display: flex;
+  align-items: flex-start; 
+  gap: var(--slot-gap);
+  will-change: transform;
+  transform: translateX(calc(-1 * var(--slot-total)));
+}
+
+.carousel-track.with-transition {
+  transition: transform 0.45s ease;
+}
+
+.carousel-track.no-transition {
+  transition: none;
+}
+
+.carousel-slot {
+  width: var(--slot-width);
+  height: 75vh;
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.carousel-arrow {
+  position: absolute;
+  top: 58%;
+  transform: translateY(-50%);
+  width: 2.7vw;
+  height: 2.7vw;
+  border: none;
+  border-radius: 0.6vw;
+  background: #f1f1f1;
+  color: #111;
+  font-size: 1.5vw;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.carousel-arrow-left  { left: 0.8vw; }
+.carousel-arrow-right { right: 0.8vw; }
+
+.carousel-arrow:hover { opacity: 0.82; }
+.carousel-arrow:active { transform: translateY(-50%) scale(0.95); }

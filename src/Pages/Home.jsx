@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { alfajores } from "../Assets/Data.js";
+import { socialPosts } from "../Assets/Data.js";
 import ProtectedPath from "../Context/ProtectedRoute.jsx";
 import Footer from "../Components/General/Footer.jsx";
 import Header from "../Components/General/Header.jsx";
@@ -31,7 +32,9 @@ function Home() {
           )
         }
         onSubscribeClick={() =>
-          onModalOpen(<LoginModal onModalOpen={onModalOpen} closeModal={setModalOpen} />)
+          onModalOpen(
+            <LoginModal onModalOpen={onModalOpen} closeModal={setModalOpen} />,
+          )
         }
       />
       <div className="body" id="home">
@@ -123,10 +126,8 @@ function Home() {
 
       <section className="experiences-section">
         <div className="experiences-content">
-          <div className="experiences-title">
-            <p className="title white-text">Experiencias</p>
-          </div>
-          <MediaCarousel />
+          <p className="title white-text experiences-title">Experiencias</p>
+          <MediaCarousel posts={socialPosts} />
         </div>
       </section>
       <div className="body">
@@ -141,42 +142,41 @@ function Home() {
       </div>
 
       <section className="contacto">
-  <div className="contacto-top">
-    <p className="contacto-top-title">Nuestra ambición no tiene freno.</p>
-  </div>
-
-  <div className="contacto-main">
-    <div className="contacto-left">
-      <p className="contacto-title">
-        ¿Falta tu alfajor?
-        <br />
-        Avísanos.
-      </p>
-
-      <p className="contacto-text">
-        No vamos a parar hasta encontrar
-        <br />
-        <strong>hasta el último alfajor del planeta.</strong>
-      </p>
-    </div>
-
-    <div className="contacto-right">
-      <form className="contacto-form">
-        <div className="contacto-form-row">
-          <input type="text" placeholder="nombre" />
-          <input type="email" placeholder="email" />
+        <div className="contacto-top">
+          <p className="contacto-top-title">Nuestra ambición no tiene freno.</p>
         </div>
 
-        <textarea placeholder="texto" />
+        <div className="contacto-main">
+          <div className="contacto-left">
+            <p className="contacto-title">
+              ¿Falta tu alfajor?
+              <br />
+              Avísanos.
+            </p>
 
-        <div className="contacto-form-actions">
-          <button type="submit">Enviar</button>
+            <p className="contacto-text">
+              No vamos a parar hasta encontrar
+              <br />
+              <strong>hasta el último alfajor del planeta.</strong>
+            </p>
+          </div>
+
+          <div className="contacto-right">
+            <form className="contacto-form">
+              <div className="contacto-form-row">
+                <input type="text" placeholder="nombre" />
+                <input type="email" placeholder="email" />
+              </div>
+
+              <textarea placeholder="texto" />
+
+              <div className="contacto-form-actions">
+                <button type="submit">Enviar</button>
+              </div>
+            </form>
+          </div>
         </div>
-      </form>
-    </div>
-  </div>
-</section>
-
+      </section>
 
       <Footer
         onFavoriteClick={() =>

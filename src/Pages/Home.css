@@ -101,19 +101,25 @@
   margin-left: 1.5%;
 }
 
+
 .experiences-section {
-  display: flex;
-  flex-direction: column;
   background-color: var(--black);
+  width: 100%;
+  overflow: hidden;
 }
 
 .experiences-content {
-  margin: 0 4.5%;
+  padding: 4vh 2.5vw 6vh;
+  box-sizing: border-box;
 }
-
 .experiences-title {
-  display: flex;
-  justify-content: flex-end;
+  top: 4vh;
+  font-size: 5.5vw;
+  line-height: 0.95;
+  color: var(--white);
+  text-align: right;
+  z-index: 15;
+  pointer-events: none;
 }
 
 .contacto {
