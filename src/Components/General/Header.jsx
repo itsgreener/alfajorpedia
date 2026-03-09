@@ -37,7 +37,7 @@ function Header({ onFavoriteClick, onSubscribeClick }) {
             <circle cx="17.5" cy="6.5" r="0.5" fill="#fff" />
           </svg>
         </a>
-        <a href="">
+        <a href="https://www.tiktok.com/@itsgreenernow" target="_blank" rel="noopener noreferrer">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="18"

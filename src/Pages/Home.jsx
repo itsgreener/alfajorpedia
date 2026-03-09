@@ -10,43 +10,35 @@ import EmptyModal from "../Components/Modals/EmptyModal.jsx";
 import FavoriteModal from "../Components/Modals/FavoriteModal.jsx";
 import LoginModal from "../Components/Modals/LoginModal.jsx";
 import "./Home.css";
-import RegisterModal from "../Components/Modals/RegisterModal.jsx";
 
 function Home() {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState(null);
 
-  function openAlfajorModal(alfajor) {
-    setModalContent(<AlfajorModal alfajor={alfajor} />);
-    setModalOpen(true);
-  }
-
-  function onFavoriteClick() {
-    setModalContent(
-      <ProtectedPath setModalContent={setModalContent}>
-        <FavoriteModal />
-      </ProtectedPath>,
-    );
-    setModalOpen(true);
-  }
-  function onSubscribeClick() {
-    setModalContent(
-      <LoginModal onRegister={() => setModalContent(<RegisterModal />)} />,
-    );
+  function onModalOpen(content) {
+    setModalContent(content);
     setModalOpen(true);
   }
 
   return (
     <>
       <Header
-        onFavoriteClick={() => onFavoriteClick()}
-        onSubscribeClick={() => onSubscribeClick()}
+        onFavoriteClick={() =>
+          onModalOpen(
+            <ProtectedPath onModalOpen={onModalOpen} closeModal={setModalOpen}>
+              <FavoriteModal />
+            </ProtectedPath>,
+          )
+        }
+        onSubscribeClick={() =>
+          onModalOpen(<LoginModal onModalOpen={onModalOpen} closeModal={setModalOpen} />)
+        }
       />
       <div className="body" id="home">
         <section className="card hover">
           <div
             className="header-content-row"
-            onClick={() => openAlfajorModal(alfajores[2])}
+            onClick={() => onModalOpen(<AlfajorModal alfajor={alfajores[2]} />)}
           >
             <div className="header-text-col">
               <p className="big-title">
@@ -84,7 +76,9 @@ function Home() {
           <AlfajorGroup
             amount={3}
             data={alfajores}
-            onClick={(alfajor) => openAlfajorModal(alfajor)}
+            onClick={(alfajor) =>
+              onModalOpen(<AlfajorModal alfajor={alfajor} />)
+            }
           />
         </section>
         <section className="group">
@@ -101,7 +95,9 @@ function Home() {
           <AlfajorGroup
             amount={4}
             data={alfajores}
-            onClick={(alfajor) => openAlfajorModal(alfajor)}
+            onClick={(alfajor) =>
+              onModalOpen(<AlfajorModal alfajor={alfajor} />)
+            }
           />
         </section>
         <section className="group">
@@ -118,7 +114,9 @@ function Home() {
           <AlfajorGroup
             amount={4}
             data={alfajores}
-            onClick={(alfajor) => openAlfajorModal(alfajor)}
+            onClick={(alfajor) =>
+              onModalOpen(<AlfajorModal alfajor={alfajor} />)
+            }
           />
         </section>
       </div>
@@ -181,8 +179,16 @@ function Home() {
 
 
       <Footer
-        onFavoriteClick={() => onFavoriteClick()}
-        onSubscribeClick={() => onSubscribeClick()}
+        onFavoriteClick={() =>
+          onModalOpen(
+            <ProtectedPath onModalOpen={onModalOpen}>
+              <FavoriteModal />
+            </ProtectedPath>,
+          )
+        }
+        onSubscribeClick={() =>
+          onModalOpen(<LoginModal onModalOpen={onModalOpen} />)
+        }
       />
       {modalOpen && (
         <EmptyModal onClose={() => setModalOpen(false)}>

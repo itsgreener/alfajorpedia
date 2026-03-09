@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useAuth } from "../../Hooks/useAuth";
+import RegisterModal from "./RegisterModal";
 import "./LoginModal.css";
 
-function LoginModal({ onRegister }) {
+function LoginModal({ onModalOpen, closeModal, fromFavorite = false }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useAuth();
@@ -10,15 +11,18 @@ function LoginModal({ onRegister }) {
   return (
     <div className="login-wrapper">
       <p className="title">
-        <span className="big-title">Ingresa a tu cuenta</span>
+        Ingresa a tu cuenta
         <br />
-        para guardar tus alfajores favoritos.
+        <span className="small-title">
+          para guardar tus alfajores favoritos.
+        </span>
       </p>
       <form
         className="login-form"
         onSubmit={(e) => {
           e.preventDefault();
           login({ email, password });
+          !fromFavorite && closeModal(false);
         }}
       >
         <input
@@ -40,7 +44,21 @@ function LoginModal({ onRegister }) {
         </button>
       </form>
       <p className="login-footer">
-        o <button onClick={onRegister}><strong>regístrate</strong></button> si aún no lo has hecho
+        o{" "}
+        <button
+          onClick={() =>
+            onModalOpen(
+              <RegisterModal
+                onModalOpen={onModalOpen}
+                closeModal={closeModal}
+                fromFavorite={fromFavorite}
+              />,
+            )
+          }
+        >
+          <strong>regístrate</strong>
+        </button>{" "}
+        si aún no lo has hecho
       </p>
     </div>
   );

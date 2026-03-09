@@ -59,7 +59,7 @@
   cursor: pointer;
   color: var(--black);
   text-decoration: underline;
-  text-underline-offset: 3px;
+  text-underline-offset: 5px;
 }
 
 .login-footer a:hover {

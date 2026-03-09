@@ -1,13 +1,16 @@
 import LoginModal from "./Components/Modals/LoginModal";
-import RegisterModal from "./Components/Modals/RegisterModal";
 import { useAuth } from "./Hooks/useAuth";
 
-function ProtectedPath({ children, setModalContent }) {
+function ProtectedPath({ children, onModalOpen, closeModal }) {
   const { user } = useAuth();
   return user ? (
     children
   ) : (
-    <LoginModal onRegister={() => setModalContent(<RegisterModal />)} />
+    <LoginModal
+      onModalOpen={onModalOpen}
+      closeModal={closeModal}
+      fromFavorite={true}
+    />
   );
 }
 

@@ -12,6 +12,12 @@
   line-height: 0.9;
 }
 
+.small-title {
+  font-family: "Coolvetica";
+  font-size: 65px;
+  line-height: 0.9;
+}
+
 .big-title {
   font-family: "Coolvetica";
   font-size: 105px;
