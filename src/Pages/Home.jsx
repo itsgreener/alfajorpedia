@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { alfajores } from "../Assets/Data.js";
-import ProtectedPath from "../ProtectedRoute.jsx";
+import ProtectedPath from "../Context/ProtectedRoute.jsx";
 import Footer from "../Components/General/Footer.jsx";
 import Header from "../Components/General/Header.jsx";
 import MediaCarousel from "../Components/Groups/MediaCarousel.jsx";

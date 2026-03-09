@@ -1,17 +1,62 @@
 import { useState } from "react";
-import { useAuth } from "../../Hooks/useAuth";
 import { useNavigate } from "react-router-dom";
-import LoginModal from "./LoginModal";
-import FavoriteModal from "./FavoriteModal";
-import ProtectedPath from "../../ProtectedRoute";
+import { useAuth } from "../../Hooks/useAuth.js";
+import LoginModal from "./LoginModal.jsx";
+import FavoriteModal from "./FavoriteModal.jsx";
+import ProtectedPath from "../../Context/ProtectedRoute.jsx";
 import "./RegisterModal.css";
 
 function RegisterModal({ onModalOpen, closeModal, fromFavorite = false }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [checked, setChecked] = useState(false);
+  const [errors, setErrors] = useState({});
   const { register } = useAuth();
   const navigate = useNavigate();
+
+  function validate() {
+    const newErrors = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!email) {
+      newErrors.email = "El email es obligatorio";
+    } else if (!emailRegex.test(email)) {
+      newErrors.email = "El email no es válido";
+    }
+
+    if (!password) {
+      newErrors.password = "La contraseña es obligatoria";
+    } else if (password.length < 7) {
+      newErrors.password = "La contraseña debe tener al menos 7 caracteres";
+    }
+
+    if (!checked) {
+      newErrors.checked = "Debes aceptar la política de privacidad";
+    }
+
+    return newErrors;
+  }
+
+  function onSubmit(e) {
+    e.preventDefault();
+    const newErrors = validate();
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    register({ email, password });
+    onModalOpen(
+      fromFavorite ? (
+        <ProtectedPath onModalOpen={onModalOpen} closeModal={closeModal}>
+          <FavoriteModal />
+        </ProtectedPath>
+      ) : (
+        <LoginModal onModalOpen={onModalOpen} closeModal={closeModal} />
+      ),
+    );
+  }
 
   return (
     <div className="register-wrapper">
@@ -22,27 +67,13 @@ function RegisterModal({ onModalOpen, closeModal, fromFavorite = false }) {
           para empezar a guardar tus alfajores.
         </span>
       </p>
-      <form
-        className="register-form"
-        onSubmit={(e) => {
-          e.preventDefault();
-          register({ email, password });
-          onModalOpen(
-            fromFavorite ? (
-              <ProtectedPath onModalOpen={onModalOpen} closeModal={closeModal}>
-                <FavoriteModal />
-              </ProtectedPath>
-            ) : (
-              <LoginModal onModalOpen={onModalOpen} closeModal={closeModal} />
-            ),
-          );
-        }}
-      >
+      <form noValidate className="register-form" onSubmit={(e) => onSubmit(e)}>
         <section className="register-input-section">
           <input
             className="register-input"
             type="email"
             placeholder="email"
+            autoComplete="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -50,6 +81,7 @@ function RegisterModal({ onModalOpen, closeModal, fromFavorite = false }) {
             className="register-input"
             type="password"
             placeholder="contraseña"
+            autoComplete="new-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -58,6 +90,13 @@ function RegisterModal({ onModalOpen, closeModal, fromFavorite = false }) {
           </button>
         </section>
         <div className="register-privacy">
+          <input
+            type="checkbox"
+            checked={checked}
+            onChange={() => {}}
+            required
+            style={{ opacity: 0 }}
+          />
           <button
             className={`register-checkbox ${checked ? "checked" : ""}`}
             onClick={() => setChecked(!checked)}
@@ -77,6 +116,13 @@ function RegisterModal({ onModalOpen, closeModal, fromFavorite = false }) {
           </p>
         </div>
       </form>
+      {(errors.email || errors.password || errors.checked) && (
+        <div className="register-error">
+          {errors.email && <p>{errors.email}</p>}
+          {errors.password && <p>{errors.password}</p>}
+          {errors.checked && <p>{errors.checked}</p>}
+        </div>
+      )}
     </div>
   );
 }

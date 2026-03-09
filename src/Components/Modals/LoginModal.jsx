@@ -29,6 +29,7 @@ function LoginModal({ onModalOpen, closeModal, fromFavorite = false }) {
           className="login-input"
           type="email"
           placeholder="email"
+          autoComplete="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -36,6 +37,7 @@ function LoginModal({ onModalOpen, closeModal, fromFavorite = false }) {
           className="login-input"
           type="password"
           placeholder="contraseña"
+          autoComplete="current-password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
