@@ -2,11 +2,10 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Hooks/useAuth.js";
 import LoginModal from "./LoginModal.jsx";
-import FavoriteModal from "./FavoriteModal.jsx";
 import ProtectedPath from "../../Context/ProtectedRoute.jsx";
 import "./RegisterModal.css";
 
-function RegisterModal({ onModalOpen, closeModal, fromProtected = false }) {
+function RegisterModal({ onModalOpen, closeModal, protectedNode = null }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [checked, setChecked] = useState(false);
@@ -48,9 +47,9 @@ function RegisterModal({ onModalOpen, closeModal, fromProtected = false }) {
 
     register({ email, password });
     onModalOpen(
-      fromProtected ? (
+      protectedNode ? (
         <ProtectedPath onModalOpen={onModalOpen} closeModal={closeModal}>
-          <FavoriteModal />
+          {protectedNode}
         </ProtectedPath>
       ) : (
         <LoginModal onModalOpen={onModalOpen} closeModal={closeModal} />

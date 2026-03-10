@@ -9,7 +9,7 @@ function ProtectedPath({ children, onModalOpen, closeModal }) {
     <LoginModal
       onModalOpen={onModalOpen}
       closeModal={closeModal}
-      fromProtected={true}
+      protectedNode={children}
     />
   );
 }
