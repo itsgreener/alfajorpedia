@@ -13,6 +13,7 @@ function AuthProvider({ children }) {
     setUser(userData);
     console.log("Registering user: ", userData.email);
   };
+  
   return (
     <AuthContext.Provider value={{ user, login, logout, register }}>
       {children}

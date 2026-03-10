@@ -2,7 +2,7 @@ import AddFavoritesButton from "./AddFavoritesButton";
 import "./AlfajorCard.css";
 
 function AlfajorCard({ alfajor, onClick, onFavChange }) {
-  const { name, flag, weight, calories, description, image } = alfajor;
+  const { name, flag, weight, calories, tagline, image } = alfajor;
 
   return (
     <div className="alfajor-card" onClick={onClick}>
@@ -15,10 +15,10 @@ function AlfajorCard({ alfajor, onClick, onFavChange }) {
           <p className="card_name">{name}</p>
           <div className="card_meta">
             <img src={flag} alt="Flag" className="card_flag" />
-            <span className="card_weight">{weight}</span>
+            <span className="card_weight">{weight}g</span>
             <span className="card_calories">{calories} Cal</span>
           </div>
-          <p className="card_description">{description}</p>
+          <p className="card_description">{tagline}</p>
         </div>
         <div className="card_actions">
           <AddFavoritesButton

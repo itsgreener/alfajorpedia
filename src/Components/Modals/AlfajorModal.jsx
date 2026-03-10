@@ -19,7 +19,7 @@ function AlfajorModal({ alfajor, onFavChange }) {
             src={alfajor.flag}
             alt="Bandera"
           />
-          <span>{alfajor.weight}</span>
+          <span>{alfajor.weight}g</span>
           <span>{alfajor.calories} Cal</span>
         </div>
 
