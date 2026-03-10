@@ -7,8 +7,8 @@ function AddFavoritesButton({ active = false, onChange }) {
   const toggle = (e) => {
     e.stopPropagation();
     const next = !liked;
-    setLiked(next);
-    onChange?.(next);
+    const success = onChange?.(next);
+    if (success) setLiked(next);
   };
 
   return (

@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { alfajoresData, socialPosts } from "../Assets/Data.js";
+import { useAuth } from "../Hooks/useAuth.js";
 import ProtectedPath from "../Context/ProtectedRoute.jsx";
 import Footer from "../Components/General/Footer.jsx";
 import Header from "../Components/General/Header.jsx";
@@ -15,18 +16,40 @@ function Home() {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState(null);
   const [alfajores, setAlfajores] = useState(alfajoresData);
+  const modalOpenRef = useRef(false);
+  const { user } = useAuth();
+
+  useEffect(() => {
+    modalOpenRef.current = modalOpen;
+  }, [modalOpen]);
 
   function onModalOpen(content) {
-    setModalContent(content);
     setModalOpen(true);
+    setModalContent(content);
   }
 
   function setFavAlfajor(id, like) {
-    setAlfajores((prev) =>
-      prev.map((a) => (a.id === id ? { ...a, isFav: like } : a)),
-    );
-    console.log(`Alfajor ${id} is now ${like ? "a favorite" : "not a favorite"}`);
-  };
+    if (user) {
+      setAlfajores((prev) =>
+        prev.map((a) => (a.id === id ? { ...a, isFav: like } : a)),
+      );
+      return true;
+    } else {
+      console.log(modalOpenRef.current);
+      if (modalOpenRef.current) {
+        onModalOpen(
+          <ProtectedPath onModalOpen={onModalOpen} closeModal={setModalOpen}>
+            <AlfajorModal alfajor={alfajores[id]} onFavChange={setFavAlfajor} />
+          </ProtectedPath>,
+        );
+      } else {
+        onModalOpen(
+          <LoginModal onModalOpen={onModalOpen} closeModal={setModalOpen} />,
+        );
+      }
+      return false;
+    }
+  }
 
   return (
     <>
@@ -204,13 +227,13 @@ function Home() {
       <Footer
         onFavoriteClick={() =>
           onModalOpen(
-            <ProtectedPath onModalOpen={onModalOpen}>
+            <ProtectedPath onModalOpen={onModalOpen} closeModal={setModalOpen}>
               <FavoriteModal />
             </ProtectedPath>,
           )
         }
         onSubscribeClick={() =>
-          onModalOpen(<LoginModal onModalOpen={onModalOpen} />)
+          onModalOpen(<LoginModal onModalOpen={onModalOpen} closeModal={setModalOpen}/>)
         }
       />
       {modalOpen && (
