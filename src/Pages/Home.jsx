@@ -35,7 +35,6 @@ function Home() {
       );
       return true;
     } else {
-      console.log(modalOpenRef.current);
       if (modalOpenRef.current) {
         onModalOpen(
           <ProtectedPath onModalOpen={onModalOpen} closeModal={setModalOpen}>

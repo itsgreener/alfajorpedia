@@ -46,15 +46,13 @@ function RegisterModal({ onModalOpen, closeModal, protectedNode = null }) {
     }
 
     register({ email, password });
-    onModalOpen(
-      protectedNode ? (
-        <ProtectedPath onModalOpen={onModalOpen} closeModal={closeModal}>
-          {protectedNode}
-        </ProtectedPath>
-      ) : (
-        <LoginModal onModalOpen={onModalOpen} closeModal={closeModal} />
-      ),
-    );
+    protectedNode
+      ? onModalOpen(
+          <ProtectedPath onModalOpen={onModalOpen} closeModal={closeModal}>
+            {protectedNode}
+          </ProtectedPath>,
+        )
+      : closeModal(false);
   }
 
   return (

@@ -9,9 +9,10 @@ function AuthProvider({ children }) {
     console.log("Login successful! " + userData.email + " is logged in.");
   };
   const logout = () => setUser(null);
-  const register = (userData) =>
+  const register = (userData) => {
+    setUser(userData);
     console.log("Registering user: ", userData.email);
-
+  };
   return (
     <AuthContext.Provider value={{ user, login, logout, register }}>
       {children}
