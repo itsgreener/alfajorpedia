@@ -1,5 +1,5 @@
 .footer {
-  background: #111;
+  background: var(--black);
   min-height: 55vh;
   padding: 5vh 4vw 6vh;
   display: flex;

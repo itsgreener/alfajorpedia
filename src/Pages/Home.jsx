@@ -175,16 +175,34 @@ function Home() {
           <MediaCarousel posts={socialPosts} />
         </div>
       </section>
-      <div className="body">
-        <section className="nostalgia">
-          <p className="title">Nostalgia</p>
-        </section>
 
-        <section className="catalogo" id="catalog">
-          <p className="title">Catálogo</p>
-          <input type="text" placeholder="Buscar..." className="search-bar" />
-        </section>
-      </div>
+      <section className="nostalgia">
+        <p className="title">Nostalgia</p>
+      </section>
+
+      <section className="catalogo" id="catalog">
+        <p className="catalogo-title">345 alfajores</p>
+        <div className="catalogo-search">
+          <input type="text" placeholder="Busca tu match" />
+          <span className="catalogo-search-divider" />
+          <button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#111"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+          </button>
+        </div>
+      </section>
 
       <section className="contacto">
         <div className="contacto-top">
