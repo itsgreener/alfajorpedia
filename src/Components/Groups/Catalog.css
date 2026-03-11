@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: repeat(var(--repeat), 1fr);
   margin-top: 1.5%;
+  gap: 5px;
 }
 
 .pagination {
