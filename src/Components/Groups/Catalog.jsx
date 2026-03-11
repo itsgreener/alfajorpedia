@@ -19,16 +19,18 @@ export default function Catalog({ alfajores, onClick, onFavChange }) {
 
   return (
     <>
-      <div ref={ref} className="catalogo-list">
-        {currentItems.map((alfajor) => (
-          <AlfajorCard
-            key={alfajor.id}
-            alfajor={alfajor}
-            onClick={() => onClick(alfajor)}
-            onFavChange={onFavChange}
-          />
-        ))}
-      </div>
+      {totalPages > 0 && (
+        <div ref={ref} className="catalogo-list">
+          {currentItems.map((alfajor) => (
+            <AlfajorCard
+              key={alfajor.id}
+              alfajor={alfajor}
+              onClick={() => onClick(alfajor)}
+              onFavChange={onFavChange}
+            />
+          ))}
+        </div>
+      )}
       <div className="pagination">
         {totalPages ? (
           <>
