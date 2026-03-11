@@ -126,12 +126,16 @@ margin: 6% 4.5%;
   width: 100%;
   display: flex;
   align-items: center;
-  padding: 6vh 5vw;
+  padding: 6% 4.5%;
   box-sizing: border-box;
 }
 .catalogo-title {
   width: 50%;
   line-height: 1;
+}
+
+.catalog-content{
+  margin: 2.5% 4.5%;
 }
 
 .contacto {

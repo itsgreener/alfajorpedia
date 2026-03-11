@@ -30,10 +30,18 @@ function Home() {
           i.tagline.toLowerCase().includes(searchContent.toLowerCase()) ||
           i.producer.toLowerCase().includes(searchContent.toLowerCase()) ||
           i.importer?.toLowerCase().includes(searchContent.toLowerCase()) ||
-          i.brands.some((b) => b.toLowerCase().includes(searchContent.toLowerCase())) ||
-          i.categories.some((c) => c.toLowerCase().includes(searchContent.toLowerCase())),
+          i.brands.some((b) =>
+            b.toLowerCase().includes(searchContent.toLowerCase()),
+          ) ||
+          i.categories.some((c) =>
+            c.toLowerCase().includes(searchContent.toLowerCase()),
+          ),
       ),
     [alfajores, searchContent],
+  );
+  const favorites = useMemo(
+    () => alfajores.filter((a) => a.isFav),
+    [alfajores],
   );
 
   useEffect(() => {
@@ -73,7 +81,11 @@ function Home() {
         onFavoriteClick={() =>
           onModalOpen(
             <ProtectedPath onModalOpen={onModalOpen} closeModal={setModalOpen}>
-              <FavoriteModal />
+              <FavoriteModal
+                alfajores={favorites}
+                setFavAlfajor={setFavAlfajor}
+                onModalOpen={onModalOpen}
+              />
             </ProtectedPath>,
           )
         }
@@ -204,15 +216,17 @@ function Home() {
           </p>
           <SearchInput onChange={setSearchContent} />
         </div>
-        <Catalog
-          alfajores={filtered}
-          onClick={(alfajor) =>
-            onModalOpen(
-              <AlfajorModal alfajor={alfajor} onFavChange={setFavAlfajor} />,
-            )
-          }
-          onFavChange={setFavAlfajor}
-        />
+        <div className="catalog-content">
+          <Catalog
+            alfajores={filtered}
+            onClick={(alfajor) =>
+              onModalOpen(
+                <AlfajorModal alfajor={alfajor} onFavChange={setFavAlfajor} />,
+              )
+            }
+            onFavChange={setFavAlfajor}
+          />
+        </div>
       </section>
 
       <section className="contacto">
@@ -256,7 +270,11 @@ function Home() {
         onFavoriteClick={() =>
           onModalOpen(
             <ProtectedPath onModalOpen={onModalOpen} closeModal={setModalOpen}>
-              <FavoriteModal />
+              <FavoriteModal
+                alfajores={favorites}
+                setFavAlfajor={setFavAlfajor}
+                onModalOpen={onModalOpen}
+              />
             </ProtectedPath>,
           )
         }

@@ -29,6 +29,11 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Haas", sans-serif;
+  scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
 }
 
 html {
