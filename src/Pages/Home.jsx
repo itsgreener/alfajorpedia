@@ -12,6 +12,7 @@ import FavoriteModal from "../Components/Modals/FavoriteModal.jsx";
 import LoginModal from "../Components/Modals/LoginModal.jsx";
 import Catalog from "../Components/Groups/Catalog.jsx";
 import "./Home.css";
+import SearchInput from "../Components/Groups/SearchInput.jsx";
 
 function Home() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -183,27 +184,10 @@ function Home() {
 
       <section>
         <div className="catalogo" id="catalog">
-          <p className="big-title white-text catalogo-title">345 alfajores</p>
-          <div className="catalogo-search">
-            <input type="text" placeholder="Busca tu match" />
-            <span className="catalogo-search-divider" />
-            <button>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="22"
-                height="22"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#111"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <circle cx="11" cy="11" r="8" />
-                <line x1="21" y1="21" x2="16.65" y2="16.65" />
-              </svg>
-            </button>
-          </div>
+          <p className="big-title white-text catalogo-title">
+            {alfajores.length} alfajores
+          </p>
+          <SearchInput />
         </div>
         <Catalog
           alfajores={alfajores}
@@ -215,7 +199,7 @@ function Home() {
           onFavChange={setFavAlfajor}
         />
       </section>
-      
+
       <section className="contacto">
         <div className="contacto-top">
           <p className="contacto-top-title">Nuestra ambición no tiene freno.</p>

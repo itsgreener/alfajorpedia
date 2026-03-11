@@ -134,58 +134,6 @@ margin: 6% 4.5%;
   line-height: 1;
 }
 
-.catalogo-search {
-  width: 50%;
-  height: 8vh;
-  display: flex;
-  align-items: center;
-  background: var(--white);
-  border-radius: 20px;
-  overflow: hidden;
-  margin-top: 2%;
-}
-
-.catalogo-search input {
-  flex: 1;
-  height: 100%;
-  border: none;
-  outline: none;
-  background: transparent;
-  font-family: "Haas";
-  font-size: 1.5vw;
-  color: var(--black);
-  text-align: center;
-  padding: 0 2vw;
-}
-
-.catalogo-search input::placeholder {
-  color: #1b1b1b;
-  text-align: center;
-}
-
-.catalogo-search-divider {
-  width: 0.1vw;
-  height: 100%;
-  background: #999;
-  flex-shrink: 0;
-}
-
-.catalogo-search button {
-  width: 9%;
-  height: 100%;
-  border: none;
-  background: #f4f4f4;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-.catalogo-search button svg {
-  width: 1.7vw;
-  height: 1.7vw;
-}
-
 .contacto {
   display: flex;
   flex-direction: column;

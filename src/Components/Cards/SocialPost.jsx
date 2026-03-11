@@ -1,8 +1,8 @@
 import "./SocialPost.css";
 
-function SocialPost({ position = "side" }) {
+function SocialPost() {
   return (
-    <article className={`social-post social-post-${position}`}>
+    <article className="social-post">
       <div className="social-post-media" />
     </article>
   );
