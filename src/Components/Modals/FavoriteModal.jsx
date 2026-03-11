@@ -1,9 +1,9 @@
 import { useState } from "react";
+import { useFilteredData } from "../../Hooks/useFilteredData";
 import Catalog from "../Groups/Catalog";
 import SearchInput from "../Groups/SearchInput";
 import AlfajorModal from "./AlfajorModal";
 import "./FavoriteModal.css";
-import { useFilteredData } from "../../Hooks/useFilteredData";
 
 function FavoriteModal({ alfajores, setFavAlfajor, onModalOpen }) {
   const [searchContent, setSearchContent] = useState("");
@@ -24,6 +24,7 @@ function FavoriteModal({ alfajores, setFavAlfajor, onModalOpen }) {
           )
         }
         onFavChange={setFavAlfajor}
+        items={16}
       />
     </>
   );

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { alfajoresData, socialPosts } from "../Assets/Data.js";
 import { useAuth } from "../Hooks/useAuth.js";
+import { useFilteredData } from "../Hooks/useFilteredData.js";
 import ProtectedPath from "../Context/ProtectedRoute.jsx";
 import Footer from "../Components/General/Footer.jsx";
 import Header from "../Components/General/Header.jsx";
@@ -13,7 +14,6 @@ import LoginModal from "../Components/Modals/LoginModal.jsx";
 import Catalog from "../Components/Groups/Catalog.jsx";
 import SearchInput from "../Components/Groups/SearchInput.jsx";
 import "./Home.css";
-import { useFilteredData } from "../Hooks/useFilteredData.js";
 
 function Home() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -209,6 +209,7 @@ function Home() {
               )
             }
             onFavChange={setFavAlfajor}
+            items={20}
           />
         </div>
       </section>

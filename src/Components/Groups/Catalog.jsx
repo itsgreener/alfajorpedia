@@ -2,15 +2,14 @@ import { useState, useRef } from "react";
 import AlfajorCard from "../Cards/AlfajorCard";
 import "./Catalog.css";
 
-const ITEMS_PER_PAGE = 20;
 
-export default function Catalog({ alfajores, onClick, onFavChange }) {
+export default function Catalog({ alfajores, onClick, onFavChange, items }) {
   const [currentPage, setCurrentPage] = useState(1);
   const ref = useRef(null);
 
-  const totalPages = Math.ceil(alfajores.length / ITEMS_PER_PAGE);
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const totalPages = Math.ceil(alfajores.length / items);
+  const startIndex = (currentPage - 1) * items;
+  const endIndex = startIndex + items;
   const currentItems = alfajores.slice(startIndex, endIndex);
 
   function scrollToTop() {
@@ -20,7 +19,7 @@ export default function Catalog({ alfajores, onClick, onFavChange }) {
   return (
     <>
       {totalPages > 0 && (
-        <div ref={ref} className="catalogo-list">
+        <div ref={ref} className="catalogo-list" style={{ '--repeat': `${items / 4}` }}>
           {currentItems.map((alfajor) => (
             <AlfajorCard
               key={alfajor.id}

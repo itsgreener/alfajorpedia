@@ -1,6 +1,7 @@
 .catalogo-list {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(var(--repeat), 1fr);
+  margin-top: 1.5%;
 }
 
 .pagination {
