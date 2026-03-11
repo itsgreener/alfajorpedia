@@ -1,7 +1,6 @@
 .catalogo-list {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 4vh 2vw;
   margin: 4vh 4.5%;
 }
 
