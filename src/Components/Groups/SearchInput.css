@@ -24,7 +24,7 @@
 }
 
 .catalogo-search input::placeholder {
-  color: #999;
+  color: var(--dark-gray);
   text-align: center;
 }
 
@@ -35,7 +35,7 @@
 .catalogo-search-divider {
   width: 1px;
   height: 100%;
-  background: #999;
+  background: var(--dark-gray);
   flex-shrink: 0;
 }
 
@@ -43,7 +43,7 @@
   width: 9%;
   height: 100%;
   border: none;
-  background: #f4f4f4;
+  background: var(--light-gray);
   display: flex;
   align-items: center;
   justify-content: center;

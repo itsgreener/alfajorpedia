@@ -12,7 +12,7 @@ function SearchInput({ onChange }) {
           height="22"
           viewBox="0 0 24 24"
           fill="none"
-          stroke="#111"
+          stroke="var(--black)"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"

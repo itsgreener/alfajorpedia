@@ -82,7 +82,7 @@
 
 .footer-newsletter-input input {
   flex: 1;
-  border: 0.08vw solid #bdbdbd;
+  border: 0.08vw solid var(--light-gray);
   border-right: none;
   background: var(--white);
   color: var(--black);
@@ -94,12 +94,12 @@
 }
 
 .footer-newsletter-input input::placeholder {
-  color: #9a9a9a;
+  color: var(--dark-gray);
 }
 
 .footer-newsletter-input button {
   width: 2.4vw;
-  border: 0.08vw solid #bdbdbd;
+  border: 0.08vw solid var(--light-gray);
   background: var(--white);
   color: var(--black);
   font-size: 1.2vw;

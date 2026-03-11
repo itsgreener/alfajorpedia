@@ -24,7 +24,7 @@
 }
 
 .login-input::placeholder {
-  color: #aaa;
+  color: var(--dark-gray);
 }
 
 .login-input:focus {

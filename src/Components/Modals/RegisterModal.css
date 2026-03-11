@@ -31,7 +31,7 @@
 }
 
 .register-input::placeholder {
-  color: #aaa;
+  color: var(--dark-gray);
 }
 
 .register-input:focus {

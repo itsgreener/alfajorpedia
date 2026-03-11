@@ -20,6 +20,8 @@
 :root {
   --black: #282828;
   --white: white;
+  --light-gray: #F4F4F4;
+  --dark-gray: #999;
 }
 
 * {

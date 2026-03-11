@@ -14,8 +14,8 @@
 
 .pagination button {
   padding: 0.5rem 0.8rem;
-  border: 1px solid #ccc;
-  background: white;
+  border: 1px solid var(--light-gray);
+  background: var(--white);
   cursor: pointer;
 }
 
