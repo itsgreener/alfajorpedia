@@ -1,21 +1,25 @@
+import { useState, useRef } from "react";
 import AlfajorCard from "../Cards/AlfajorCard";
 import "./Catalog.css";
-import { useState } from "react";
-
 
 const ITEMS_PER_PAGE = 20;
 
 export default function Catalog({ alfajores, onClick, onFavChange }) {
-const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
+  const ref = useRef(null);
 
-const totalPages = Math.ceil(alfajores.length / ITEMS_PER_PAGE);
-const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-const endIndex = startIndex + ITEMS_PER_PAGE;
-const currentItems = alfajores.slice(startIndex, endIndex);
+  const totalPages = Math.ceil(alfajores.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const currentItems = alfajores.slice(startIndex, endIndex);
+
+  function scrollToTop() {
+    ref.current.scrollIntoView();
+  }
 
   return (
     <>
-      <div className="catalogo-list">
+      <div ref={ref} className="catalogo-list">
         {currentItems.map((alfajor) => (
           <AlfajorCard
             key={alfajor.id}
@@ -28,7 +32,10 @@ const currentItems = alfajores.slice(startIndex, endIndex);
 
       <div className="pagination">
         <button
-          onClick={() => setCurrentPage((prev) => prev - 1)}
+          onClick={() => {
+            setCurrentPage((prev) => prev - 1);
+            scrollToTop();
+          }}
           disabled={currentPage === 1}
         >
           Anterior
@@ -38,14 +45,20 @@ const currentItems = alfajores.slice(startIndex, endIndex);
           <button
             key={index + 1}
             className={currentPage === index + 1 ? "active" : ""}
-            onClick={() => setCurrentPage(index + 1)}
+            onClick={() => {
+              setCurrentPage(index + 1);
+              scrollToTop();
+            }}
           >
             {index + 1}
           </button>
         ))}
 
         <button
-          onClick={() => setCurrentPage((prev) => prev + 1)}
+          onClick={() => {
+            setCurrentPage((prev) => prev + 1);
+            scrollToTop();
+          }}
           disabled={currentPage === totalPages}
         >
           Siguiente
