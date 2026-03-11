@@ -13,6 +13,7 @@ import LoginModal from "../Components/Modals/LoginModal.jsx";
 import Catalog from "../Components/Groups/Catalog.jsx";
 import SearchInput from "../Components/Groups/SearchInput.jsx";
 import "./Home.css";
+import { useFilteredData } from "../Hooks/useFilteredData.js";
 
 function Home() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -21,24 +22,7 @@ function Home() {
   const [alfajores, setAlfajores] = useState(alfajoresData);
   const modalOpenRef = useRef(false);
   const { user } = useAuth();
-  const filtered = useMemo(
-    () =>
-      alfajores.filter(
-        (i) =>
-          i.name.toLowerCase().includes(searchContent.toLowerCase()) ||
-          i.description.toLowerCase().includes(searchContent.toLowerCase()) ||
-          i.tagline.toLowerCase().includes(searchContent.toLowerCase()) ||
-          i.producer.toLowerCase().includes(searchContent.toLowerCase()) ||
-          i.importer?.toLowerCase().includes(searchContent.toLowerCase()) ||
-          i.brands.some((b) =>
-            b.toLowerCase().includes(searchContent.toLowerCase()),
-          ) ||
-          i.categories.some((c) =>
-            c.toLowerCase().includes(searchContent.toLowerCase()),
-          ),
-      ),
-    [alfajores, searchContent],
-  );
+  const filtered = useFilteredData(alfajores, searchContent);
   const favorites = useMemo(
     () => alfajores.filter((a) => a.isFav),
     [alfajores],

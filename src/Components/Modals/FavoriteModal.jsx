@@ -1,33 +1,13 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import Catalog from "../Groups/Catalog";
 import SearchInput from "../Groups/SearchInput";
 import AlfajorModal from "./AlfajorModal";
 import "./FavoriteModal.css";
+import { useFilteredData } from "../../Hooks/useFilteredData";
 
-function FavoriteModal({
-  alfajores,
-  setFavAlfajor,
-  onModalOpen,
-}) {
+function FavoriteModal({ alfajores, setFavAlfajor, onModalOpen }) {
   const [searchContent, setSearchContent] = useState("");
-  const filtered = useMemo(
-    () =>
-      alfajores.filter(
-        (i) =>
-          i.name.toLowerCase().includes(searchContent.toLowerCase()) ||
-          i.description.toLowerCase().includes(searchContent.toLowerCase()) ||
-          i.tagline.toLowerCase().includes(searchContent.toLowerCase()) ||
-          i.producer.toLowerCase().includes(searchContent.toLowerCase()) ||
-          i.importer?.toLowerCase().includes(searchContent.toLowerCase()) ||
-          i.brands.some((b) =>
-            b.toLowerCase().includes(searchContent.toLowerCase()),
-          ) ||
-          i.categories.some((c) =>
-            c.toLowerCase().includes(searchContent.toLowerCase()),
-          ),
-      ),
-    [alfajores, searchContent],
-  );
+  const filtered = useFilteredData(alfajores, searchContent);
   return (
     <>
       <div className="favorites">
