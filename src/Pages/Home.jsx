@@ -221,19 +221,17 @@ function Home() {
 
         <div className="contacto-main">
           <div className="contacto-left">
-            <p className="contacto-title">
+            <p className="small-title">
               ¿Falta tu alfajor?
               <br />
               Avísanos.
             </p>
-
-            <p className="contacto-text">
+            <p className="contacto-text text">
               No vamos a parar hasta encontrar
               <br />
               <strong>hasta el último alfajor del planeta.</strong>
             </p>
           </div>
-
           <div className="contacto-right">
             <form className="contacto-form">
               <div className="contacto-form-row">

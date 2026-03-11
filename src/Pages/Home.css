@@ -7,26 +7,26 @@
 
 .title {
   font-family: "Coolvetica";
-  font-size: 80px;
+  font-size: 5rem;
   color: var(--black);
   line-height: 0.9;
 }
 
 .small-title {
   font-family: "Coolvetica";
-  font-size: 65px;
+  font-size: 4rem;
   line-height: 0.9;
 }
 
 .big-title {
   font-family: "Coolvetica";
-  font-size: 105px;
+  font-size: 6.5rem;
   line-height: 0.9;
 }
 
 .text {
   font-family: "Haas";
-  font-size: 26px;
+  font-size: 1.625rem;
   color: var(--black);
 }
 
@@ -152,7 +152,7 @@ margin: 6% 4.5%;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding: 2vh 4vw;
+  padding: 2% 4.5%;
   box-sizing: border-box;
 }
 
@@ -177,34 +177,18 @@ margin: 6% 4.5%;
 }
 
 .contacto-left {
-  width: 34%;
+  width: 40%;
   display: flex;
   flex-direction: column;
 }
 
-.contacto-title {
-  margin: 0;
-  font-family: "Coolvetica";
-  font-size: 4vw;
-  line-height: 0.9;
-  color: var(--black);
-}
-
 .contacto-text {
   margin-top: 14%;
-  font-family: "Haas";
-  font-size: 1.6vw;
   line-height: 1.25;
-  color: var(--black);
-  
-}
-
-.contacto-text strong {
-  font-weight: 700;
 }
 
 .contacto-right {
-  width: 56%;
+  width: 50%;
   display: flex;
   align-items: flex-start;
   justify-content: flex-end;
@@ -225,19 +209,24 @@ margin: 6% 4.5%;
 }
 
 .contacto-form-row input {
-  width: 48.9%;
+  width: 50%;
 }
 
 .contacto-form input,
 .contacto-form textarea {
   background: transparent;
   border: 0.08vw solid var(--black);
-  border-radius: 0.35vw;
+  border-radius: 5px;
   font-family: "Haas";
-  font-size: 1.45vw;
+  font-size: 1.125rem;
   color: var(--black);
   box-sizing: border-box;
   outline: none;
+}
+
+.contacto-form input:focus::placeholder
+.contacto-form textarea:focus::placeholder {
+  opacity: 0;
 }
 
 .contacto-form input {

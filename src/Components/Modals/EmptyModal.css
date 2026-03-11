@@ -10,7 +10,7 @@
 
 .modal-container {
   width: min(1500px, 90vw);
-  min-height: 400px;
+  min-height: 60vh;
   background-color: var(--white);
   border-radius: 25px;
   padding: 40px;
@@ -33,7 +33,7 @@
   right: 16px;
   width: 36px;
   height: 36px;
-  border-radius: 50%;
+  border-radius: 25px;
   border: none;
   background-color: var(--white);
   cursor: pointer;
@@ -48,3 +48,4 @@
 .modal-close:hover {
   background-color: var(--light-gray);
 }
+

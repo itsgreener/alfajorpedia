@@ -40,7 +40,7 @@
 }
 
 .card_name {
-  font-size: 25px;
+  font-size: 1.625rem;
   font-weight: bold;
   color: var(--black);
 }
@@ -57,17 +57,17 @@
 }
 
 .card_weight {
-  font-size: 15px;
+  font-size: 1rem;
   color: var(--black);
 }
 
 .card_calories {
-  font-size: 15px;
+  font-size: 1rem;
   color: var(--black);
 }
 
 .card_description {
-  font-size: 17px;
+  font-size: 1.125rem;
   color: var(--black);
   line-height: 1.5;
   max-height: 80px;
