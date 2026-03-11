@@ -1,5 +1,32 @@
 .catalogo-list {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
+  gap: 4vh 2vw;
   margin: 4vh 4.5%;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 2rem 0 3rem;
+}
+
+.pagination button {
+  padding: 0.5rem 0.8rem;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  background: black;
+  color: white;
+  border-color: black;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
