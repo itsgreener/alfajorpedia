@@ -9,7 +9,6 @@ function AlfajorCard({ alfajor, onClick, onFavChange }) {
       <div className="card_image-wrapper">
         <img src={image} alt={name} className="card_image" />
       </div>
-
       <div className="card_body">
         <div className="card_content">
           <p className="card_name">{name}</p>
