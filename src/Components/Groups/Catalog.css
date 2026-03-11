@@ -10,7 +10,7 @@
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
-  margin: 2rem 0 3rem;
+  margin: 2.5%;
 }
 
 .pagination button {
@@ -21,12 +21,16 @@
 }
 
 .pagination button.active {
-  background: black;
-  color: white;
-  border-color: black;
+  background: var(--black);
+  color: var(--white);
+  border-color: var(--black);
 }
 
 .pagination button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.no-results {
+  font-size: 25px;
 }

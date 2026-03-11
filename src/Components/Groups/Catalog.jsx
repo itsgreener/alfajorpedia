@@ -29,40 +29,43 @@ export default function Catalog({ alfajores, onClick, onFavChange }) {
           />
         ))}
       </div>
-
       <div className="pagination">
-        <button
-          onClick={() => {
-            setCurrentPage((prev) => prev - 1);
-            scrollToTop();
-          }}
-          disabled={currentPage === 1}
-        >
-          Anterior
-        </button>
-
-        {Array.from({ length: totalPages }, (_, index) => (
-          <button
-            key={index + 1}
-            className={currentPage === index + 1 ? "active" : ""}
-            onClick={() => {
-              setCurrentPage(index + 1);
-              scrollToTop();
-            }}
-          >
-            {index + 1}
-          </button>
-        ))}
-
-        <button
-          onClick={() => {
-            setCurrentPage((prev) => prev + 1);
-            scrollToTop();
-          }}
-          disabled={currentPage === totalPages}
-        >
-          Siguiente
-        </button>
+        {totalPages ? (
+          <>
+            <button
+              onClick={() => {
+                setCurrentPage((prev) => prev - 1);
+                scrollToTop();
+              }}
+              disabled={currentPage === 1}
+            >
+              Anterior
+            </button>
+            {Array.from({ length: totalPages }, (_, index) => (
+              <button
+                key={index + 1}
+                className={currentPage === index + 1 ? "active" : ""}
+                onClick={() => {
+                  setCurrentPage(index + 1);
+                  scrollToTop();
+                }}
+              >
+                {index + 1}
+              </button>
+            ))}
+            <button
+              onClick={() => {
+                setCurrentPage((prev) => prev + 1);
+                scrollToTop();
+              }}
+              disabled={currentPage === totalPages}
+            >
+              Siguiente
+            </button>
+          </>
+        ) : (
+          <p className="no-results">No se encontraron resultados</p>
+        )}
       </div>
     </>
   );
