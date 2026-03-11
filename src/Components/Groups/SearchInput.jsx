@@ -1,9 +1,9 @@
 import "./SearchInput.css";
 
-function SearchInput() {
+function SearchInput({ onChange }) {
   return (
     <div className="catalogo-search">
-      <input type="text" placeholder="Busca tu match" />
+      <input type="text" placeholder="Busca tu match" onChange={(e) => onChange(e.target.value)} />
       <span className="catalogo-search-divider" />
       <button>
         <svg

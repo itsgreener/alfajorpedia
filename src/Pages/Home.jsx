@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { alfajoresData, socialPosts } from "../Assets/Data.js";
 import { useAuth } from "../Hooks/useAuth.js";
 import ProtectedPath from "../Context/ProtectedRoute.jsx";
@@ -11,15 +11,30 @@ import EmptyModal from "../Components/Modals/EmptyModal.jsx";
 import FavoriteModal from "../Components/Modals/FavoriteModal.jsx";
 import LoginModal from "../Components/Modals/LoginModal.jsx";
 import Catalog from "../Components/Groups/Catalog.jsx";
-import "./Home.css";
 import SearchInput from "../Components/Groups/SearchInput.jsx";
+import "./Home.css";
 
 function Home() {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState(null);
+  const [searchContent, setSearchContent] = useState("");
   const [alfajores, setAlfajores] = useState(alfajoresData);
   const modalOpenRef = useRef(false);
   const { user } = useAuth();
+  const filtered = useMemo(
+    () =>
+      alfajores.filter(
+        (i) =>
+          i.name.toLowerCase().includes(searchContent.toLowerCase()) ||
+          i.description.toLowerCase().includes(searchContent.toLowerCase()) ||
+          i.tagline.toLowerCase().includes(searchContent.toLowerCase()) ||
+          i.producer.toLowerCase().includes(searchContent.toLowerCase()) ||
+          i.importer?.toLowerCase().includes(searchContent.toLowerCase()) ||
+          i.brands.some((b) => b.toLowerCase().includes(searchContent.toLowerCase())) ||
+          i.categories.some((c) => c.toLowerCase().includes(searchContent.toLowerCase())),
+      ),
+    [alfajores, searchContent],
+  );
 
   useEffect(() => {
     modalOpenRef.current = modalOpen;
@@ -187,10 +202,10 @@ function Home() {
           <p className="big-title white-text catalogo-title">
             {alfajores.length} alfajores
           </p>
-          <SearchInput />
+          <SearchInput onChange={setSearchContent} />
         </div>
         <Catalog
-          alfajores={alfajores}
+          alfajores={filtered}
           onClick={(alfajor) =>
             onModalOpen(
               <AlfajorModal alfajor={alfajor} onFavChange={setFavAlfajor} />,
