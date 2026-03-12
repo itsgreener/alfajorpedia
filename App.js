@@ -30,7 +30,7 @@ const pool = mysql.createPool({
   database: process.env.DB_NAME,
 });
 
-app.get("/api/alfajores", async (_req, res) => {
+app.get("/api/alfajores", auth, async (_req, res) => {
   try {
     const [rows] = await pool.query(`
       SELECT id, nombre_alfajor, pais, puntuacion, calorias, descripcion, imagen_url, img_bandera_url

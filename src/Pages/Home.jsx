@@ -32,7 +32,7 @@ function Home() {
   useEffect(() => {
     modalOpenRef.current = modalOpen;
   }, [modalOpen]);
-  
+
   useEffect(() => {
     userRef.current = user;
   }, [user]);
@@ -47,7 +47,6 @@ function Home() {
       setAlfajores((prev) =>
         prev.map((a) => (a.id === id ? { ...a, isFav: like } : a)),
       );
-      return true;
     } else {
       if (modalOpenRef.current) {
         const alfajor = alfajores.find((a) => a.id === id);
@@ -61,7 +60,6 @@ function Home() {
           <LoginModal onModalOpen={onModalOpen} closeModal={setModalOpen} />,
         );
       }
-      return false;
     }
   }
 

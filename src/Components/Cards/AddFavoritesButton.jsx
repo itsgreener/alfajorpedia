@@ -1,27 +1,23 @@
-import { useState } from "react";
 import "./AddFavoritesButton.css";
 
 function AddFavoritesButton({ active = false, onChange }) {
-  const [liked, setLiked] = useState(active);
-
   const toggle = (e) => {
     e.stopPropagation();
-    const next = !liked;
-    const success = onChange?.(next);
-    if (success) setLiked(next);
+    const next = !active;
+    onChange?.(next);
   };
 
   return (
     <button
       onClick={toggle}
       className="favorite-btn"
-      aria-label={liked ? "Quitar de favoritos" : "Agregar a favoritos"}
+      aria-label={active ? "Quitar de favoritos" : "Agregar a favoritos"}
     >
       <svg
         width="28"
         height="28"
         viewBox="0 0 24 24"
-        fill={liked ? "var(--black)" : "none"}
+        fill={active ? "var(--black)" : "none"}
         stroke="var(--black)"
         strokeWidth="2"
         strokeLinecap="round"
