@@ -109,7 +109,7 @@
 .footer-right {
   display: flex;
   gap: 5vw;
-  width: 32%;
+  width: 33%;
   justify-content: flex-end;
 }
 
@@ -127,7 +127,6 @@
   border: none;
   text-decoration: none;
   text-align: right;
-  font-family: "Haas", sans-serif;
   font-size: 1rem;
   line-height: 1.35;
   color: var(--white);

@@ -212,11 +212,6 @@ margin: 6% 4.5%;
   outline: none;
 }
 
-.contacto-form-row input:focus::placeholder
-.contacto-form textarea:focus::placeholder {
-  opacity: 0;
-}
-
 .contacto-form input {
   height: 4.3vh;
   padding: 0 1vw;

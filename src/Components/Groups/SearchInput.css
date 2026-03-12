@@ -28,10 +28,6 @@
   text-align: center;
 }
 
-.catalogo-search input:focus::placeholder {
-  opacity: 0;
-}
-
 .catalogo-search-divider {
   width: 1px;
   height: 100%;
