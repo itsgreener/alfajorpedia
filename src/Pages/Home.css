@@ -156,23 +156,15 @@ margin: 6% 4.5%;
   box-sizing: border-box;
 }
 
-.contacto-top-title {
-  margin: 0;
-  font-family: "Coolvetica";
-  font-size: 4vw;
-  line-height: 0.95;
-  color: var(--white);
-}
-
 .contacto-main {
   background: var(--white);
   width: 100%;
-  min-height: 43vh;
+  min-height: 50vh;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: stretch;
-  padding: 7vh 6vw 6vh;
+  padding: 4.5%;
   box-sizing: border-box;
 }
 
@@ -180,11 +172,7 @@ margin: 6% 4.5%;
   width: 40%;
   display: flex;
   flex-direction: column;
-}
-
-.contacto-text {
-  margin-top: 14%;
-  line-height: 1.25;
+  justify-content: space-between;
 }
 
 .contacto-right {
@@ -212,7 +200,7 @@ margin: 6% 4.5%;
   width: 50%;
 }
 
-.contacto-form input,
+.contacto-form-row input,
 .contacto-form textarea {
   background: transparent;
   border: 0.08vw solid var(--black);
@@ -224,7 +212,7 @@ margin: 6% 4.5%;
   outline: none;
 }
 
-.contacto-form input:focus::placeholder
+.contacto-form-row input:focus::placeholder
 .contacto-form textarea:focus::placeholder {
   opacity: 0;
 }

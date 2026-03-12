@@ -216,9 +216,8 @@ function Home() {
 
       <section className="contacto">
         <div className="contacto-top">
-          <p className="contacto-top-title">Nuestra ambición no tiene freno.</p>
+          <p className="small-title white-text">Nuestra ambición no tiene freno.</p>
         </div>
-
         <div className="contacto-main">
           <div className="contacto-left">
             <p className="small-title">
@@ -226,7 +225,7 @@ function Home() {
               <br />
               Avísanos.
             </p>
-            <p className="contacto-text text">
+            <p className="text">
               No vamos a parar hasta encontrar
               <br />
               <strong>hasta el último alfajor del planeta.</strong>
@@ -238,9 +237,7 @@ function Home() {
                 <input type="text" placeholder="nombre" />
                 <input type="email" placeholder="email" />
               </div>
-
               <textarea placeholder="texto" />
-
               <div className="contacto-form-actions">
                 <button type="submit">Enviar</button>
               </div>

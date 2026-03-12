@@ -1,19 +1,17 @@
 .footer {
   background: var(--black);
   min-height: 55vh;
-  padding: 5vh 4vw 6vh;
+  padding: 2% 4.5%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   box-sizing: border-box;
 }
-
 
 .footer-top {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 1vh;
 }
 
 .footer-top-logo {
@@ -25,52 +23,27 @@
 }
 .footer-top-logo img {
   max-width: 60%;
- 
 }
 
 .footer-main {
   display: flex;
   justify-content: space-between;
-  margin-top: 5vh;
 }
 
 .footer-left {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  gap: 4vh;
+  justify-content: space-between;
   width: 45%;
 }
 
 .footer-brand {
-  margin: 0;
-  font-family: "Haas", sans-serif;
-  color: var(--white);
-  font-size: 2.5vw;
-}
-
-.footer-brand-bold {
-  font-weight: 700;
-  
-}
-
-.footer-brand-light {
-  font-weight: 300;
+  font-size: 2.125rem;
 }
 
 .footer-newsletter {
   display: flex;
   flex-direction: column;
-  gap: 1.2vh;
-}
-
-.footer-newsletter p {
-  margin: 0;
-  font-family: "Haas", sans-serif;
-  font-size: 1.1vw;
-  line-height: 1;
-  font-weight: 700;
-  color: var(--white);
 }
 
 .footer-newsletter-input {
@@ -78,6 +51,11 @@
   align-items: stretch;
   width: 16vw;
   height: 4.2vh;
+  font-size: 1rem;
+}
+
+.newsletter-title {
+  font-size: 1rem;
 }
 
 .footer-newsletter-input input {
@@ -111,8 +89,7 @@
 .footer-social {
   display: flex;
   align-items: center;
-  gap: 1.6vw;
-  margin-top: 1vh;
+  gap: 1.5vw;
 }
 
 .footer-social-item {
@@ -129,12 +106,9 @@
   height: 100%;
 }
 
-
 .footer-right {
   display: flex;
   gap: 5vw;
-  align-items: flex-start;
-  padding-right: 1.5vw;
   width: 32%;
   justify-content: flex-end;
 }
@@ -147,25 +121,14 @@
   min-width: 10vw;
 }
 
-.footer-col-title {
-  margin: 0 0 0.5vh;
-  font-family: "Haas", sans-serif;
-  font-size: 1.1vw;
-  font-weight: 700;
-  color: var(--white);
-}
-
 .footer-col a,
 .footer-link-btn {
-  margin: 0;
-  padding: 0;
   background: none;
   border: none;
   text-decoration: none;
   text-align: right;
   font-family: "Haas", sans-serif;
-  font-size: 1.15vw;
-  font-weight: 400;
+  font-size: 1rem;
   line-height: 1.35;
   color: var(--white);
   cursor: pointer;
