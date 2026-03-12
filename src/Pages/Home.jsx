@@ -104,7 +104,7 @@ function Home() {
                 <strong>No lo necesita.</strong>
               </p>
             </div>
-            <div className="header-image">
+            <div>
               <img
                 className="header-image-content"
                 src="/Mockup/Surprise.png"

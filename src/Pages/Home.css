@@ -5,35 +5,6 @@
   margin: 6% 4.5%;
 }
 
-.title {
-  font-family: "Coolvetica";
-  font-size: var(--title);
-  color: var(--black);
-  line-height: 0.9;
-}
-
-.small-title {
-  font-family: "Coolvetica";
-  font-size: var(--small-title);
-  line-height: 0.9;
-}
-
-.big-title {
-  font-family: "Coolvetica";
-  font-size: var(--big-title);
-  line-height: 0.9;
-}
-
-.text {
-  font-family: "Haas";
-  font-size: var(--subtitle);
-  color: var(--black);
-}
-
-.white-text {
-  color: var(--white);
-}
-
 .group {
   display: flex;
   flex-direction: column;
@@ -41,7 +12,7 @@
 }
 
 .header-content-row {
-  height: 66vh;
+  height: 60vh;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -49,6 +20,7 @@
   margin: 0 5%;
   cursor: pointer;
 }
+
 .header-text-col {
   width: 70%;
   display: flex;
@@ -56,11 +28,8 @@
   gap: 20px;
 }
 
-.header-image {
-  width: 30%;
-}
-
 .header-image-content {
+  max-width: 25vw;
   width: 100%;
   height: 100%;
   object-fit: cover;

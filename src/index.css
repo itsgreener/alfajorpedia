@@ -64,6 +64,35 @@ html {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
+.title {
+  font-family: "Coolvetica";
+  font-size: var(--title);
+  color: var(--black);
+  line-height: 0.9;
+}
+
+.small-title {
+  font-family: "Coolvetica";
+  font-size: var(--small-title);
+  line-height: 0.9;
+}
+
+.big-title {
+  font-family: "Coolvetica";
+  font-size: var(--big-title);
+  line-height: 0.9;
+}
+
+.text {
+  font-family: "Haas";
+  font-size: var(--subtitle);
+  color: var(--black);
+}
+
+.white-text {
+  color: var(--white);
+}
+
 input:focus::placeholder,
 textarea:focus::placeholder {
   opacity: 0;
