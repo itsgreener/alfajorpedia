@@ -1,7 +1,7 @@
 .body {
   display: flex;
   flex-direction: column;
-  gap: 9vh;
+  gap: 8vh;
   margin: 6% 4.5%;
 }
 
@@ -127,7 +127,7 @@ margin: 6% 4.5%;
   width: 100%;
   display: flex;
   align-items: center;
-  padding: 6% 4.5%;
+  padding: 6vh 4.5%;
   box-sizing: border-box;
 }
 .catalogo-title {
@@ -152,7 +152,7 @@ margin: 6% 4.5%;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding: 2% 4.5%;
+  padding: 6vh 4.5%;
   box-sizing: border-box;
 }
 
