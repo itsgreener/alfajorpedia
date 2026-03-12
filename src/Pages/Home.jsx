@@ -21,6 +21,7 @@ function Home() {
   const [searchContent, setSearchContent] = useState("");
   const [alfajores, setAlfajores] = useState(alfajoresData);
   const modalOpenRef = useRef(false);
+  const userRef = useRef(null);
   const { user } = useAuth();
   const filtered = useFilteredData(alfajores, searchContent);
   const favorites = useMemo(
@@ -31,6 +32,10 @@ function Home() {
   useEffect(() => {
     modalOpenRef.current = modalOpen;
   }, [modalOpen]);
+  
+  useEffect(() => {
+    userRef.current = user;
+  }, [user]);
 
   function onModalOpen(content) {
     setModalOpen(true);
@@ -38,16 +43,17 @@ function Home() {
   }
 
   function setFavAlfajor(id, like) {
-    if (user) {
+    if (userRef.current) {
       setAlfajores((prev) =>
         prev.map((a) => (a.id === id ? { ...a, isFav: like } : a)),
       );
       return true;
     } else {
       if (modalOpenRef.current) {
+        const alfajor = alfajores.find((a) => a.id === id);
         onModalOpen(
           <ProtectedPath onModalOpen={onModalOpen} closeModal={setModalOpen}>
-            <AlfajorModal alfajor={alfajores[id]} onFavChange={setFavAlfajor} />
+            <AlfajorModal alfajor={alfajor} onFavChange={setFavAlfajor} />
           </ProtectedPath>,
         );
       } else {
