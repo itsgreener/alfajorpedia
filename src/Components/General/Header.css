@@ -21,7 +21,7 @@ nav {
 
 .nav-brand {
   color: var(--white);
-  font-size: 0.9rem;
+  font-size: var(--small-text);
   font-weight: bold;
   letter-spacing: 0.5px;
   text-transform: lowercase;
@@ -29,7 +29,7 @@ nav {
 
 .nav-link {
   color: var(--white);
-  font-size: .85rem;
+  font-size: var(--small-text);
   letter-spacing: 1px;
   text-transform: uppercase;
   text-decoration: none;

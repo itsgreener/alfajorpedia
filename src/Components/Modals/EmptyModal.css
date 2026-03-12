@@ -37,7 +37,7 @@
   border: none;
   background-color: var(--white);
   cursor: pointer;
-  font-size: 18px;
+  font-size: var(--big-text);
   display: flex;
   align-items: center;
   justify-content: center;

@@ -15,13 +15,8 @@
 .alfajor-detail-info {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 2vh;
   flex: 1;
-}
-
-.alfajor-detail-name {
-  font-family: "Coolvetica";
-  font-size: 80px;
 }
 
 .alfajor-detail-meta {
@@ -29,20 +24,19 @@
   align-items: center;
   gap: 1.5vw;
   color: var(--dark-gray);
-  font-family: "Haas";
-  font-size: 18px;
+  font-size: var(--big-text);
 }
 
 .alfajor-detail-tagline {
   font-family: "Haas";
-  font-size: 20px;
+  font-size: var(--big-text);
   font-weight: bold;
   line-height: 1.4;
 }
 
 .alfajor-detail-description {
   font-family: "Haas";
-  font-size: 18px;
+  font-size: var(--text);
 }
 
 .alfajor-detail-footer {

@@ -20,8 +20,15 @@
 :root {
   --black: #282828;
   --white: white;
-  --light-gray: #F4F4F4;
+  --light-gray: #f4f4f4;
   --dark-gray: #999;
+  --big-title: 6.5rem;
+  --title: 5rem;
+  --small-title: 4rem;
+  --subtitle: 1.625rem;
+  --big-text: 1.125rem;
+  --text: 1rem;
+  --small-text: 0.875rem;
 }
 
 * {
@@ -47,7 +54,9 @@ html {
 }
 
 .hover {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .hover:hover {
@@ -58,4 +67,68 @@ html {
 input:focus::placeholder,
 textarea:focus::placeholder {
   opacity: 0;
+}
+
+@media (min-width: 1920px) {
+  :root {
+    --big-title: 7.5rem;
+    --title: 5.75rem;
+    --small-title: 4.5rem;
+    --subtitle: 1.75rem;
+    --big-text: 1.25rem;
+    --text: 1.125rem;
+    --small-text: 1rem;
+  }
+
+  .footer-brand {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 1280px) {
+  :root {
+    --big-title: 5.5rem;
+    --title: 4.25rem;
+    --small-title: 3.5rem;
+    --subtitle: 1.5rem;
+    --big-text: 1.125rem;
+    --text: 1rem;
+    --small-text: 0.875rem;
+  }
+
+  .footer-brand {
+    font-size: 1.875rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --big-title: 4.5rem;
+    --title: 3.5rem;
+    --small-title: 2.75rem;
+    --subtitle: 1.375rem;
+    --big-text: 1rem;
+    --text: 1rem;
+    --small-text: 0.875rem;
+  }
+
+  .footer-brand {
+    font-size: 1.625rem;
+  }
+}
+
+@media (max-width: 900px) {
+  :root {
+    --big-title: 3.75rem;
+    --title: 3rem;
+    --small-title: 2.25rem;
+    --subtitle: 1.25rem;
+    --big-text: 1rem;
+    --text: 0.9375rem;
+    --small-text: 0.8125rem;
+  }
+
+  .footer-brand {
+    font-size: 1.375rem;
+  }
 }
