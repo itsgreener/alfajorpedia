@@ -1,5 +1,7 @@
 .media-carousel {
   width: 100%;
+  max-width: 2560px;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: 5vw 1fr 5vw;
   align-items: center;

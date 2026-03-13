@@ -6,20 +6,20 @@ function AlfajorCard({ alfajor, onClick, onFavChange }) {
 
   return (
     <div className="alfajor-card" onClick={onClick}>
-      <div className="card_image-wrapper">
-        <img src={image} alt={name} className="card_image" />
+      <div className="card-image-wrapper">
+        <img src={image} alt={name} className="card-image" />
       </div>
-      <div className="card_body">
-        <div className="card_content">
-          <p className="card_name">{name}</p>
-          <div className="card_meta">
-            <img src={flag} alt="Flag" className="card_flag" />
-            <span className="card_weight">{weight}g</span>
-            <span className="card_calories">{calories} Cal</span>
+      <div className="card-body">
+        <div className="card-content">
+          <p className="card-name">{name}</p>
+          <div className="card-meta">
+            <img src={flag} alt="Flag" className="card-flag" />
+            <span className="card-weight">{weight}g</span>
+            <span className="card-calories">{calories} Cal</span>
           </div>
-          <p className="card_description">{tagline}</p>
+          <p className="card-description">{tagline}</p>
         </div>
-        <div className="card_actions">
+        <div className="card-actions">
           <AddFavoritesButton
             active={isFav}
             onChange={(like) => onFavChange(alfajor.id, like)}

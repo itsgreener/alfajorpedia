@@ -1,6 +1,11 @@
-.footer {
+.footer-bg{
   background: var(--black);
-  min-height: 55vh;
+}
+
+.footer {
+  min-height: 40vh;
+  max-width: 2560px;
+  margin: 0 auto;
   padding: 2% 4.5%;
   display: flex;
   flex-direction: column;
@@ -8,20 +13,21 @@
   box-sizing: border-box;
 }
 
-.footer-top {
+.footer-bottom {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.footer-top-logo {
+.footer-bottom-logo {
   width: 80vw;
   height: 10vh;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.footer-top-logo img {
+
+.footer-bottom-logo img {
   max-width: 60%;
 }
 
@@ -38,7 +44,7 @@
 }
 
 .footer-brand {
-  font-size: 2.125rem;
+  font-size: var(--footer-brand);
 }
 
 .footer-newsletter {
@@ -68,10 +74,6 @@
   font-family: "Haas", sans-serif;
   outline: none;
   box-sizing: border-box;
-}
-
-.footer-newsletter-input input::placeholder {
-  color: var(--dark-gray);
 }
 
 .footer-newsletter-input button {

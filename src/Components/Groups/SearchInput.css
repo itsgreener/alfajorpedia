@@ -7,7 +7,6 @@
   background: var(--white);
   border-radius: 20px;
   overflow: hidden;
-  margin-top: 2%;
 }
 
 .catalogo-search input {
@@ -24,7 +23,6 @@
 }
 
 .catalogo-search input::placeholder {
-  color: var(--dark-gray);
   text-align: center;
 }
 
