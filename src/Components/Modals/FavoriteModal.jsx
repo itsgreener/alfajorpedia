@@ -20,7 +20,7 @@ function FavoriteModal({ alfajores, setFavAlfajor, onModalOpen }) {
         alfajores={filtered}
         onClick={(alfajor) =>
           onModalOpen(
-            <AlfajorModal alfajor={alfajor} onFavChange={setFavAlfajor} />,
+            <AlfajorModal alfajorId={alfajor.id} onFavChange={setFavAlfajor} />,
           )
         }
         onFavChange={setFavAlfajor}

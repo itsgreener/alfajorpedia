@@ -1,101 +1,113 @@
+import { useAlfajores } from "../../Hooks/useAlfajores.js";
 import AddFavoritesButton from "../Cards/AddFavoritesButton.jsx";
 import "./AlfajorModal.css";
 
-function AlfajorModal({ alfajor, onFavChange }) {
+function AlfajorModal({ alfajorId, onFavChange }) {
+  const { alfajorById } = useAlfajores();
+  const selectedAlfajor = alfajorById(alfajorId);
+
   return (
     <div className="alfajor-detail">
-      <img
-        className="alfajor-detail-img"
-        src={alfajor.image}
-        alt={alfajor.name}
-      />
-      <div className="alfajor-detail-info">
-        <p className="title">{alfajor.name}</p>
-        <div className="alfajor-detail-meta">
+      {selectedAlfajor ? (
+        <>
           <img
-            className="alfajor-detail-flag"
-            src={alfajor.flag}
-            alt="Bandera"
+            className="alfajor-detail-img"
+            src={selectedAlfajor.image}
+            alt={selectedAlfajor.name}
           />
-          <span>{alfajor.weight}g</span>
-          <span>{alfajor.calories} Cal</span>
-        </div>
-        <p className="alfajor-detail-tagline">
-          <strong>{alfajor.tagline}</strong>
-        </p>
-        <p className="alfajor-detail-description">{alfajor.description}</p>
-        <div className="alfajor-detail-footer">
-          <div className="alfajor-detail-socials">
-            {alfajor.website && (
-              <a
-                href={alfajor.website}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="var(--black)"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <circle cx="12" cy="12" r="10" />
-                  <line x1="2" y1="12" x2="22" y2="12" />
-                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                </svg>
-              </a>
-            )}
-            {alfajor.instagram && (
-              <a
-                href={`https://www.instagram.com/${alfajor.instagram}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="var(--black)"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                  <circle cx="12" cy="12" r="4" />
-                  <circle cx="17.5" cy="6.5" r="0.5" fill="var(--black)" />
-                </svg>
-              </a>
-            )}
-            {alfajor.tiktok && (
-              <a
-                href={`https://www.tiktok.com/${alfajor.tiktok}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="var(--black)"
-                >
-                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z" />
-                </svg>
-              </a>
-            )}
+          <div className="alfajor-detail-info">
+            <p className="title">{selectedAlfajor.name}</p>
+            <div className="alfajor-detail-meta">
+              <img
+                className="alfajor-detail-flag"
+                src={selectedAlfajor.flag}
+                alt="Bandera"
+              />
+              <span>{selectedAlfajor.weight}g</span>
+              <span>{selectedAlfajor.calories} Cal</span>
+            </div>
+            <p className="alfajor-detail-tagline">
+              <strong>{selectedAlfajor.tagline}</strong>
+            </p>
+            <p className="alfajor-detail-description">
+              {selectedAlfajor.description}
+            </p>
+            <div className="alfajor-detail-footer">
+              <div className="alfajor-detail-socials">
+                {selectedAlfajor.website && (
+                  <a
+                    href={selectedAlfajor.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="var(--black)"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <circle cx="12" cy="12" r="10" />
+                      <line x1="2" y1="12" x2="22" y2="12" />
+                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                    </svg>
+                  </a>
+                )}
+                {selectedAlfajor.instagram && (
+                  <a
+                    href={`https://www.instagram.com/${selectedAlfajor.instagram}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="var(--black)"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                      <circle cx="12" cy="12" r="4" />
+                      <circle cx="17.5" cy="6.5" r="0.5" fill="var(--black)" />
+                    </svg>
+                  </a>
+                )}
+                {selectedAlfajor.tiktok && (
+                  <a
+                    href={`https://www.tiktok.com/${selectedAlfajor.tiktok}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="var(--black)"
+                    >
+                      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z" />
+                    </svg>
+                  </a>
+                )}
+              </div>
+              <AddFavoritesButton
+                active={selectedAlfajor.isFav}
+                onChange={(like) => onFavChange(selectedAlfajor.id, like)}
+              />
+            </div>
           </div>
-          <AddFavoritesButton
-            active={alfajor.isFav}
-            onChange={(like) => onFavChange(alfajor.id, like)}
-          />
-        </div>
-      </div>
+        </>
+      ) : (
+        <p className="no-results">Alfajor no encontrado</p>
+      )}
     </div>
   );
 }

@@ -1,7 +1,8 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import { alfajoresData, socialPosts } from "../Assets/Data.js";
+import { useEffect, useRef, useState } from "react";
+import { socialPosts } from "../Assets/Data.js";
 import { useAuth } from "../Hooks/useAuth.js";
 import { useFilteredData } from "../Hooks/useFilteredData.js";
+import { useAlfajores } from "../Hooks/useAlfajores.js";
 import ProtectedPath from "../Context/ProtectedRoute.jsx";
 import Footer from "../Components/General/Footer.jsx";
 import Header from "../Components/General/Header.jsx";
@@ -19,15 +20,11 @@ function Home() {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState(null);
   const [searchContent, setSearchContent] = useState("");
-  const [alfajores, setAlfajores] = useState(alfajoresData);
+  const { alfajores, favoriteAlfajores, toggleFavoriteAlfajor } = useAlfajores();
   const modalOpenRef = useRef(false);
   const userRef = useRef(null);
   const { user } = useAuth();
   const filtered = useFilteredData(alfajores, searchContent);
-  const favorites = useMemo(
-    () => alfajores.filter((a) => a.isFav),
-    [alfajores],
-  );
 
   useEffect(() => {
     modalOpenRef.current = modalOpen;
@@ -44,15 +41,13 @@ function Home() {
 
   function setFavAlfajor(id, like) {
     if (userRef.current) {
-      setAlfajores((prev) =>
-        prev.map((a) => (a.id === id ? { ...a, isFav: like } : a)),
-      );
+      toggleFavoriteAlfajor(id, like);
     } else {
       if (modalOpenRef.current) {
         const alfajor = alfajores.find((a) => a.id === id);
         onModalOpen(
           <ProtectedPath onModalOpen={onModalOpen} closeModal={setModalOpen}>
-            <AlfajorModal alfajor={alfajor} onFavChange={setFavAlfajor} />
+            <AlfajorModal alfajorId={alfajor.id} onFavChange={setFavAlfajor} />
           </ProtectedPath>,
         );
       } else {
@@ -70,7 +65,7 @@ function Home() {
           onModalOpen(
             <ProtectedPath onModalOpen={onModalOpen} closeModal={setModalOpen}>
               <FavoriteModal
-                alfajores={favorites}
+                alfajores={favoriteAlfajores}
                 setFavAlfajor={setFavAlfajor}
                 onModalOpen={onModalOpen}
               />
@@ -90,7 +85,7 @@ function Home() {
             onClick={() =>
               onModalOpen(
                 <AlfajorModal
-                  alfajor={alfajores[2]}
+                  alfajorId={alfajores[2].id}
                   onFavChange={setFavAlfajor}
                 />,
               )
@@ -134,7 +129,10 @@ function Home() {
             data={alfajores}
             onClick={(alfajor) =>
               onModalOpen(
-                <AlfajorModal alfajor={alfajor} onFavChange={setFavAlfajor} />,
+                <AlfajorModal
+                  alfajorId={alfajor.id}
+                  onFavChange={setFavAlfajor}
+                />,
               )
             }
             onFavChange={setFavAlfajor}
@@ -156,7 +154,10 @@ function Home() {
             data={alfajores}
             onClick={(alfajor) =>
               onModalOpen(
-                <AlfajorModal alfajor={alfajor} onFavChange={setFavAlfajor} />,
+                <AlfajorModal
+                  alfajorId={alfajor.id}
+                  onFavChange={setFavAlfajor}
+                />,
               )
             }
             onFavChange={setFavAlfajor}
@@ -178,7 +179,10 @@ function Home() {
             data={alfajores}
             onClick={(alfajor) =>
               onModalOpen(
-                <AlfajorModal alfajor={alfajor} onFavChange={setFavAlfajor} />,
+                <AlfajorModal
+                  alfajorId={alfajor.id}
+                  onFavChange={setFavAlfajor}
+                />,
               )
             }
             onFavChange={setFavAlfajor}
@@ -209,7 +213,10 @@ function Home() {
             alfajores={filtered}
             onClick={(alfajor) =>
               onModalOpen(
-                <AlfajorModal alfajor={alfajor} onFavChange={setFavAlfajor} />,
+                <AlfajorModal
+                  alfajorId={alfajor.id}
+                  onFavChange={setFavAlfajor}
+                />,
               )
             }
             onFavChange={setFavAlfajor}
@@ -220,7 +227,9 @@ function Home() {
 
       <section className="contacto">
         <div className="contacto-top">
-          <p className="small-title white-text">Nuestra ambición no tiene freno.</p>
+          <p className="small-title white-text">
+            Nuestra ambición no tiene freno.
+          </p>
         </div>
         <div className="contacto-main">
           <div className="contacto-left">
@@ -255,7 +264,7 @@ function Home() {
           onModalOpen(
             <ProtectedPath onModalOpen={onModalOpen} closeModal={setModalOpen}>
               <FavoriteModal
-                alfajores={favorites}
+                alfajores={favoriteAlfajores}
                 setFavAlfajor={setFavAlfajor}
                 onModalOpen={onModalOpen}
               />
