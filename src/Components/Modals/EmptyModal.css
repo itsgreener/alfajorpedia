@@ -25,16 +25,12 @@
   height: 2vw;
   margin: 2vh 2vh;
   border: none;
-  background-color: var(--white);
+  background-color: var(--light-gray);
   cursor: pointer;
   font-size: var(--text);
   align-items: center;
   color: var(--black);
   transition: background-color 0.2s;
-}
-
-.modal-close:hover {
-  background-color: var(--light-gray);
 }
 
 .modal-content {

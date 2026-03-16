@@ -5,7 +5,7 @@ function EmptyModal({ onClose, children }) {
     <div className="modal-overlay" onClick={() => onClose()}>
       <div className="modal-container" onClick={(e) => e.stopPropagation()}>
         <button
-          className="modal-close"
+          className="modal-close hover"
           onClick={() => onClose()}
           aria-label="Cerrar"
         >
