@@ -39,6 +39,11 @@ function Home() {
     setModalContent(content);
   }
 
+  function onModalClose() {
+    setModalOpen(false);
+    setModalContent(null);
+  }
+
   function setFavAlfajor(id, like) {
     if (userRef.current) {
       toggleFavoriteAlfajor(id, like);
@@ -46,13 +51,13 @@ function Home() {
       if (modalOpenRef.current) {
         const alfajor = alfajores.find((a) => a.id === id);
         onModalOpen(
-          <ProtectedPath onModalOpen={onModalOpen} closeModal={setModalOpen}>
+          <ProtectedPath onModalOpen={onModalOpen} closeModal={onModalClose}>
             <AlfajorModal alfajorId={alfajor.id} onFavChange={setFavAlfajor} />
           </ProtectedPath>,
         );
       } else {
         onModalOpen(
-          <LoginModal onModalOpen={onModalOpen} closeModal={setModalOpen} />,
+          <LoginModal onModalOpen={onModalOpen} closeModal={onModalClose} />,
         );
       }
     }
@@ -63,7 +68,7 @@ function Home() {
       <Header
         onFavoriteClick={() =>
           onModalOpen(
-            <ProtectedPath onModalOpen={onModalOpen} closeModal={setModalOpen}>
+            <ProtectedPath onModalOpen={onModalOpen} closeModal={onModalClose}>
               <FavoriteModal
                 setFavAlfajor={setFavAlfajor}
                 onModalOpen={onModalOpen}
@@ -73,7 +78,7 @@ function Home() {
         }
         onSubscribeClick={() =>
           onModalOpen(
-            <LoginModal onModalOpen={onModalOpen} closeModal={setModalOpen} />,
+            <LoginModal onModalOpen={onModalOpen} closeModal={onModalClose} />,
           )
         }
       />
@@ -261,7 +266,7 @@ function Home() {
       <Footer
         onFavoriteClick={() =>
           onModalOpen(
-            <ProtectedPath onModalOpen={onModalOpen} closeModal={setModalOpen}>
+            <ProtectedPath onModalOpen={onModalOpen} closeModal={onModalClose}>
               <FavoriteModal
                 setFavAlfajor={setFavAlfajor}
                 onModalOpen={onModalOpen}
@@ -271,12 +276,12 @@ function Home() {
         }
         onSubscribeClick={() =>
           onModalOpen(
-            <LoginModal onModalOpen={onModalOpen} closeModal={setModalOpen} />,
+            <LoginModal onModalOpen={onModalOpen} closeModal={onModalClose} />,
           )
         }
       />
       {modalOpen && (
-        <EmptyModal onClose={() => setModalOpen(false)}>
+        <EmptyModal onClose={onModalClose}>
           {modalContent}
         </EmptyModal>
       )}

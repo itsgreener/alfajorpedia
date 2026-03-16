@@ -22,7 +22,7 @@ function LoginModal({ onModalOpen, closeModal, protectedNode = null }) {
         onSubmit={(e) => {
           e.preventDefault();
           login({ email, password });
-          !protectedNode && closeModal(false);
+          !protectedNode && closeModal();
         }}
       >
         <input

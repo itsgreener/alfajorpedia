@@ -46,7 +46,7 @@ function RegisterModal({ onModalOpen, closeModal, protectedNode = null }) {
     }
 
     register({ email, password });
-    protectedNode ? onModalOpen(protectedNode) : closeModal(false);
+    protectedNode ? onModalOpen(protectedNode) : closeModal();
   }
 
   return (
