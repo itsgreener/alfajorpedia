@@ -20,7 +20,7 @@ function Home() {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState(null);
   const [searchContent, setSearchContent] = useState("");
-  const { alfajores, favoriteAlfajores, toggleFavoriteAlfajor } = useAlfajores();
+  const { alfajores, toggleFavoriteAlfajor } = useAlfajores();
   const modalOpenRef = useRef(false);
   const userRef = useRef(null);
   const { user } = useAuth();
@@ -65,7 +65,6 @@ function Home() {
           onModalOpen(
             <ProtectedPath onModalOpen={onModalOpen} closeModal={setModalOpen}>
               <FavoriteModal
-                alfajores={favoriteAlfajores}
                 setFavAlfajor={setFavAlfajor}
                 onModalOpen={onModalOpen}
               />
@@ -264,7 +263,6 @@ function Home() {
           onModalOpen(
             <ProtectedPath onModalOpen={onModalOpen} closeModal={setModalOpen}>
               <FavoriteModal
-                alfajores={favoriteAlfajores}
                 setFavAlfajor={setFavAlfajor}
                 onModalOpen={onModalOpen}
               />
