@@ -30,7 +30,6 @@
   font-size: var(--text);
   align-items: center;
   color: var(--black);
-  transition: background-color 0.2s;
 }
 
 .modal-content {

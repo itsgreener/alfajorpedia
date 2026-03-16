@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { socialPosts } from "../Assets/Data.js";
 import { useAuth } from "../Hooks/useAuth.js";
-import { useFilteredData } from "../Hooks/useFilteredData.js";
 import { useAlfajores } from "../Hooks/useAlfajores.js";
+import { useFilteredData } from "../Hooks/useFilteredData.js";
+import { useModalStack } from "../Hooks/useModalStack.js";
 import ProtectedPath from "../Context/ProtectedRoute.jsx";
 import Footer from "../Components/General/Footer.jsx";
 import Header from "../Components/General/Header.jsx";
@@ -17,47 +18,34 @@ import SearchInput from "../Components/Groups/SearchInput.jsx";
 import "./Home.css";
 
 function Home() {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [modalContent, setModalContent] = useState(null);
-  const [searchContent, setSearchContent] = useState("");
+  const { stack, pushModal, clearModalStack } = useModalStack();
+  const currentModal = stack[stack.length - 1] ?? null;
   const { alfajores, toggleFavoriteAlfajor } = useAlfajores();
-  const modalOpenRef = useRef(false);
-  const userRef = useRef(null);
   const { user } = useAuth();
+  const userRef = useRef(null);
+  const [searchContent, setSearchContent] = useState("");
   const filtered = useFilteredData(alfajores, searchContent);
 
-  useEffect(() => {
-    modalOpenRef.current = modalOpen;
-  }, [modalOpen]);
+  console.log(currentModal);
 
   useEffect(() => {
     userRef.current = user;
   }, [user]);
 
-  function onModalOpen(content) {
-    setModalOpen(true);
-    setModalContent(content);
-  }
-
-  function onModalClose() {
-    setModalOpen(false);
-    setModalContent(null);
-  }
-
   function setFavAlfajor(id, like) {
     if (userRef.current) {
       toggleFavoriteAlfajor(id, like);
     } else {
-      if (modalOpenRef.current) {
+      if (currentModal) {
         const alfajor = alfajores.find((a) => a.id === id);
-        onModalOpen(
-          <ProtectedPath onModalOpen={onModalOpen} closeModal={onModalClose}>
+        pushModal(
+          <ProtectedPath onModalOpen={pushModal} closeModal={clearModalStack}>
             <AlfajorModal alfajorId={alfajor.id} onFavChange={setFavAlfajor} />
           </ProtectedPath>,
         );
       } else {
-        onModalOpen(
-          <LoginModal onModalOpen={onModalOpen} closeModal={onModalClose} />,
+        pushModal(
+          <LoginModal onModalOpen={pushModal} closeModal={clearModalStack} />,
         );
       }
     }
@@ -67,18 +55,18 @@ function Home() {
     <>
       <Header
         onFavoriteClick={() =>
-          onModalOpen(
-            <ProtectedPath onModalOpen={onModalOpen} closeModal={onModalClose}>
+          pushModal(
+            <ProtectedPath onModalOpen={pushModal} closeModal={clearModalStack}>
               <FavoriteModal
                 setFavAlfajor={setFavAlfajor}
-                onModalOpen={onModalOpen}
+                onModalOpen={pushModal}
               />
             </ProtectedPath>,
           )
         }
         onSubscribeClick={() =>
-          onModalOpen(
-            <LoginModal onModalOpen={onModalOpen} closeModal={onModalClose} />,
+          pushModal(
+            <LoginModal onModalOpen={pushModal} closeModal={clearModalStack} />,
           )
         }
       />
@@ -87,7 +75,7 @@ function Home() {
           <div
             className="header-content-row"
             onClick={() =>
-              onModalOpen(
+              pushModal(
                 <AlfajorModal
                   alfajorId={alfajores[2].id}
                   onFavChange={setFavAlfajor}
@@ -132,7 +120,7 @@ function Home() {
             amount={3}
             data={alfajores}
             onClick={(alfajor) =>
-              onModalOpen(
+              pushModal(
                 <AlfajorModal
                   alfajorId={alfajor.id}
                   onFavChange={setFavAlfajor}
@@ -157,7 +145,7 @@ function Home() {
             amount={4}
             data={alfajores}
             onClick={(alfajor) =>
-              onModalOpen(
+              pushModal(
                 <AlfajorModal
                   alfajorId={alfajor.id}
                   onFavChange={setFavAlfajor}
@@ -182,7 +170,7 @@ function Home() {
             amount={4}
             data={alfajores}
             onClick={(alfajor) =>
-              onModalOpen(
+              pushModal(
                 <AlfajorModal
                   alfajorId={alfajor.id}
                   onFavChange={setFavAlfajor}
@@ -216,7 +204,7 @@ function Home() {
           <Catalog
             alfajores={filtered}
             onClick={(alfajor) =>
-              onModalOpen(
+              pushModal(
                 <AlfajorModal
                   alfajorId={alfajor.id}
                   onFavChange={setFavAlfajor}
@@ -265,25 +253,23 @@ function Home() {
 
       <Footer
         onFavoriteClick={() =>
-          onModalOpen(
-            <ProtectedPath onModalOpen={onModalOpen} closeModal={onModalClose}>
+          pushModal(
+            <ProtectedPath onModalOpen={pushModal} closeModal={clearModalStack}>
               <FavoriteModal
                 setFavAlfajor={setFavAlfajor}
-                onModalOpen={onModalOpen}
+                onModalOpen={pushModal}
               />
             </ProtectedPath>,
           )
         }
         onSubscribeClick={() =>
-          onModalOpen(
-            <LoginModal onModalOpen={onModalOpen} closeModal={onModalClose} />,
+          pushModal(
+            <LoginModal onModalOpen={pushModal} closeModal={clearModalStack} />,
           )
         }
       />
-      {modalOpen && (
-        <EmptyModal onClose={onModalClose}>
-          {modalContent}
-        </EmptyModal>
+      {currentModal && (
+        <EmptyModal onClose={clearModalStack}>{currentModal}</EmptyModal>
       )}
     </>
   );

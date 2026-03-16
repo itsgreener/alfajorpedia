@@ -5,13 +5,16 @@ import App from "./App.jsx";
 import AuthProvider from "./Context/AuthProvider.jsx";
 import AlfajoresProvider from "./Context/AlfajoresProvider.jsx";
 import "./index.css";
+import ModalProvider from "./Context/ModalProvider.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
       <AuthProvider>
         <AlfajoresProvider>
-          <App />
+          <ModalProvider>
+            <App />
+          </ModalProvider>
         </AlfajoresProvider>
       </AuthProvider>
     </BrowserRouter>
