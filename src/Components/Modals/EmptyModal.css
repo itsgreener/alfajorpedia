@@ -21,15 +21,15 @@
 
 .modal-close {
   position: absolute;
-  width: 3vw;
-  height: 3vw;
-  border-radius: 25px;
+  width: 2vw;
+  height: 2vw;
+  margin: 2vh 2vh;
   border: none;
   background-color: var(--white);
   cursor: pointer;
-  font-size: var(--big-text);
+  font-size: var(--text);
   align-items: center;
-  color: var(--dark-gray);
+  color: var(--black);
   transition: background-color 0.2s;
 }
 
