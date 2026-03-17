@@ -2,6 +2,11 @@ const mysql = require("mysql2/promise");
 const bcrypt = require("bcrypt");
 const express = require("express");
 require("dotenv").config();
+const API_KEY = process.env.MAILCHIMP_API_KEY;
+const LIST_ID = process.env.MAILCHIMP_LIST_ID;
+const DC = process.env.MAILCHIMP_DC;
+
+
 
 const app = express();
 
@@ -77,6 +82,7 @@ app.post("/sync-alfajores", auth, async (req, res) => {
       r.nombre_alfajor,
       r.pais,
       r.puntuacion,
+      r.calorias,
       r.descripcion,
       r.imagen_url,
       r.img_bandera_url,
@@ -155,6 +161,52 @@ app.post("/sync-usuarios", auth, async (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
+
+app.post("/api/subscribe", async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (!email || typeof email !== "string") {
+      return res.status(400).json({ error: "email requerido" });
+    }
+
+    const response = await fetch(
+      `https://${DC}.api.mailchimp.com/3.0/lists/${LIST_ID}/members`,
+      {
+        method: "POST",
+        headers: {
+          Authorization:
+            "Basic " +
+            Buffer.from(`anystring:${API_KEY}`).toString("base64"),
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email_address: email.trim().toLowerCase(),
+          status: "pending",
+        }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      return res.status(response.status).json({
+        error: data.detail || "error mailchimp",
+      });
+    }
+
+    return res.status(200).json({
+      ok: true,
+      message: "suscripción creada",
+      data,
+    });
+  } catch (e) {
+    return res.status(500).json({
+      error: "server error",
+      detail: e.message,
+    });
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
