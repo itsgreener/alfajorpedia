@@ -1,18 +1,16 @@
 import { useState, useRef } from "react";
-import { useFilteredData } from "../../Hooks/useFilteredData";
 import AlfajorCard from "../Cards/AlfajorCard";
 import "./Catalog.css";
 
 
 export default function Catalog({ alfajores, onClick, onFavChange, items }) {
-  const { filteredData } = useFilteredData(alfajores);
   const [currentPage, setCurrentPage] = useState(1);
   const ref = useRef(null);
 
-  const totalPages = Math.ceil(filteredData.length / items);
+  const totalPages = Math.ceil(alfajores.length / items);
   const startIndex = (currentPage - 1) * items;
   const endIndex = startIndex + items;
-  const currentItems = filteredData.slice(startIndex, endIndex);
+  const currentItems = alfajores.slice(startIndex, endIndex);
 
   function scrollToTop() {
     ref.current.scrollIntoView();

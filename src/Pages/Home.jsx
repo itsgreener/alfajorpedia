@@ -1,7 +1,10 @@
 import { useEffect, useRef } from "react";
 import { socialPosts } from "../Assets/Data.js";
 import { useAuthData } from "../Hooks/useAuth.js";
-import { useAlfajoresActions, useAlfajoresData } from "../Hooks/useAlfajores.js";
+import {
+  useAlfajoresActions,
+  useAlfajoresData,
+} from "../Hooks/useAlfajores.js";
 import { useModalStack } from "../Hooks/useModalStack.js";
 import ProtectedPath from "../Context/ProtectedRoute.jsx";
 import Footer from "../Components/General/Footer.jsx";
@@ -12,8 +15,7 @@ import AlfajorModal from "../Components/Modals/AlfajorModal.jsx";
 import EmptyModal from "../Components/Modals/EmptyModal.jsx";
 import FavoriteModal from "../Components/Modals/FavoriteModal.jsx";
 import LoginModal from "../Components/Modals/LoginModal.jsx";
-import Catalog from "../Components/Groups/Catalog.jsx";
-import SearchInput from "../Components/Groups/SearchInput.jsx";
+import CatalogSection from "../Components/Groups/CatalogSection.jsx";
 import "./Home.css";
 
 function Home() {
@@ -189,29 +191,7 @@ function Home() {
         <p className="title">Nostalgia</p>
       </section>
 
-      <section>
-        <div className="catalogo" id="catalog">
-          <p className="big-title white-text catalogo-title">
-            {alfajores.length} alfajores
-          </p>
-          <SearchInput />
-        </div>
-        <div className="catalog-content">
-          <Catalog
-          alfajores={alfajores}
-            onClick={(alfajor) =>
-              pushModal(
-                <AlfajorModal
-                  alfajorId={alfajor.id}
-                  onFavChange={setFavAlfajor}
-                />,
-              )
-            }
-            onFavChange={setFavAlfajor}
-            items={20}
-          />
-        </div>
-      </section>
+      <CatalogSection alfajores={alfajores} setFavAlfajor={setFavAlfajor} />
 
       <section className="contacto">
         <div className="contacto-top">

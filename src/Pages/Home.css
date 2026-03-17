@@ -94,25 +94,6 @@
   margin: 6% 4.5%;
 }
 
-.catalogo {
-  background: var(--black);
-  width: 100%;
-  display: flex;
-  align-items: center;
-  padding: 6vh 4.5%;
-  box-sizing: border-box;
-}
-.catalogo-title {
-  width: 50%;
-  line-height: 1;
-}
-
-.catalog-content {
-  max-width: 2560px;
-  margin: 0 auto;
-  padding: 2.5% 4.5%;
-}
-
 .contacto {
   display: flex;
   flex-direction: column;
