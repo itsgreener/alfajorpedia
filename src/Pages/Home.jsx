@@ -21,12 +21,12 @@ import "./Home.css";
 function Home() {
   const { stack, pushModal } = useModalStack();
   const currentModal = stack[stack.length - 1] ?? null;
+  const currentModalRef = useRef(currentModal);
   const { toggleFavoriteAlfajor } = useAlfajoresActions();
   const { alfajores } = useAlfajoresData();
   const { user } = useAuthData();
   const userRef = useRef(null);
   const favAlfajorRef = useRef(null);
-  const currentModalRef = useRef(currentModal);
 
   const setFavAlfajor = useCallback(
     (id, like) => {
@@ -123,14 +123,6 @@ function Home() {
           <AlfajorGroup
             amount={3}
             data={alfajores}
-            onClick={(alfajor) =>
-              pushModal(
-                <AlfajorModal
-                  alfajorId={alfajor.id}
-                  onFavChange={setFavAlfajor}
-                />,
-              )
-            }
             onFavChange={setFavAlfajor}
           />
         </section>
@@ -148,14 +140,6 @@ function Home() {
           <AlfajorGroup
             amount={4}
             data={alfajores}
-            onClick={(alfajor) =>
-              pushModal(
-                <AlfajorModal
-                  alfajorId={alfajor.id}
-                  onFavChange={setFavAlfajor}
-                />,
-              )
-            }
             onFavChange={setFavAlfajor}
           />
         </section>
@@ -173,14 +157,6 @@ function Home() {
           <AlfajorGroup
             amount={4}
             data={alfajores}
-            onClick={(alfajor) =>
-              pushModal(
-                <AlfajorModal
-                  alfajorId={alfajor.id}
-                  onFavChange={setFavAlfajor}
-                />,
-              )
-            }
             onFavChange={setFavAlfajor}
           />
         </section>

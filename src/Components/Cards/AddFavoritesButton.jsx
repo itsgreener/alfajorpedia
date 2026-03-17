@@ -3,8 +3,7 @@ import "./AddFavoritesButton.css";
 function AddFavoritesButton({ active = false, onChange }) {
   const toggle = (e) => {
     e.stopPropagation();
-    const next = !active;
-    onChange?.(next);
+    onChange?.(!active);
   };
 
   return (
