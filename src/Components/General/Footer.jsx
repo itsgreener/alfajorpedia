@@ -1,6 +1,40 @@
 import "./Footer.css";
+import { useState } from "react";
 
 function Footer({ onSubscribeClick, onFavoriteClick }) {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState("");
+
+async function handleNewsletterSubmit(e) {
+  e.preventDefault();
+
+  try {
+    const res = await fetch("https://alfajorpedia.com/api/subscribe", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email: email
+      })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      setStatus("error");
+      return;
+    }
+
+    setStatus("ok");
+    setEmail("");
+
+  } catch (err) {
+    console.error(err);
+    setStatus("error");
+  }
+}
+
   return (
     <footer className="footer-bg">
       <div className="footer">
@@ -9,15 +43,38 @@ function Footer({ onSubscribeClick, onFavoriteClick }) {
             <div className="footer-brand white-text">
               <strong>Alfajorpedia.</strong> Contenido del que importa.
             </div>
-            <div>
+
+            <div className="footer-newsletter">
               <p className="white-text newsletter-title">
                 <strong>Recibe nuestra newsletter</strong>
               </p>
-              <div className="footer-newsletter-input">
-                <input type="email" placeholder="Introduce tu email" />
-                <button type="button">&gt;</button>
-              </div>
+
+              <form
+                className="footer-newsletter-input"
+                onSubmit={handleNewsletterSubmit}
+              >
+                <input
+                  type="email"
+                  placeholder="Introduce tu email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+                <button type="submit">&gt;</button>
+              </form>
+
+              {status === "ok" && (
+                <p className="white-text newsletter-message">
+                  Revisa tu email para confirmar la suscripción.
+                </p>
+              )}
+              {status === "error" && (
+                <p className="white-text newsletter-message">
+                  No se pudo completar la suscripción.
+                </p>
+              )}
             </div>
+
             <div className="footer-social">
               <a
                 href="https://www.instagram.com/itsgreenerhere/"

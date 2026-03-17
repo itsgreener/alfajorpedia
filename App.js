@@ -2,11 +2,10 @@ const mysql = require("mysql2/promise");
 const bcrypt = require("bcrypt");
 const express = require("express");
 require("dotenv").config();
+
 const API_KEY = process.env.MAILCHIMP_API_KEY;
 const LIST_ID = process.env.MAILCHIMP_LIST_ID;
 const DC = process.env.MAILCHIMP_DC;
-
-
 
 const app = express();
 
