@@ -1,23 +1,25 @@
-import { useState } from "react";
-import { AuthContext } from "./AuthContext.js";
+import { useCallback, useState } from "react";
+import { AuthDataContext, AuthActionsContext } from "./CreateContext.js";
 
 function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
 
-  const login = (userData) => {
+  const login = useCallback((userData) => {
     setUser(userData);
     console.log("Login successful! " + userData.email + " is logged in.");
-  };
-  const logout = () => setUser(null);
-  const register = (userData) => {
+  }, []);
+  const logout = useCallback(() => setUser(null), []);
+  const register = useCallback((userData) => {
     setUser(userData);
     console.log("Registering user: ", userData.email);
-  };
-  
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ user, login, logout, register }}>
-      {children}
-    </AuthContext.Provider>
+    <AuthDataContext.Provider value={{ user }}>
+      <AuthActionsContext.Provider value={{ login, logout, register }}>
+        {children}
+      </AuthActionsContext.Provider>
+    </AuthDataContext.Provider>
   );
 }
 

@@ -1,23 +1,19 @@
-import { useState } from "react";
-import { ModalContext } from "./ModalContext.js";
+import { useCallback, useState } from "react";
+import { ModalContext } from "./CreateContext.js";
 
 function ModalProvider({ children }) {
   const [stack, setStack] = useState([]);
 
-  const pushModal = (modal) => setStack((prev) => [...prev, modal]);
-  const popModal = () => setStack((prev) => prev.slice(0, -1));
-  const clearModalStack = () => setStack([]);
-
-  console.log(stack, stack[stack.length - 1]);
+  const pushModal = useCallback(
+    (modal) => setStack((prev) => [...prev, modal]),
+    [],
+  );
+  const popModal = useCallback(() => setStack((prev) => prev.slice(0, -1)), []);
+  const clearModalStack = useCallback(() => setStack([]), []);
 
   return (
     <ModalContext.Provider
-      value={{
-        stack,
-        pushModal,
-        popModal,
-        clearModalStack,
-      }}
+      value={{ stack, pushModal, popModal, clearModalStack }}
     >
       {children}
     </ModalContext.Provider>

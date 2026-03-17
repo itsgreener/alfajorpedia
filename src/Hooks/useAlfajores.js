@@ -1,6 +1,10 @@
 import { useContext } from "react";
-import { AlfajoresContext } from "../Context/AlfajoresContext.js";
+import { AlfajoresDataContext, AlfajoresActionsContext } from "../Context/CreateContext.js";
 
-export function useAlfajores() {
-  return useContext(AlfajoresContext);
+export function useAlfajoresData() {
+  return useContext(AlfajoresDataContext);
+}
+
+export function useAlfajoresActions() {
+  return useContext(AlfajoresActionsContext);
 }

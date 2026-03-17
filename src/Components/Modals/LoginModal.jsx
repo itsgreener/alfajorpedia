@@ -1,12 +1,27 @@
 import { useState } from "react";
-import { useAuth } from "../../Hooks/useAuth";
+import { useAuthActions } from "../../Hooks/useAuth";
 import RegisterModal from "./RegisterModal";
 import "./LoginModal.css";
+import { validate } from "../../Hooks/useValidation";
 
 function LoginModal({ onModalOpen, closeModal, protectedNode = null }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login } = useAuth();
+  const [errors, setErrors] = useState({});
+  const { login } = useAuthActions();
+
+  function onSubmit(e) {
+    e.preventDefault();
+    const newErrors = validate(email, password);
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    login({ email, password });
+    !protectedNode && closeModal();
+  }
 
   return (
     <div className="login-wrapper">
@@ -18,11 +33,10 @@ function LoginModal({ onModalOpen, closeModal, protectedNode = null }) {
         </span>
       </p>
       <form
+        noValidate
         className="login-form"
         onSubmit={(e) => {
-          e.preventDefault();
-          login({ email, password });
-          !protectedNode && closeModal();
+          onSubmit(e);
         }}
       >
         <input
@@ -45,6 +59,13 @@ function LoginModal({ onModalOpen, closeModal, protectedNode = null }) {
           Ingresar
         </button>
       </form>
+      {(errors.email || errors.password || errors.checked) && (
+        <div className="login-error">
+          {errors.email && <p>{errors.email}</p>}
+          {errors.password && <p>{errors.password}</p>}
+          {errors.checked && <p>{errors.checked}</p>}
+        </div>
+      )}
       <p className="login-footer">
         o{" "}
         <button

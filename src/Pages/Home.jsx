@@ -1,8 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { socialPosts } from "../Assets/Data.js";
-import { useAuth } from "../Hooks/useAuth.js";
-import { useAlfajores } from "../Hooks/useAlfajores.js";
-import { useFilteredData } from "../Hooks/useFilteredData.js";
+import { useAuthData } from "../Hooks/useAuth.js";
+import { useAlfajoresActions, useAlfajoresData } from "../Hooks/useAlfajores.js";
 import { useModalStack } from "../Hooks/useModalStack.js";
 import ProtectedPath from "../Context/ProtectedRoute.jsx";
 import Footer from "../Components/General/Footer.jsx";
@@ -20,13 +19,10 @@ import "./Home.css";
 function Home() {
   const { stack, pushModal, clearModalStack } = useModalStack();
   const currentModal = stack[stack.length - 1] ?? null;
-  const { alfajores, toggleFavoriteAlfajor } = useAlfajores();
-  const { user } = useAuth();
+  const { toggleFavoriteAlfajor } = useAlfajoresActions();
+  const { alfajores } = useAlfajoresData();
+  const { user } = useAuthData();
   const userRef = useRef(null);
-  const [searchContent, setSearchContent] = useState("");
-  const filtered = useFilteredData(alfajores, searchContent);
-
-  console.log(currentModal);
 
   useEffect(() => {
     userRef.current = user;
@@ -198,11 +194,11 @@ function Home() {
           <p className="big-title white-text catalogo-title">
             {alfajores.length} alfajores
           </p>
-          <SearchInput onChange={setSearchContent} />
+          <SearchInput />
         </div>
         <div className="catalog-content">
           <Catalog
-            alfajores={filtered}
+          alfajores={alfajores}
             onClick={(alfajor) =>
               pushModal(
                 <AlfajorModal

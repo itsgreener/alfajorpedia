@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../Hooks/useAuth.js";
-import LoginModal from "./LoginModal.jsx";
-import ProtectedPath from "../../Context/ProtectedRoute.jsx";
+import { useAuthActions } from "../../Hooks/useAuth.js";
+import { validate } from "../../Hooks/useValidation.js";
 import "./RegisterModal.css";
 
 function RegisterModal({ onModalOpen, closeModal, protectedNode = null }) {
@@ -10,35 +9,12 @@ function RegisterModal({ onModalOpen, closeModal, protectedNode = null }) {
   const [password, setPassword] = useState("");
   const [checked, setChecked] = useState(false);
   const [errors, setErrors] = useState({});
-  const { register } = useAuth();
+  const { register } = useAuthActions();
   const navigate = useNavigate();
-
-  function validate() {
-    const newErrors = {};
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!email) {
-      newErrors.email = "El email es obligatorio";
-    } else if (!emailRegex.test(email)) {
-      newErrors.email = "El email no es válido";
-    }
-
-    if (!password) {
-      newErrors.password = "La contraseña es obligatoria";
-    } else if (password.length < 7) {
-      newErrors.password = "La contraseña debe tener al menos 7 caracteres";
-    }
-
-    if (!checked) {
-      newErrors.checked = "Debes aceptar la política de privacidad";
-    }
-
-    return newErrors;
-  }
 
   function onSubmit(e) {
     e.preventDefault();
-    const newErrors = validate();
+    const newErrors = validate(email, password, checked);
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);

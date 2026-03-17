@@ -1,9 +1,12 @@
+import { useFilteredData } from "../../Hooks/useFilteredData";
 import "./SearchInput.css";
 
-function SearchInput({ onChange }) {
+function SearchInput() {
+    const { setSearchContent } = useFilteredData();
+  
   return (
     <div className="catalogo-search">
-      <input type="text" placeholder="Busca tu match" onChange={(e) => onChange(e.target.value)} />
+      <input type="text" placeholder="Busca tu match" onChange={(e) => setSearchContent(e.target.value)} />
       <span className="catalogo-search-divider" />
       <button>
         <svg

@@ -1,10 +1,12 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
-export function useFilteredData(alfajores, searchInput) {
-  return useMemo(() => {
-    if (!searchInput) return alfajores;
-    const q = searchInput.toLowerCase();
-    return alfajores.filter(
+export function useFilteredData(data) {
+  const [searchContent, setSearchContent] = useState("");
+
+  const filteredData = useMemo(() => {
+    if (!searchContent) return data;
+    const q = searchContent.toLowerCase();
+    return data.filter(
       (i) =>
         i.name.toLowerCase().includes(q) ||
         i.description.toLowerCase().includes(q) ||
@@ -14,5 +16,6 @@ export function useFilteredData(alfajores, searchInput) {
         i.brands.some((b) => b.toLowerCase().includes(q)) ||
         i.categories.some((c) => c.toLowerCase().includes(q)),
     );
-  }, [alfajores, searchInput]);
+  }, [data, searchContent]);
+  return { filteredData, setSearchContent };
 }

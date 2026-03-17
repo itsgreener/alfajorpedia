@@ -4,6 +4,7 @@ import "./EmptyModal.css";
 function EmptyModal({ onClose, children }) {
   const { popModal, stack } = useModalStack();
 
+
   return (
     <div className="modal-overlay" onClick={() => onClose()}>
       <div className="modal-container" onClick={(e) => e.stopPropagation()}>

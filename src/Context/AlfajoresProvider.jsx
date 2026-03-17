@@ -1,24 +1,35 @@
-import { useState } from "react";
-import { AlfajoresContext } from "./AlfajoresContext.js";
+import { useCallback, useState } from "react";
+import {
+  AlfajoresDataContext,
+  AlfajoresActionsContext,
+} from "./CreateContext.js";
 import { alfajoresData } from "../Assets/Data.js";
 
 function AlfajoresProvider({ children }) {
   const [alfajores, setAlfajores] = useState(alfajoresData);
 
-  const favoriteAlfajores = alfajores.filter((a) => a.isFav);
-
-  const alfajorById = (id) => alfajores.find((a) => a.id == id);
-
-  const toggleFavoriteAlfajor = (id, like) => {
+  const favoriteAlfajores = useCallback(
+    () => alfajores.filter((a) => a.isFav),
+    [alfajores],
+  );
+  const alfajorById = useCallback(
+    (id) => alfajores.find((a) => a.id == id),
+    [alfajores],
+  );
+  const toggleFavoriteAlfajor = useCallback((id, like) => {
     setAlfajores((prev) =>
       prev.map((a) => (a.id == id ? { ...a, isFav: like } : a)),
     );
-  };
+  }, []);
 
   return (
-    <AlfajoresContext.Provider value={{ alfajores, favoriteAlfajores, alfajorById, toggleFavoriteAlfajor }}>
-      {children}
-    </AlfajoresContext.Provider>
+    <AlfajoresDataContext.Provider
+      value={{ alfajores, favoriteAlfajores, alfajorById }}
+    >
+      <AlfajoresActionsContext.Provider value={{ toggleFavoriteAlfajor }}>
+        {children}
+      </AlfajoresActionsContext.Provider>
+    </AlfajoresDataContext.Provider>
   );
 }
 

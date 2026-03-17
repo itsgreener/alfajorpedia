@@ -65,3 +65,8 @@
 .login-footer a:hover {
   opacity: 0.6;
 }
+
+.login-error {
+  color: red;
+  font-size: var(--text);
+}
