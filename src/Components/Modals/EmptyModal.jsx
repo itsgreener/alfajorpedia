@@ -1,12 +1,11 @@
 import { useModalStack } from "../../Hooks/useModalStack";
 import "./EmptyModal.css";
 
-function EmptyModal({ onClose, children }) {
-  const { popModal, stack } = useModalStack();
-
+function EmptyModal({ children }) {
+  const { stack, popModal, clearModalStack } = useModalStack();
 
   return (
-    <div className="modal-overlay" onClick={() => onClose()}>
+    <div className="modal-overlay" onClick={() => clearModalStack()}>
       <div className="modal-container" onClick={(e) => e.stopPropagation()}>
         {stack.length > 1 ? (
           <button
@@ -19,7 +18,7 @@ function EmptyModal({ onClose, children }) {
         ) : (
           <button
             className="modal-close hover"
-            onClick={() => onClose()}
+            onClick={() => clearModalStack()}
             aria-label="Cerrar"
           >
             ✕

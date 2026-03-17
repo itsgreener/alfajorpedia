@@ -1,9 +1,9 @@
-import { useAlfajoresData } from "../../Hooks/useAlfajores.js";
+import { useAlfajoresActions } from "../../Hooks/useAlfajores.js";
 import AddFavoritesButton from "../Cards/AddFavoritesButton.jsx";
 import "./AlfajorModal.css";
 
 function AlfajorModal({ alfajorId, onFavChange }) {
-  const { alfajorById } = useAlfajoresData();
+  const { alfajorById } = useAlfajoresActions();
   const selectedAlfajor = alfajorById(alfajorId);
 
   return (

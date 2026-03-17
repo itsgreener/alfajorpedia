@@ -1,14 +1,16 @@
 import LoginModal from "../Components/Modals/LoginModal.jsx";
 import { useAuthData } from "../Hooks/useAuth.js";
+import { useModalStack } from "../Hooks/useModalStack.js";
 
-function ProtectedPath({ children, onModalOpen, closeModal }) {
+function ProtectedPath({ children }) {
+  const { pushModal, clearModalStack } = useModalStack();
   const { user } = useAuthData();
   return user ? (
     children
   ) : (
     <LoginModal
-      onModalOpen={onModalOpen}
-      closeModal={closeModal}
+      onModalOpen={pushModal}
+      closeModal={clearModalStack}
       protectedNode={children}
     />
   );

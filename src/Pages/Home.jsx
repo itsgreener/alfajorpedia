@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { socialPosts } from "../Assets/Data.js";
 import { useAuthData } from "../Hooks/useAuth.js";
 import {
@@ -19,42 +19,52 @@ import CatalogSection from "../Components/Groups/CatalogSection.jsx";
 import "./Home.css";
 
 function Home() {
-  const { stack, pushModal, clearModalStack } = useModalStack();
+  const { stack, pushModal } = useModalStack();
   const currentModal = stack[stack.length - 1] ?? null;
   const { toggleFavoriteAlfajor } = useAlfajoresActions();
   const { alfajores } = useAlfajoresData();
   const { user } = useAuthData();
   const userRef = useRef(null);
+  const favAlfajorRef = useRef(null);
+  const currentModalRef = useRef(currentModal);
+
+  const setFavAlfajor = useCallback(
+    (id, like) => {
+      if (userRef.current) {
+        toggleFavoriteAlfajor(id, like);
+      } else {
+        if (currentModalRef.current) {
+          pushModal(
+            <ProtectedPath>
+              <AlfajorModal
+                alfajorId={id}
+                onFavChange={favAlfajorRef.current}
+              />
+            </ProtectedPath>,
+          );
+        } else {
+          pushModal(<LoginModal />);
+        }
+      }
+    },
+    [pushModal, toggleFavoriteAlfajor],
+  );
+
+  useEffect(() => {
+    favAlfajorRef.current = setFavAlfajor;
+    currentModalRef.current = currentModal;
+  }, [setFavAlfajor, currentModal]);
 
   useEffect(() => {
     userRef.current = user;
   }, [user]);
-
-  function setFavAlfajor(id, like) {
-    if (userRef.current) {
-      toggleFavoriteAlfajor(id, like);
-    } else {
-      if (currentModal) {
-        const alfajor = alfajores.find((a) => a.id === id);
-        pushModal(
-          <ProtectedPath onModalOpen={pushModal} closeModal={clearModalStack}>
-            <AlfajorModal alfajorId={alfajor.id} onFavChange={setFavAlfajor} />
-          </ProtectedPath>,
-        );
-      } else {
-        pushModal(
-          <LoginModal onModalOpen={pushModal} closeModal={clearModalStack} />,
-        );
-      }
-    }
-  }
 
   return (
     <>
       <Header
         onFavoriteClick={() =>
           pushModal(
-            <ProtectedPath onModalOpen={pushModal} closeModal={clearModalStack}>
+            <ProtectedPath>
               <FavoriteModal
                 setFavAlfajor={setFavAlfajor}
                 onModalOpen={pushModal}
@@ -62,11 +72,7 @@ function Home() {
             </ProtectedPath>,
           )
         }
-        onSubscribeClick={() =>
-          pushModal(
-            <LoginModal onModalOpen={pushModal} closeModal={clearModalStack} />,
-          )
-        }
+        onSubscribeClick={() => pushModal(<LoginModal />)}
       />
       <div className="body" id="home">
         <section className="card hover">
@@ -230,7 +236,7 @@ function Home() {
       <Footer
         onFavoriteClick={() =>
           pushModal(
-            <ProtectedPath onModalOpen={pushModal} closeModal={clearModalStack}>
+            <ProtectedPath>
               <FavoriteModal
                 setFavAlfajor={setFavAlfajor}
                 onModalOpen={pushModal}
@@ -238,15 +244,9 @@ function Home() {
             </ProtectedPath>,
           )
         }
-        onSubscribeClick={() =>
-          pushModal(
-            <LoginModal onModalOpen={pushModal} closeModal={clearModalStack} />,
-          )
-        }
+        onSubscribeClick={() => pushModal(<LoginModal />)}
       />
-      {currentModal && (
-        <EmptyModal onClose={clearModalStack}>{currentModal}</EmptyModal>
-      )}
+      {currentModal && <EmptyModal>{currentModal}</EmptyModal>}
     </>
   );
 }

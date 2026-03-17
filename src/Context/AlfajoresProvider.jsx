@@ -24,9 +24,9 @@ function AlfajoresProvider({ children }) {
 
   return (
     <AlfajoresDataContext.Provider
-      value={{ alfajores, favoriteAlfajores, alfajorById }}
+      value={{ alfajores }}
     >
-      <AlfajoresActionsContext.Provider value={{ toggleFavoriteAlfajor }}>
+      <AlfajoresActionsContext.Provider value={{ toggleFavoriteAlfajor, favoriteAlfajores, alfajorById }}>
         {children}
       </AlfajoresActionsContext.Provider>
     </AlfajoresDataContext.Provider>

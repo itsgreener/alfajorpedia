@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useAuthActions } from "../../Hooks/useAuth";
 import RegisterModal from "./RegisterModal";
-import "./LoginModal.css";
 import { validate } from "../../Hooks/useValidation";
+import { useModalStack } from "../../Hooks/useModalStack";
+import "./LoginModal.css";
 
-function LoginModal({ onModalOpen, closeModal, protectedNode = null }) {
+function LoginModal({ protectedNode = null }) {
+  const { pushModal, clearModalStack } = useModalStack();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
@@ -20,7 +22,7 @@ function LoginModal({ onModalOpen, closeModal, protectedNode = null }) {
     }
 
     login({ email, password });
-    !protectedNode && closeModal();
+    !protectedNode && clearModalStack();
   }
 
   return (
@@ -70,10 +72,10 @@ function LoginModal({ onModalOpen, closeModal, protectedNode = null }) {
         o{" "}
         <button
           onClick={() =>
-            onModalOpen(
+            pushModal(
               <RegisterModal
-                onModalOpen={onModalOpen}
-                closeModal={closeModal}
+                onModalOpen={pushModal}
+                closeModal={clearModalStack}
                 protectedNode={protectedNode}
               />,
             )

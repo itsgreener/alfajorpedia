@@ -1,7 +1,8 @@
+import { memo } from "react";
 import AddFavoritesButton from "./AddFavoritesButton";
 import "./AlfajorCard.css";
 
-function AlfajorCard({ alfajor, onClick, onFavChange }) {
+const AlfajorCard = memo(({ alfajor, onClick, onFavChange }) => {
   const { id, name, flag, weight, calories, tagline, image, isFav } = alfajor;
 
   return (
@@ -28,6 +29,6 @@ function AlfajorCard({ alfajor, onClick, onFavChange }) {
       </div>
     </div>
   );
-}
+});
 
 export default AlfajorCard;
