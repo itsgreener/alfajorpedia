@@ -74,9 +74,8 @@ function RegisterModal({ onModalOpen, closeModal, protectedNode = null }) {
           </button>
         </section>
 
-        <div className="register-privacy">
-          <label>
-            <input
+          <label className="register-privacy">
+            <input className="register-checkbox"
               type="checkbox"
               checked={checked}
               onChange={(e) => setChecked(e.target.checked)}
@@ -87,7 +86,6 @@ function RegisterModal({ onModalOpen, closeModal, protectedNode = null }) {
               <strong>Política de Privacidad</strong>
             </button>
           </label>
-        </div>
       </form>
 
       {(errors.email || errors.password || errors.checked || serverError) && (

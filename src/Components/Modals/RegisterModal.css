@@ -57,14 +57,12 @@
 .register-privacy {
   display: flex;
   flex-direction: row;
-  gap: 12px;
-}
-
-.register-footer {
+  align-items: center;
+  gap: 8px;
   font-size: var(--subtitle);
 }
 
-.register-footer button {
+.register-privacy button {
   background: none;
   border: none;
   padding: 0;
@@ -79,19 +77,18 @@
   opacity: 0.6;
 }
 
+.register-footer {
+  font-size: var(--subtitle);
+}
+
 .register-checkbox {
-  width: 28px;
-  height: 28px;
+  width: 20px;
+  height: 20px;
   border: 2px solid var(--black);
   border-radius: 6px;
   background-color: var(--white);
   cursor: pointer;
-  padding: 0;
-  display: flex;
   align-items: center;
-  justify-content: center;
-  transition: background-color 0.15s ease;
-  flex-shrink: 0;
 }
 
 .register-checkbox.checked {
