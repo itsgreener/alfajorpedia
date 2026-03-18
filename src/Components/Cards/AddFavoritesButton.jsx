@@ -1,6 +1,10 @@
+import { memo } from "react";
 import "./AddFavoritesButton.css";
 
-function AddFavoritesButton({ active = false, onChange }) {
+const AddFavoritesButton = memo(function AddFavoritesButton({
+  active = false,
+  onChange,
+}) {
   const toggle = (e) => {
     e.stopPropagation();
     onChange?.(!active);
@@ -26,6 +30,6 @@ function AddFavoritesButton({ active = false, onChange }) {
       </svg>
     </button>
   );
-}
+});
 
 export default AddFavoritesButton;

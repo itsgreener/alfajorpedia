@@ -62,7 +62,6 @@ color: var(--white);
 .social-post-text {
   font-size: var(--text);
   opacity: 0.9;
-  margin: 0;
 }
 
 .social-post-likes {

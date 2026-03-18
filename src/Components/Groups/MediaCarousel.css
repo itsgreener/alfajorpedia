@@ -1,5 +1,140 @@
-.media-carousel{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
+.media-carousel {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3vh;
+}
+
+.carousel-track-social {
+  position: relative;
+  aspect-ratio: 9 / 16;
+  height: 65vh;
+  max-height: 700px;
+  min-height: 256px;
+  max-width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+}
+
+.carousel-track-nostalgia {
+  position: relative;
+  aspect-ratio: 4/3;
+  width: 22.5vw;
+  max-width: 1000px;
+  min-width: 256px;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+}
+
+.carousel-track:active {
+  cursor: grabbing;
+}
+
+.carousel-slot {
+  position: absolute;
+  width: 100%;
+  transform-origin: center center;
+  will-change: transform, filter;
+}
+
+.carousel-controls {
+  display: flex;
+  align-items: center;
+  gap: 1vw;
+}
+
+.carousel-btn-nostalgia {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 25px;
+  border: 1.5px solid rgba(0, 0, 0, 0.15);
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--black);
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+}
+
+.carousel-btn-nostalgia:hover {
+  background: var(--light-gray);
+  border-color: rgba(0, 0, 0, 0.3);
+}
+
+.carousel-dots-nostalgia {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.carousel-dot-nostalgia {
+  width: 6px;
+  height: 6px;
+  border-radius: 25px;
+  border: none;
+  background: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  padding: 0;
+  transition:
+    background 0.25s,
+    transform 0.25s;
+}
+
+.carousel-dot-nostalgia--active {
+  background: var(--black);
+  transform: scale(1.4);
+}
+
+.carousel-btn-social {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 25px;
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--white);
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+}
+
+.carousel-btn-social:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.carousel-dots-social {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.carousel-dot-social {
+  width: 6px;
+  height: 6px;
+  border-radius: 25px;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  padding: 0;
+  transition:
+    background 0.25s,
+    transform 0.25s;
+}
+
+.carousel-dot-social--active {
+  background: var(--white);
+  transform: scale(1.4);
 }
