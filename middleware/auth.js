@@ -1,12 +1,16 @@
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
+
 
 function requireAuth(req, res, next) {
+  if (req.headers["x-api-key"] !== process.env.API_KEY) {
+    return res.status(401).json({ error: "unauthorized" });
+  }
+
   const authHeader = req.headers.authorization;
   const token =
     req.cookies?.token ||
-    (authHeader?.startsWith("Bearer ")
-      ? authHeader.split(" ")[1]
-      : null);
+    (authHeader?.startsWith("Bearer ") ? authHeader.split(" ")[1] : null);
 
   if (!token) {
     return res.status(401).json({ error: "No autenticado" });

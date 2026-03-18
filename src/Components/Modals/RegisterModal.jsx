@@ -48,7 +48,6 @@ function RegisterModal({ onModalOpen, closeModal, protectedNode = null }) {
           para empezar a guardar tus alfajores.
         </span>
       </p>
-
       <form noValidate className="register-form" onSubmit={onSubmit}>
         <section className="register-input-section">
           <input
@@ -73,21 +72,20 @@ function RegisterModal({ onModalOpen, closeModal, protectedNode = null }) {
             {loading ? "Creando..." : "Crear cuenta"}
           </button>
         </section>
-
-          <label className="register-privacy">
-            <input className="register-checkbox"
-              type="checkbox"
-              checked={checked}
-              onChange={(e) => setChecked(e.target.checked)}
-              required
-            />
-            He leído y acepto la{" "}
-            <button type="button" onClick={() => navigate("/privacy")}>
-              <strong>Política de Privacidad</strong>
-            </button>
-          </label>
+        <label className="register-privacy">
+          <input
+            className="register-checkbox"
+            type="checkbox"
+            checked={checked}
+            onChange={(e) => setChecked(e.target.checked)}
+            required
+          />
+          He leído y acepto la{" "}
+          <button type="button" onClick={() => navigate("/privacy")}>
+            <strong>Política de Privacidad</strong>
+          </button>
+        </label>
       </form>
-
       {(errors.email || errors.password || errors.checked || serverError) && (
         <div className="register-error">
           {errors.email && <p>{errors.email}</p>}

@@ -1,17 +1,13 @@
+require("dotenv").config();
 const mysql = require("mysql2/promise");
 const express = require("express");
-const bcrypt = require("bcrypt");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-const dotenv = require("dotenv");
-
+const { requireAuth } = require("./middleware/auth");
 const authRoutes = require("./routes/auth.routes");
 const alfajoresRoutes = require("./routes/alfajores.routes");
 const favoritesRoutes = require("./routes/favorites.routes");
 
-require("dotenv").config();
-
-const BACKEND_API_KEY = process.env.API_KEY;
 const MAILCHIMP_API_KEY = process.env.MAILCHIMP_API_KEY;
 const MAILCHIMP_LIST_ID = process.env.MAILCHIMP_LIST_ID;
 const MAILCHIMP_DC = process.env.MAILCHIMP_DC;
@@ -20,14 +16,12 @@ const app = express();
 
 app.use(
   cors({
-    origin: [
-      "https://alfajorpedia.com",
-      "https://www.alfajorpedia.com",
-      "http://localhost:5173",
-    ],
+    origin: ["https://alfajorpedia.com", "https://www.alfajorpedia.com"],
     credentials: true,
-  })
+  }),
 );
+
+app.options("*", cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -45,12 +39,6 @@ const pool = mysql.createPool({
 
 app.locals.pool = pool;
 
-function internalAuth(req, res, next) {
-  if (req.headers["x-api-key"] !== BACKEND_API_KEY) {
-    return res.status(401).json({ error: "unauthorized" });
-  }
-  next();
-}
 app.get("/", (_req, res) => {
   res.send("NODE OK");
 });
@@ -59,7 +47,7 @@ app.get("/api/health", (_req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
-app.post("/sync-alfajores", internalAuth, async (req, res) => {
+app.post("/sync-alfajores", async (req, res) => {
   try {
     const rows = req.body?.rows;
 
@@ -94,8 +82,7 @@ app.post("/sync-alfajores", internalAuth, async (req, res) => {
           Number.isNaN(Number(r.puntuacion))
             ? null
             : Number(r.puntuacion),
-        categorias:
-          r.categorias == null ? null : String(r.categorias).trim(),
+        categorias: r.categorias == null ? null : String(r.categorias).trim(),
         website: r.website == null ? null : String(r.website).trim(),
         instagram: r.instagram == null ? null : String(r.instagram).trim(),
         tiktok: r.tiktok == null ? null : String(r.tiktok).trim(),
@@ -186,11 +173,11 @@ app.post("/sync-alfajores", internalAuth, async (req, res) => {
   }
 });
 
-app.use("/api/auth", authRoutes);
+app.use("/api/auth", requireAuth, authRoutes);
 app.use("/api/alfajores", alfajoresRoutes);
 app.use("/api/favorites", favoritesRoutes);
 
-app.post("/api/subscribe", async (req, res) => {
+app.post("/api/subscribe", requireAuth, async (req, res) => {
   try {
     const { email } = req.body;
 
@@ -218,7 +205,7 @@ app.post("/api/subscribe", async (req, res) => {
           email_address: email.trim().toLowerCase(),
           status: "pending",
         }),
-      }
+      },
     );
 
     const data = await response.json();
@@ -248,5 +235,3 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
-
