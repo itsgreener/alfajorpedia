@@ -7,25 +7,38 @@ import "./LoginModal.css";
 
 function LoginModal({ protectedNode = null }) {
   const { pushModal, clearModalStack } = useModalStack();
+  const { login } = useAuthActions();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
-  const { login } = useAuthActions();
+  const [serverError, setServerError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  function onSubmit(e) {
-    e.preventDefault();
-    const newErrors = validate(email, password);
-
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return;
-    }
-
-    login({ email, password });
-    !protectedNode && clearModalStack();
+async function onSubmit(e) {
+  e.preventDefault();
+  const newErrors = validate(email, password);
+  if (Object.keys(newErrors).length > 0) {
+    setErrors(newErrors);
+    return;
   }
 
-  return (
+try {
+      setLoading(true);
+      setErrors({});
+      setServerError("");
+
+      await login({ email, password });
+
+      clearModalStack();
+    } catch (err) {
+      setServerError(err.message || "No se pudo iniciar sesión");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+   return (
     <div className="login-wrapper">
       <p className="title">
         Ingresa a tu cuenta
@@ -34,13 +47,8 @@ function LoginModal({ protectedNode = null }) {
           para guardar tus alfajores favoritos.
         </span>
       </p>
-      <form
-        noValidate
-        className="login-form"
-        onSubmit={(e) => {
-          onSubmit(e);
-        }}
-      >
+
+      <form noValidate className="login-form" onSubmit={onSubmit}>
         <input
           className="login-input"
           type="email"
@@ -48,6 +56,7 @@ function LoginModal({ protectedNode = null }) {
           autoComplete="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          disabled={loading}
         />
         <input
           className="login-input"
@@ -56,24 +65,31 @@ function LoginModal({ protectedNode = null }) {
           autoComplete="current-password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          disabled={loading}
         />
-        <button type="submit" className="login-btn">
-          Ingresar
+
+        <button type="submit" className="login-btn" disabled={loading}>
+          {loading ? "Entrando..." : "Ingresar"}
         </button>
       </form>
-      {(errors.email || errors.password || errors.checked) && (
+
+      {(errors.email || errors.password || serverError) && (
         <div className="login-error">
           {errors.email && <p>{errors.email}</p>}
           {errors.password && <p>{errors.password}</p>}
-          {errors.checked && <p>{errors.checked}</p>}
+          {serverError && <p>{serverError}</p>}
         </div>
       )}
+
       <p className="login-footer">
         o{" "}
         <button
+          type="button"
           onClick={() =>
             pushModal(
               <RegisterModal
+                onModalOpen={pushModal}
+                closeModal={clearModalStack}
                 protectedNode={protectedNode}
               />,
             )

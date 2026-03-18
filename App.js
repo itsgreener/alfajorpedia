@@ -1,6 +1,14 @@
 const mysql = require("mysql2/promise");
-const bcrypt = require("bcrypt");
 const express = require("express");
+const bcrypt = require("bcrypt");
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
+const dotenv = require("dotenv");
+
+const authRoutes = require("./routes/auth.routes");
+const alfajoresRoutes = require("./routes/alfajores.routes");
+const favoritesRoutes = require("./routes/favorites.routes");
+
 require("dotenv").config();
 
 const BACKEND_API_KEY = process.env.API_KEY;
@@ -10,29 +18,20 @@ const MAILCHIMP_DC = process.env.MAILCHIMP_DC;
 
 const app = express();
 
-app.use((req, res, next) => {
-   const allowedOrigins = [
-    "https://alfajorpedia.com",
-    "https://www.alfajorpedia.com",
-    "http://localhost:5173"
-  ];
-
-  const origin = req.headers.origin;
-  if (allowedOrigins.includes(origin)) {
-    res.header("Access-Control-Allow-Origin", origin);
-  }
-
-  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type, X-API-KEY");
-
-  if (req.method === "OPTIONS") {
-    return res.status(200).end();
-  }
-  next();
-});
+app.use(
+  cors({
+    origin: [
+      "https://alfajorpedia.com",
+      "https://www.alfajorpedia.com",
+      "http://localhost:5173",
+    ],
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 const pool = mysql.createPool({
   host: process.env.DB_HOST || "127.0.0.1",
@@ -43,55 +42,32 @@ const pool = mysql.createPool({
   connectionLimit: 10,
   queueLimit: 0,
 });
-function auth(req, res, next) {
+
+app.locals.pool = pool;
+
+function internalAuth(req, res, next) {
   if (req.headers["x-api-key"] !== BACKEND_API_KEY) {
     return res.status(401).json({ error: "unauthorized" });
   }
   next();
 }
+app.get("/", (_req, res) => {
+  res.send("NODE OK");
+});
 
-app.get("/api/health", auth, (_req, res) => {
+app.get("/api/health", (_req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
-app.get("/api/alfajores", auth, async (_req, res) => {
-  try {
-    const [rows] = await pool.query(`
-      SELECT
-        id,
-        foto_url,
-        marca,
-        variedad,
-        empresa,
-        pais,
-        descripcion,
-        tagline,
-        gramos,
-        calorias,
-        puntuacion,
-        categorias,
-        website,
-        instagram,
-        tiktok,
-        empresa_proc,
-        empresa_imp
-      FROM alfajores
-      ORDER BY id DESC
-    `);
-    res.json(rows);
-  } catch (e) {
-    res.status(500).json({ error: e.message });
-  }
-});
-
-app.post("/sync-alfajores", auth, async (req, res) => {
+app.post("/sync-alfajores", internalAuth, async (req, res) => {
   try {
     const rows = req.body?.rows;
+
     if (!Array.isArray(rows) || rows.length === 0) {
       return res.json({ ok: true, upserted: 0 });
     }
 
-     const clean = rows
+    const clean = rows
       .filter((r) => r?.marca && r?.variedad)
       .map((r) => ({
         foto_url: r.foto_url == null ? null : String(r.foto_url).trim(),
@@ -129,7 +105,6 @@ app.post("/sync-alfajores", auth, async (req, res) => {
           r.empresa_imp == null ? null : String(r.empresa_imp).trim(),
       }));
 
-
     if (clean.length === 0) {
       return res.status(400).json({ error: "no valid rows" });
     }
@@ -153,7 +128,7 @@ app.post("/sync-alfajores", auth, async (req, res) => {
       r.empresa_imp,
     ]);
 
-   const sql = `
+    const sql = `
       INSERT INTO alfajores (
         foto_url,
         marca,
@@ -176,6 +151,7 @@ app.post("/sync-alfajores", auth, async (req, res) => {
       ON DUPLICATE KEY UPDATE
         foto_url = VALUES(foto_url),
         empresa = VALUES(empresa),
+        pais = VALUES(pais),
         descripcion = VALUES(descripcion),
         tagline = VALUES(tagline),
         gramos = VALUES(gramos),
@@ -197,7 +173,7 @@ app.post("/sync-alfajores", auth, async (req, res) => {
       conn.release();
     }
 
- return res.json({
+    return res.json({
       ok: true,
       received: rows.length,
       upserted: clean.length,
@@ -210,58 +186,9 @@ app.post("/sync-alfajores", auth, async (req, res) => {
   }
 });
 
-app.post("/sync-usuarios", auth, async (req, res) => {
-  try {
-    const rows = req.body?.rows;
-
-    if (!Array.isArray(rows) || rows.length === 0) {
-      return res.json({ ok: true, upserted: 0 });
-    }
-
-    const rounds = Number(process.env.BCRYPT_ROUNDS || 10);
-
-    const clean = rows
-      .filter((r) => r?.nombre && r?.email && r?.contraseña)
-      .map((r) => ({
-        nombre: String(r.nombre).trim(),
-        email: String(r.email).trim().toLowerCase(),
-        pass: String(r.contraseña),
-      }));
-
-    if (clean.length === 0) {
-      return res.status(400).json({ error: "no valid rows" });
-    }
-
-    const values = [];
-    for (const r of clean) {
-      const hash = await bcrypt.hash(r.pass, rounds);
-      values.push([r.nombre, r.email, hash]);
-    }
-
-    const sql = `
-      INSERT INTO usuarios (nombre, email, password_hash)
-      VALUES ?
-      ON DUPLICATE KEY UPDATE
-        nombre = VALUES(nombre),
-        password_hash = VALUES(password_hash)
-    `;
-
-    const conn = await pool.getConnection();
-    try {
-      await conn.query(sql, [values]);
-    } finally {
-      conn.release();
-    }
-
-    return res.json({ ok: true, upserted: clean.length });
-  } catch (e) {
-    return res.status(500).json({
-      error: "server error",
-      detail: e.message,
-    });
-  }
-});
-
+app.use("/api/auth", authRoutes);
+app.use("/api/alfajores", alfajoresRoutes);
+app.use("/api/favorites", favoritesRoutes);
 
 app.post("/api/subscribe", async (req, res) => {
   try {
@@ -316,13 +243,6 @@ app.post("/api/subscribe", async (req, res) => {
   }
 });
 
-app.get("/", (_req, res) => {
-  res.send("NODE OK");
-});
-
-app.get("/api/health", (_req, res) => {
-  res.json({ status: "ok", timestamp: new Date().toISOString() });
-});
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
