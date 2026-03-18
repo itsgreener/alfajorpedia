@@ -74,8 +74,6 @@ function LoginModal({ protectedNode = null }) {
           onClick={() =>
             pushModal(
               <RegisterModal
-                onModalOpen={pushModal}
-                closeModal={clearModalStack}
                 protectedNode={protectedNode}
               />,
             )

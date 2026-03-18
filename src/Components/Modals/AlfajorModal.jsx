@@ -1,8 +1,10 @@
 import { useAlfajoresActions } from "../../Hooks/useAlfajores.js";
+import { useSetFavorites } from "../../Hooks/useSetFavorites.jsx";
 import AddFavoritesButton from "../Cards/AddFavoritesButton.jsx";
 import "./AlfajorModal.css";
 
-function AlfajorModal({ alfajorId, onFavChange }) {
+function AlfajorModal({ alfajorId }) {
+  const { setFavAlfajor } = useSetFavorites();
   const { alfajorById } = useAlfajoresActions();
   const selectedAlfajor = alfajorById(alfajorId);
 
@@ -100,7 +102,7 @@ function AlfajorModal({ alfajorId, onFavChange }) {
               </div>
               <AddFavoritesButton
                 active={selectedAlfajor.isFav}
-                onChange={(like) => onFavChange(selectedAlfajor.id, like)}
+                onChange={(like) => setFavAlfajor(selectedAlfajor.id, like)}
               />
             </div>
           </div>

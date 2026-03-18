@@ -5,7 +5,7 @@ import Catalog from "./Catalog";
 import SearchInput from "./SearchInput";
 import "./CatalogSection.css";
 
-function CatalogSection({ alfajores, setFavAlfajor, isFavorite }) {
+function CatalogSection({ alfajores, fromFavorite = false }) {
   const { pushModal } = useModalStack();
   const { filteredData, setSearchContent } = useFilteredData(alfajores);
   
@@ -13,7 +13,7 @@ function CatalogSection({ alfajores, setFavAlfajor, isFavorite }) {
     <section>
       <div className="catalog" id="catalog">
         <p className="big-title white-text catalogo-title">
-          {alfajores.length} {isFavorite ? "Favoritos" : "Alfajores"}
+          {alfajores.length} {fromFavorite ? "Favoritos" : "Alfajores"}
         </p>
         <SearchInput onChange={setSearchContent} />
       </div>
@@ -24,12 +24,10 @@ function CatalogSection({ alfajores, setFavAlfajor, isFavorite }) {
             pushModal(
               <AlfajorModal
                 alfajorId={alfajor.id}
-                onFavChange={setFavAlfajor}
               />,
             )
           }
-          onFavChange={setFavAlfajor}
-          items={isFavorite ? 16 : 20}
+          items={fromFavorite ? 16 : 20}
         />
       </div>
     </section>

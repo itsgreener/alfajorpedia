@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthActions } from "../../Hooks/useAuth.js";
+import { useModalStack } from "../../Hooks/useModalStack.js";
 import { validate } from "../../Hooks/useValidation.js";
 import "./RegisterModal.css";
 
-function RegisterModal({ onModalOpen, closeModal, protectedNode = null }) {
+function RegisterModal({ protectedNode = null }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [checked, setChecked] = useState(false);
   const [errors, setErrors] = useState({});
+  const { pushModal, clearModalStack } = useModalStack();
   const { register } = useAuthActions();
   const navigate = useNavigate();
 
@@ -22,7 +24,7 @@ function RegisterModal({ onModalOpen, closeModal, protectedNode = null }) {
     }
 
     register({ email, password });
-    protectedNode ? onModalOpen(protectedNode) : closeModal();
+    protectedNode ? pushModal(protectedNode) : clearModalStack();
   }
 
   return (

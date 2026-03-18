@@ -19,8 +19,6 @@ async function handleNewsletterSubmit(e) {
       })
     });
 
-    const data = await res.json();
-
     if (!res.ok) {
       setStatus("error");
       return;

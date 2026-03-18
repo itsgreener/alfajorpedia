@@ -1,10 +1,5 @@
-import { useCallback, useEffect, useRef } from "react";
 import { socialPosts } from "../Assets/Data.js";
-import { useAuthData } from "../Hooks/useAuth.js";
-import {
-  useAlfajoresActions,
-  useAlfajoresData,
-} from "../Hooks/useAlfajores.js";
+import { useAlfajoresData } from "../Hooks/useAlfajores.js";
 import { useModalStack } from "../Hooks/useModalStack.js";
 import ProtectedPath from "../Context/ProtectedRoute.jsx";
 import Footer from "../Components/General/Footer.jsx";
@@ -19,45 +14,8 @@ import CatalogSection from "../Components/Groups/CatalogSection.jsx";
 import "./Home.css";
 
 function Home() {
-  const { stack, pushModal } = useModalStack();
-  const currentModal = stack[stack.length - 1] ?? null;
-  const currentModalRef = useRef(currentModal);
-  const { toggleFavoriteAlfajor } = useAlfajoresActions();
+  const { currentModal, pushModal } = useModalStack();
   const { alfajores } = useAlfajoresData();
-  const { user } = useAuthData();
-  const userRef = useRef(null);
-  const favAlfajorRef = useRef(null);
-
-  const setFavAlfajor = useCallback(
-    (id, like) => {
-      if (userRef.current) {
-        toggleFavoriteAlfajor(id, like);
-      } else {
-        if (currentModalRef.current) {
-          pushModal(
-            <ProtectedPath>
-              <AlfajorModal
-                alfajorId={id}
-                onFavChange={favAlfajorRef.current}
-              />
-            </ProtectedPath>,
-          );
-        } else {
-          pushModal(<LoginModal />);
-        }
-      }
-    },
-    [pushModal, toggleFavoriteAlfajor],
-  );
-
-  useEffect(() => {
-    favAlfajorRef.current = setFavAlfajor;
-    currentModalRef.current = currentModal;
-  }, [setFavAlfajor, currentModal]);
-
-  useEffect(() => {
-    userRef.current = user;
-  }, [user]);
 
   return (
     <>
@@ -65,10 +23,7 @@ function Home() {
         onFavoriteClick={() =>
           pushModal(
             <ProtectedPath>
-              <FavoriteModal
-                setFavAlfajor={setFavAlfajor}
-                onModalOpen={pushModal}
-              />
+              <FavoriteModal />
             </ProtectedPath>,
           )
         }
@@ -79,12 +34,7 @@ function Home() {
           <div
             className="header-content-row"
             onClick={() =>
-              pushModal(
-                <AlfajorModal
-                  alfajorId={alfajores[2].id}
-                  onFavChange={setFavAlfajor}
-                />,
-              )
+              pushModal(<AlfajorModal alfajorId={alfajores[2].id} />)
             }
           >
             <div className="header-text-col">
@@ -120,11 +70,7 @@ function Home() {
               <strong> Alfajores que dejan huella.</strong>
             </p>
           </div>
-          <AlfajorGroup
-            amount={3}
-            data={alfajores}
-            onFavChange={setFavAlfajor}
-          />
+          <AlfajorGroup amount={3} alfajores={alfajores} />
         </section>
         <section className="group">
           <div className="height-texts">
@@ -137,11 +83,7 @@ function Home() {
               <span className="big-title">altos</span>
             </p>
           </div>
-          <AlfajorGroup
-            amount={4}
-            data={alfajores}
-            onFavChange={setFavAlfajor}
-          />
+          <AlfajorGroup amount={4} alfajores={alfajores} />
         </section>
         <section className="group">
           <div className="spicy-texts">
@@ -154,11 +96,7 @@ function Home() {
               las reglas y se salen con la suya.
             </p>
           </div>
-          <AlfajorGroup
-            amount={4}
-            data={alfajores}
-            onFavChange={setFavAlfajor}
-          />
+          <AlfajorGroup amount={4} alfajores={alfajores} />
         </section>
       </div>
 
@@ -173,7 +111,7 @@ function Home() {
         <p className="title">Nostalgia</p>
       </section>
 
-      <CatalogSection alfajores={alfajores} setFavAlfajor={setFavAlfajor} />
+      <CatalogSection alfajores={alfajores} />
 
       <section className="contacto">
         <div className="contacto-top">
@@ -213,10 +151,7 @@ function Home() {
         onFavoriteClick={() =>
           pushModal(
             <ProtectedPath>
-              <FavoriteModal
-                setFavAlfajor={setFavAlfajor}
-                onModalOpen={pushModal}
-              />
+              <FavoriteModal />
             </ProtectedPath>,
           )
         }

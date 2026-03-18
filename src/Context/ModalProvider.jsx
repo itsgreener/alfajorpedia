@@ -3,6 +3,7 @@ import { ModalContext } from "./CreateContext.js";
 
 function ModalProvider({ children }) {
   const [stack, setStack] = useState([]);
+  const currentModal = stack[stack.length - 1] ?? null;
 
   const pushModal = useCallback(
     (modal) => setStack((prev) => [...prev, modal]),
@@ -13,7 +14,7 @@ function ModalProvider({ children }) {
 
   return (
     <ModalContext.Provider
-      value={{ stack, pushModal, popModal, clearModalStack }}
+      value={{ stack, currentModal,pushModal, popModal, clearModalStack }}
     >
       {children}
     </ModalContext.Provider>

@@ -1,8 +1,10 @@
 import { memo } from "react";
+import { useSetFavorites } from "../../Hooks/useSetFavorites.jsx";
 import AddFavoritesButton from "./AddFavoritesButton";
 import "./AlfajorCard.css";
 
-const AlfajorCard = memo(({ alfajor, onClick, onFavChange }) => {
+const AlfajorCard = memo(({ alfajor, onClick }) => {
+  const { setFavAlfajor } = useSetFavorites();
   const { id, name, flag, weight, calories, tagline, image, isFav } = alfajor;
 
   return (
@@ -23,7 +25,7 @@ const AlfajorCard = memo(({ alfajor, onClick, onFavChange }) => {
         <div className="card-actions">
           <AddFavoritesButton
             active={isFav}
-            onChange={(like) => onFavChange(id, like)}
+            onChange={(like) => setFavAlfajor(id, like)}
           />
         </div>
       </div>
