@@ -40,5 +40,5 @@ export function useSetFavorites() {
     userRef.current = user;
   }, [user]);
 
-  return setFavAlfajor;
+  return { setFavAlfajor };
 }
