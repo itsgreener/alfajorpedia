@@ -84,14 +84,18 @@
   box-sizing: border-box;
 }
 .experiences-title {
-  top: 4vh;
   text-align: right;
-  z-index: 15;
   pointer-events: none;
+  margin-bottom: 4%;
 }
 
 .nostalgia {
   margin: 6% 4.5%;
+}
+
+.nostalgia-title{
+  pointer-events: none;
+  margin-bottom: 4%;
 }
 
 .contacto {

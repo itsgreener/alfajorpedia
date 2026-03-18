@@ -604,15 +604,15 @@ export const alfajoresData = [
 export const socialPosts = [
   {
     id: 1,
-    image: "/Mockup/post1.png",
+    image: "/Mockup/Social.png",
     link: "https://instagram.com/p/xxxx",
     username: "@alfajor_lover",
-    caption: "El mejor alfajor que probé en mi vida",
+    caption: "El mejor alfajor que probé en mi vida. El mejor alfajor",
     likes: "2.4K",
   },
   {
     id: 2,
-    image: "/Mockup/post2.png",
+    image: "/Mockup/Social.png",
     link: "https://instagram.com/p/yyyy",
     username: "@alfajor_lover",
     caption: "Demasiado dulce pero lo amo",
@@ -620,7 +620,7 @@ export const socialPosts = [
   },
   {
     id: 3,
-    image: "/Mockup/post3.png",
+    image: "/Mockup/Social.png",
     link: "https://instagram.com/p/zzzz",
     username: "@alfajor_io",
     caption: "Top 3 fácil",
@@ -628,7 +628,7 @@ export const socialPosts = [
   },
   {
     id: 4,
-    image: "/Mockup/post4.png",
+    image: "/Mockup/Social.png",
     link: "https://instagram.com/p/aaaa",
     username: "@alfajor_lover",
     caption: "La crema es absurda",
@@ -636,7 +636,7 @@ export const socialPosts = [
   },
   {
     id: 5,
-    image: "/Mockup/post5.png",
+    image: "/Mockup/Social.png",
     link: "https://instagram.com/p/bbbb",
     username: "@alfajor_world",
     caption: "No esperaba que fuese tan bueno",
@@ -644,7 +644,7 @@ export const socialPosts = [
   },
   {
     id: 6,
-    image: "/Mockup/post6.png",
+    image: "/Mockup/Social.png",
     link: "https://instagram.com/p/cccc",
     username: "@alfajor_review",
     caption: "Demasiado grande",
@@ -652,7 +652,7 @@ export const socialPosts = [
   },
   {
     id: 7,
-    image: "/Mockup/post7.png",
+    image: "/Mockup/Social.png",
     link: "https://instagram.com/p/dddd",
     username: "@alfajor_review",
     caption: "Demasiado grande",
@@ -660,7 +660,7 @@ export const socialPosts = [
   },
   {
     id: 8,
-    image: "/Mockup/post8.png",
+    image: "/Mockup/Social.png",
     link: "https://instagram.com/p/eeee",
     username: "@alfajor_review",
     caption: "Demasiado grande",

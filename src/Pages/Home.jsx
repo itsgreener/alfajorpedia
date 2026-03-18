@@ -1,4 +1,3 @@
-import { socialPosts } from "../Assets/Data.js";
 import { useAlfajoresData } from "../Hooks/useAlfajores.js";
 import { useModalStack } from "../Hooks/useModalStack.js";
 import ProtectedPath from "../Context/ProtectedRoute.jsx";
@@ -103,12 +102,13 @@ function Home() {
       <section className="experiences-section">
         <div className="experiences-content">
           <p className="title white-text experiences-title">Experiencias</p>
-          <MediaCarousel posts={socialPosts} />
+          <MediaCarousel isNostalgia={false} />
         </div>
       </section>
 
       <section className="nostalgia">
-        <p className="title">Nostalgia</p>
+        <p className="title nostalgia-title">Nostalgia</p>
+        <MediaCarousel isNostalgia={true} />
       </section>
 
       <CatalogSection alfajores={alfajores} />
