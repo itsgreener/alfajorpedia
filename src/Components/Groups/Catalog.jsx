@@ -2,7 +2,6 @@ import { useState, useRef } from "react";
 import AlfajorCard from "../Cards/AlfajorCard";
 import "./Catalog.css";
 
-
 export default function Catalog({ alfajores, onClick, items }) {
   const [currentPage, setCurrentPage] = useState(1);
   const ref = useRef(null);

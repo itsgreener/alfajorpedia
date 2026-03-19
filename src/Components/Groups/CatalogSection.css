@@ -1,4 +1,10 @@
-.catalog {
+.catalog-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.catalog-header {
   background: var(--black);
   width: 100%;
   display: flex;
@@ -13,6 +19,8 @@
 
 .catalog-content {
   max-width: 2560px;
-  margin: 0 auto;
+}
+
+.catalog-padding {
   padding: 2.5% 4.5%;
 }

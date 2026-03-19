@@ -5,33 +5,32 @@ function Footer({ onSubscribeClick, onFavoriteClick }) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState("");
 
-async function handleNewsletterSubmit(e) {
-  e.preventDefault();
+  async function handleNewsletterSubmit(e) {
+    e.preventDefault();
 
-  try {
-    const res = await fetch("https://alfajorpedia.com/api/subscribe", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        email: email
-      })
-    });
+    try {
+      const res = await fetch("https://alfajorpedia.com/api/subscribe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+        }),
+      });
 
-    if (!res.ok) {
+      if (!res.ok) {
+        setStatus("error");
+        return;
+      }
+
+      setStatus("ok");
+      setEmail("");
+    } catch (err) {
+      console.error(err);
       setStatus("error");
-      return;
     }
-
-    setStatus("ok");
-    setEmail("");
-
-  } catch (err) {
-    console.error(err);
-    setStatus("error");
   }
-}
 
   return (
     <footer className="footer-bg">
@@ -39,7 +38,8 @@ async function handleNewsletterSubmit(e) {
         <div className="footer-main">
           <div className="footer-left">
             <div className="footer-brand white-text">
-               <img src="/logoAlfajorpedia.svg"/> Contenido del que importa.
+              <img src="/logoAlfajorpedia.svg" />{" "}
+              <p>Contenido del que importa.</p>
             </div>
 
             <div className="footer-newsletter">

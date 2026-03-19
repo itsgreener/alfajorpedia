@@ -10,14 +10,14 @@ function CatalogSection({ alfajores, fromFavorite = false }) {
   const { filteredData, setSearchContent } = useFilteredData(alfajores);
   
   return (
-    <section>
-      <div className="catalog" id="catalog">
+    <section className="catalog-section">
+      <div className="catalog-header" id="catalog">
         <p className="big-title white-text catalogo-title">
           {alfajores.length} {fromFavorite ? "Favoritos" : "Alfajores"}
         </p>
         <SearchInput onChange={setSearchContent} />
       </div>
-      <div className="catalog-content">
+      <div className={fromFavorite ? "catalog-content" : "catalog-padding catalog-content"}>
         <Catalog
           alfajores={filteredData}
           onClick={(alfajor) =>
