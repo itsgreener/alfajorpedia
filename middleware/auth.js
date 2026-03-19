@@ -1,11 +1,7 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
-function requireAuth(req, res, next) {
-  if (req.headers["x-api-key"] !== process.env.API_KEY) {
-    return res.status(401).json({ error: "unauthorized" });
-  }
-
+function requireToken(req, res, next) {
   const authHeader = req.headers.authorization;
   const token =
     req.cookies?.token ||
@@ -28,4 +24,11 @@ function requireAuth(req, res, next) {
   }
 }
 
-module.exports = { requireAuth };
+const requireApiKey = (req, res, next) => {
+  if (req.headers["x-api-key"] !== process.env.API_KEY) {
+    return res.status(401).json({ error: "unauthorized" });
+  }
+  next();
+};
+
+module.exports = { requireApiKey, requireToken };

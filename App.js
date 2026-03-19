@@ -3,7 +3,7 @@ const mysql = require("mysql2/promise");
 const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-const { requireAuth } = require("./middleware/auth");
+const { requireApiKey, requireToken } = require("./middleware/auth");
 const authRoutes = require("./routes/auth.routes");
 const alfajoresRoutes = require("./routes/alfajores.routes");
 const favoritesRoutes = require("./routes/favorites.routes");
@@ -171,11 +171,11 @@ app.post("/sync-alfajores", async (req, res) => {
   }
 });
 
-app.use("/api/auth", requireAuth, authRoutes);
+app.use("/api/auth", requireApiKey, authRoutes);
 app.use("/api/alfajores", alfajoresRoutes);
 app.use("/api/favorites", favoritesRoutes);
 
-app.post("/api/subscribe", requireAuth, async (req, res) => {
+app.post("/api/subscribe", requireToken, async (req, res) => {
   try {
     const { email } = req.body;
 
