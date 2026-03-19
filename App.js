@@ -1,7 +1,6 @@
 require("dotenv").config();
 const mysql = require("mysql2/promise");
 const express = require("express");
-const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const { requireApiKey, requireToken } = require("./middleware/auth");
 const authRoutes = require("./routes/auth.routes");
@@ -14,12 +13,28 @@ const MAILCHIMP_DC = process.env.MAILCHIMP_DC;
 
 const app = express();
 
-app.use(
-  cors({
-    origin: ["https://alfajorpedia.com", "https://www.alfajorpedia.com"],
-    credentials: true,
-  }),
-);
+app.use((req, res, next) => {
+  const allowedOrigins = [
+    "https://alfajorpedia.com",
+    "https://www.alfajorpedia.com",
+    "http://localhost:5173",
+  ];
+
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  }
+
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, x-api-key");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(204);
+  }
+
+  next();
+});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -41,7 +56,7 @@ app.get("/", (_req, res) => {
   res.send("NODE OK");
 });
 
-app.get("/api/health", (_req, res) => {
+app.get("/api/health", requireApiKey, (_req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
