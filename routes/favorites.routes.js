@@ -1,9 +1,9 @@
 const express = require("express");
-const { requireAuth } = require("../middleware/auth");
+const { requireApiKey } = require("../middleware/auth");
 
 const router = express.Router();
 
-router.get("/", requireAuth, async (req, res) => {
+router.get("/", requireApiKey, async (req, res) => {
   try {
     const pool = req.app.locals.pool;
 
@@ -21,7 +21,7 @@ router.get("/", requireAuth, async (req, res) => {
   }
 });
 
-router.post("/:alfajorId", requireAuth, async (req, res) => {
+router.post("/:alfajorId", requireApiKey, async (req, res) => {
   try {
     const pool = req.app.locals.pool;
 
@@ -39,7 +39,7 @@ router.post("/:alfajorId", requireAuth, async (req, res) => {
   }
 });
 
-router.delete("/:alfajorId", requireAuth, async (req, res) => {
+router.delete("/:alfajorId", requireApiKey, async (req, res) => {
   try {
     const pool = req.app.locals.pool;
 
