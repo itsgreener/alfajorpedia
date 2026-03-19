@@ -39,7 +39,7 @@ async function handleNewsletterSubmit(e) {
         <div className="footer-main">
           <div className="footer-left">
             <div className="footer-brand white-text">
-              <strong>Alfajorpedia.</strong> Contenido del que importa.
+               <img src="/logoAlfajorpedia.svg"/> Contenido del que importa.
             </div>
 
             <div className="footer-newsletter">
