@@ -60,7 +60,7 @@ app.get("/api/health", requireApiKey, (_req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
-app.post("/sync-alfajores", async (req, res) => {
+app.post("/sync-alfajores", requireApiKey, async (req, res) => {
   try {
     const rows = req.body?.rows;
 

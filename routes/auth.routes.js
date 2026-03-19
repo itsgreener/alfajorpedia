@@ -1,7 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { requireApiKey } = require("../middleware/auth");
+const { requireToken } = require("../middleware/auth");
 
 const router = express.Router();
 
@@ -82,7 +82,9 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.get("/me", requireApiKey, async (req, res) => {
+
+
+router.get("/me", requireToken, async (req, res) => {
   return res.json({
     user: {
       id: req.user.id,
