@@ -13,6 +13,7 @@ import FavoriteModal from "../Components/Modals/FavoriteModal.jsx";
 import LoginModal from "../Components/Modals/LoginModal.jsx";
 import CatalogSection from "../Components/Groups/CatalogSection.jsx";
 import MobileCatalog from "../Components/General/MobileCatalog.jsx";
+import Contact from "../Components/General/Contact.jsx";
 import "./Home.css";
 
 function Home() {
@@ -136,39 +137,7 @@ function Home() {
 
           <CatalogSection alfajores={alfajores} />
 
-          <section className="contacto">
-            <div className="contacto-top">
-              <p className="small-title white-text">
-                Nuestra ambición no tiene freno.
-              </p>
-            </div>
-            <div className="contacto-main">
-              <div className="contacto-left">
-                <p className="small-title">
-                  ¿Falta tu alfajor?
-                  <br />
-                  Avísanos.
-                </p>
-                <p className="text">
-                  No vamos a parar hasta encontrar
-                  <br />
-                  <strong>hasta el último alfajor del planeta.</strong>
-                </p>
-              </div>
-              <div className="contacto-right">
-                <form className="contacto-form">
-                  <div className="contacto-form-row">
-                    <input type="text" placeholder="nombre" />
-                    <input type="email" placeholder="email" />
-                  </div>
-                  <textarea placeholder="texto" />
-                  <div className="contacto-form-actions">
-                    <button type="submit">Enviar</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </section>
+          <Contact />
         </>
       )}
 

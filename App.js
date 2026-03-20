@@ -2,6 +2,7 @@ require("dotenv").config();
 const mysql = require("mysql2/promise");
 const express = require("express");
 const cookieParser = require("cookie-parser");
+const nodemailer = require("nodemailer");
 const { requireApiKey, requireToken } = require("./middleware/auth");
 const authRoutes = require("./routes/auth.routes");
 const alfajoresRoutes = require("./routes/alfajores.routes");
@@ -17,7 +18,7 @@ app.use((req, res, next) => {
   const allowedOrigins = [
     "https://alfajorpedia.com",
     "https://www.alfajorpedia.com",
-     "https://app.alfajorpedia.com",
+    "https://app.alfajorpedia.com",
     "http://localhost:5173",
   ];
 
@@ -26,8 +27,14 @@ app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", origin);
   }
 
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, x-api-key");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, OPTIONS",
+  );
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Authorization, x-api-key",
+  );
   res.setHeader("Access-Control-Allow-Credentials", "true");
 
   if (req.method === "OPTIONS") {
@@ -40,6 +47,21 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+function escapeHtml(text) {
+  if (!text) return "";
+
+  const map = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#039;",
+    "/": "&#x2F;",
+  };
+
+  return String(text).replace(/[&<>"'/]/g, (char) => map[char]);
+}
 
 const pool = mysql.createPool({
   host: process.env.DB_HOST || "127.0.0.1",
@@ -244,7 +266,237 @@ app.post("/api/subscribe", requireToken, async (req, res) => {
   }
 });
 
-//de prueba:
+app.post("/api/email", async (req, res) => {
+  try {
+    const { name, email, message } = req.body;
+
+    if (!name || !email || !message) {
+      return res.status(400).json({
+        success: false,
+        message: "Required fields are missing",
+      });
+    }
+
+    if (!email.includes("@") || email.length > 254) {
+      return res.status(422).json({
+        success: false,
+        message: "Invalid email",
+      });
+    }
+
+    if (name.length > 100) {
+      return res.status(422).json({
+        success: false,
+        message: "Name too long",
+      });
+    }
+
+    if (message.length > 5000) {
+      return res.status(422).json({
+        success: false,
+        message: "Message too long",
+      });
+    }
+
+    const urlPattern = /(https?:\/\/|www\.)/gi;
+    if (urlPattern.test(message)) {
+      return res.status(422).json({
+        success: false,
+        message: "URLs are not allowed in the message",
+      });
+    }
+
+    const htmlPattern = /<[^>]*>/g;
+    if (
+      htmlPattern.test(name) ||
+      htmlPattern.test(email) ||
+      htmlPattern.test(message)
+    ) {
+      return res.status(422).json({
+        success: false,
+        message: "HTML tags are not allowed",
+      });
+    }
+
+    const transporter = nodemailer.createTransport({
+      host: process.env.MAIL_HOST,
+      port: parseInt(process.env.MAIL_PORT) || 465,
+      secure: true,
+      auth: {
+        user: process.env.MAIL_USER,
+        pass: process.env.MAIL_PASS,
+      },
+    });
+
+    await transporter.sendMail({
+      from: `"TR Greener" <${process.env.MAIL_USER}>`,
+      to: process.env.MAIL_TO,
+      subject: `[Web] New message from ${escapeHtml(name)}`,
+      text: `
+You have received a new message from the contact form
+
+CONTACT INFORMATION:
+Name:       ${name}
+Email:      ${email}
+
+MESSAGE:
+${message}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Sent from https://tr.itsgreener.com
+${new Date().toLocaleString("en-US")}
+      `,
+      html: `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { 
+      font-family: Arial, sans-serif; 
+      color: #111; 
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+    .container { 
+      max-width: 600px; 
+      margin: 20px auto; 
+      background-color: #fff;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .header { 
+      background: #ff2a00; 
+      color: white; 
+      padding: 30px 20px; 
+      text-align: center;
+    }
+    .header h2 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 600;
+    }
+    .content { 
+      background: #fff; 
+      padding: 30px 20px; 
+    }
+    .field { 
+      margin: 20px 0; 
+      padding: 15px; 
+      background: #f9f9f9; 
+      border-radius: 18px;
+      border-left: 4px solid #ff2a00;
+    }
+    .label { 
+      font-weight: bold; 
+      color: #666; 
+      display: block; 
+      margin-bottom: 8px;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .value {
+      color: #111;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    .value a {
+      color: #ff2a00;
+      text-decoration: none;
+    }
+    .value a:hover {
+      text-decoration: underline;
+    }
+    .message { 
+      background: #fff; 
+      padding: 20px; 
+      border-left: 4px solid #ff2a00; 
+      margin: 25px 0;
+      border-radius: 18px;
+      background: #f9f9f9;
+      white-space: pre-wrap; 
+      word-wrap: break-word;
+    }
+    .message-title {
+      color: #ff2a00;
+      font-weight: bold;
+      font-size: 16px;
+      margin-bottom: 15px;
+      display: block;
+    }
+    .message-content {
+      color: #111;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    .footer { 
+      text-align: center; 
+      color: #666; 
+      font-size: 13px; 
+      padding: 25px 20px;
+      background: #f9f9f9;
+      border-top: 1px solid #eee;
+    }
+    .footer strong {
+      color: #111;
+    }
+    .footer p {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h2>New Contact Message</h2>
+    </div>
+    
+    <div class="content">
+      <div class="field">
+        <span class="label">Name</span>
+        <div class="value">${escapeHtml(name)}</div>
+      </div>
+      
+      <div class="field">
+        <span class="label">Email</span>
+        <div class="value">
+          <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a>
+        </div>
+      </div>
+      
+      <div class="message">
+        <span class="message-title">Message</span>
+        <div class="message-content">${escapeHtml(message).replace(/\n/g, "<br>")}</div>
+      </div>
+    </div>
+    
+    <div class="footer">
+      <p>Sent from the contact form at <strong>tr.itsgreener.com</strong></p>
+      <p>${new Date().toLocaleString("en-US", { dateStyle: "full", timeStyle: "short" })}</p>
+    </div>
+  </div>
+</body>
+</html>
+      `,
+      replyTo: email,
+    });
+
+    return res.json({
+      success: true,
+      message: "Email sent successfully",
+    });
+  } catch (error) {
+    console.error("Error:", error.message);
+    return res.status(500).json({
+      success: false,
+      message: "Error sending email",
+    });
+  }
+});
+
 app.get("/api/test-node", (_req, res) => {
   res.json({ ok: true, source: "node" });
 });
@@ -255,7 +507,6 @@ app.post("/api/test-post", (req, res) => {
     body: req.body,
   });
 });
-
 
 const PORT = process.env.PORT || 3000;
 

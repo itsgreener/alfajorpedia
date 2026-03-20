@@ -1,0 +1,112 @@
+
+.contacto {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.contacto-top {
+  background: var(--black);
+  width: 100%;
+  min-height: 14vh;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 6vh 4.5%;
+  box-sizing: border-box;
+}
+
+.contacto-main {
+  background: var(--white);
+  width: 100%;
+  max-width: 2560px;
+  margin: 0 auto;
+  min-height: 50vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  padding: 4.5%;
+  box-sizing: border-box;
+}
+
+.contacto-left {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.contacto-right {
+  width: 50%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.contacto-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2.2vh;
+}
+
+.contacto-form-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 1.5vw;
+}
+
+.contacto-form-row input {
+  width: 50%;
+}
+
+.contacto-form-row input,
+.contacto-form textarea {
+  background: transparent;
+  border: 0.08vw solid var(--black);
+  border-radius: 5px;
+  font-family: "Haas";
+  font-size: var(--big-text);
+  color: var(--black);
+  box-sizing: border-box;
+  outline: none;
+}
+
+.contacto-form input {
+  height: 4.3vh;
+  padding: 0 1vw;
+}
+
+.contacto-form textarea {
+  width: 100%;
+  min-height: 20vh;
+  resize: none;
+  padding: 1.2vh 1vw;
+}
+
+.contacto-form-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.contacto-form-actions button {
+  min-width: 4.8vw;
+  height: 3.2vh;
+  padding: 0 1vw;
+  border: none;
+  border-radius: 5px;
+  background: var(--black);
+  color: var(--light-gray);
+  font-size: var(--text);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.contacto-form-actions button:hover {
+  background: var(--black);
+}
+.contacto-form-actions button:active {
+  transform: scale(0.97);
+}
