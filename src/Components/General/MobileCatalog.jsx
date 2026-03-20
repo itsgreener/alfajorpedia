@@ -12,8 +12,8 @@ function MobileCatalog({ alfajores }) {
   return (
     <section className="mobile-catalog-section">
       <div className="mobile-catalog-header" id="catalog">
-        <p className="big-title white-text mobile-catalog-title">
-          {alfajores.length} "Alfajores"
+        <p className="big-title mobile-catalog-title">
+          {alfajores.length} Alfajores
         </p>
         <SearchInput onChange={setSearchContent} isMobile={true} />
       </div>

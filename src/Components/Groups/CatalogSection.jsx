@@ -8,7 +8,7 @@ import "./CatalogSection.css";
 function CatalogSection({ alfajores, fromFavorite = false }) {
   const { pushModal } = useModalStack();
   const { filteredData, setSearchContent } = useFilteredData(alfajores);
-  
+
   return (
     <section className="catalog-section">
       <div className="catalog-header" id="catalog">
