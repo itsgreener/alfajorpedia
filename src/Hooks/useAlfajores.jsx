@@ -16,11 +16,7 @@ export function AlfajoresProvider({ children }) {
       setError("");
 
       const res = await fetch("https://app.alfajorpedia.com/api/alfajores", {
-        headers: token
-          ? {
-              Authorization: `Bearer ${token}`,
-            }
-          : {},
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
       });
 
       const data = await res.json();
@@ -46,10 +42,8 @@ export function AlfajoresProvider({ children }) {
       throw new Error("No autenticado");
     }
 
-    const method = like ? "POST" : "DELETE";
-
     const res = await fetch(`https://app.alfajorpedia.com/api/favorites/${id}`, {
-      method,
+      method: like ? "POST" : "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
       },

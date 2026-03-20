@@ -5,20 +5,20 @@ import "./AlfajorCard.css";
 
 const AlfajorCard = memo(({ alfajor, onClick }) => {
   const { setFavAlfajor } = useSetFavorites();
-  const { id, name, weight, calories, tagline, image, isFav } = alfajor;
+  const { id, nombre, gramos, calorias, tagline, foto_url, isFav } = alfajor;
 
   const hasValidImage =
-    typeof image === "string" &&
-    image.trim() !== "" &&
-    (image.startsWith("http://") ||
-      image.startsWith("https://") ||
-      image.startsWith("/"));
+    typeof foto_url === "string" &&
+    foto_url.trim() !== "" &&
+    (foto_url.startsWith("http://") ||
+      foto_url.startsWith("https://") ||
+      foto_url.startsWith("/"));
 
   return (
     <div className="alfajor-card" onClick={onClick}>
       <div className="card-image-wrapper">
         {hasValidImage ? (
-          <img src={image} alt={name} className="card-image" />
+          <img src={foto_url} alt={nombre} className="card-image" />
         ) : (
           <div className="card-image placeholder" />
         )}
@@ -26,12 +26,12 @@ const AlfajorCard = memo(({ alfajor, onClick }) => {
 
       <div className="card-body">
         <div className="card-content">
-          <p className="card-name">{name}</p>
+          <p className="card-name">{nombre}</p>
 
           <div className="card-meta">
-            {weight != null && <span className="card-weight">{weight}g</span>}
-            {calories != null && (
-              <span className="card-calories">{calories} Cal</span>
+            {gramos != null && <span className="card-weight">{gramos}g</span>}
+            {calorias != null && (
+              <span className="card-calories">{calorias} Cal</span>
             )}
           </div>
 

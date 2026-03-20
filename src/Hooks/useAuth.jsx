@@ -1,4 +1,3 @@
-
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 const AuthContext = createContext(null);
@@ -6,10 +5,9 @@ const AuthContext = createContext(null);
 export function AuthProvider({ children }) {
   const [token, setToken] = useState(localStorage.getItem("token") || "");
   const [user, setUser] = useState(null);
-   const [authLoading, setAuthLoading] = useState(true);
+  const [authLoading, setAuthLoading] = useState(true);
 
-
-     useEffect(() => {
+  useEffect(() => {
     async function loadMe() {
       if (!token) {
         setUser(null);
@@ -27,11 +25,11 @@ export function AuthProvider({ children }) {
         const data = await res.json();
 
         if (!res.ok) {
-          throw new Error(data.message || "No se pudo recuperar el usuario");
+          throw new Error(data.message || data.error || "No se pudo recuperar el usuario");
         }
 
         setUser(data.user);
-      } catch (_err) {
+      } catch {
         localStorage.removeItem("token");
         setToken("");
         setUser(null);
@@ -55,7 +53,7 @@ export function AuthProvider({ children }) {
     const data = await res.json();
 
     if (!res.ok) {
-      throw new Error(data.message || "Error al iniciar sesión");
+      throw new Error(data.message || data.error || "Error al iniciar sesión");
     }
 
     localStorage.setItem("token", data.token);
@@ -77,7 +75,7 @@ export function AuthProvider({ children }) {
     const data = await res.json();
 
     if (!res.ok) {
-      throw new Error(data.message || "Error al registrarse");
+      throw new Error(data.message || data.error || "Error al registrarse");
     }
 
     localStorage.setItem("token", data.token);
@@ -98,8 +96,6 @@ export function AuthProvider({ children }) {
       token,
       user,
       authLoading,
-      setToken,
-      setUser,
       login,
       register,
       logout,
@@ -113,12 +109,7 @@ export function AuthProvider({ children }) {
 export function useAuthData() {
   const ctx = useContext(AuthContext);
   if (!ctx) throw new Error("useAuthData fuera del provider");
-
-  return {
-    token: ctx.token,
-    user: ctx.user,
-    authLoading: ctx.authLoading,
-  };
+  return ctx;
 }
 
 export function useAuthActions() {
@@ -129,7 +120,5 @@ export function useAuthActions() {
     login: ctx.login,
     register: ctx.register,
     logout: ctx.logout,
-    setToken: ctx.setToken,
-    setUser: ctx.setUser,
   };
 }

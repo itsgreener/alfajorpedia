@@ -17,13 +17,23 @@ import "./Home.css";
 
 function Home() {
   const { currentModal, pushModal } = useModalStack();
-  const { alfajores } = useAlfajoresData();
+  const { alfajores, loading, error } = useAlfajoresData();
   const { isMobile } = useBreakpoint();
+
+  const featuredAlfajor = alfajores[2] ?? alfajores[0];
+
+  if (loading) {
+    return <p className="text">Cargando alfajores...</p>;
+  }
+
+  if (error) {
+    return <p className="text">Error: {error}</p>;
+  }
 
   return (
     <>
       {isMobile ? (
-        <MobileCatalog alfajores={alfajores}/>
+        <MobileCatalog alfajores={alfajores} />
       ) : (
         <>
           <Header
@@ -42,7 +52,8 @@ function Home() {
               <div
                 className="header-content-row"
                 onClick={() =>
-                  pushModal(<AlfajorModal alfajorId={alfajores[2].id} />)
+                  featuredAlfajor &&
+                  pushModal(<AlfajorModal alfajorId={featuredAlfajor.id} />)
                 }
               >
                 <div className="header-text-col">
@@ -66,6 +77,7 @@ function Home() {
                 </div>
               </div>
             </section>
+
             <section className="group">
               <div className="power-texts">
                 <p className="title">
@@ -80,6 +92,7 @@ function Home() {
               </div>
               <AlfajorGroup amount={3} alfajores={alfajores} />
             </section>
+
             <section className="group">
               <div className="height-texts">
                 <p className="text height-text">
@@ -93,6 +106,7 @@ function Home() {
               </div>
               <AlfajorGroup amount={4} alfajores={alfajores} />
             </section>
+
             <section className="group">
               <div className="spicy-texts">
                 <p className="title">
@@ -157,6 +171,7 @@ function Home() {
           </section>
         </>
       )}
+
       {isMobile ? (
         <MobileFooter />
       ) : (
@@ -171,6 +186,7 @@ function Home() {
           onSubscribeClick={() => pushModal(<LoginModal />)}
         />
       )}
+
       {currentModal && <EmptyModal>{currentModal}</EmptyModal>}
     </>
   );

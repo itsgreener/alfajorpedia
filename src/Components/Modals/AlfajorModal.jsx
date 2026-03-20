@@ -8,32 +8,51 @@ function AlfajorModal({ alfajorId }) {
   const { alfajorById } = useAlfajoresActions();
   const selectedAlfajor = alfajorById(alfajorId);
 
+  const hasValidImage =
+    typeof selectedAlfajor?.foto_url === "string" &&
+    selectedAlfajor.foto_url.trim() !== "" &&
+    (selectedAlfajor.foto_url.startsWith("http://") ||
+      selectedAlfajor.foto_url.startsWith("https://") ||
+      selectedAlfajor.foto_url.startsWith("/"));
+
   return (
     <div className="alfajor-detail">
       {selectedAlfajor ? (
         <>
-          <img
-            className="alfajor-detail-img"
-            src={selectedAlfajor.image}
-            alt={selectedAlfajor.name}
-          />
+          {hasValidImage ? (
+            <img
+              className="alfajor-detail-img"
+              src={selectedAlfajor.foto_url}
+              alt={selectedAlfajor.nombre}
+            />
+          ) : (
+            <div className="alfajor-detail-img" />
+          )}
+
           <div className="alfajor-detail-info">
-            <p className="title">{selectedAlfajor.name}</p>
+            <p className="title">{selectedAlfajor.nombre}</p>
+
             <div className="alfajor-detail-meta">
-              <img
-                className="alfajor-detail-flag"
-                src={selectedAlfajor.flag}
-                alt="Bandera"
-              />
-              <span>{selectedAlfajor.weight}g</span>
-              <span>{selectedAlfajor.calories} Cal</span>
+              {selectedAlfajor.gramos != null && (
+                <span>{selectedAlfajor.gramos}g</span>
+              )}
+              {selectedAlfajor.calorias != null && (
+                <span>{selectedAlfajor.calorias} Cal</span>
+              )}
             </div>
-            <p className="alfajor-detail-tagline">
-              <strong>{selectedAlfajor.tagline}</strong>
-            </p>
-            <p className="alfajor-detail-description">
-              {selectedAlfajor.description}
-            </p>
+
+            {selectedAlfajor.tagline && (
+              <p className="alfajor-detail-tagline">
+                <strong>{selectedAlfajor.tagline}</strong>
+              </p>
+            )}
+
+            {selectedAlfajor.descripcion && (
+              <p className="alfajor-detail-description">
+                {selectedAlfajor.descripcion}
+              </p>
+            )}
+
             <div className="alfajor-detail-footer">
               <div className="alfajor-detail-socials">
                 {selectedAlfajor.website && (
@@ -59,6 +78,7 @@ function AlfajorModal({ alfajorId }) {
                     </svg>
                   </a>
                 )}
+
                 {selectedAlfajor.instagram && (
                   <a
                     href={`https://www.instagram.com/${selectedAlfajor.instagram}`}
@@ -82,6 +102,7 @@ function AlfajorModal({ alfajorId }) {
                     </svg>
                   </a>
                 )}
+
                 {selectedAlfajor.tiktok && (
                   <a
                     href={`https://www.tiktok.com/${selectedAlfajor.tiktok}`}
@@ -100,6 +121,7 @@ function AlfajorModal({ alfajorId }) {
                   </a>
                 )}
               </div>
+
               <AddFavoritesButton
                 active={selectedAlfajor.isFav}
                 onChange={(like) => setFavAlfajor(selectedAlfajor.id, like)}
