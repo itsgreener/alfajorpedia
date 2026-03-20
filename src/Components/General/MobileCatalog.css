@@ -1,0 +1,6 @@
+.mobile-header{
+    display: flex;
+    flex-direction: row;
+    padding-top: var(--safe-top);
+    width: 100%;
+}

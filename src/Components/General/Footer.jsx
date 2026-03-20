@@ -38,7 +38,7 @@ function Footer({ onSubscribeClick, onFavoriteClick }) {
         <div className="footer-main">
           <div className="footer-left">
             <div className="footer-brand white-text">
-              <img src="/logoAlfajorpedia.svg" />{" "}
+              <img src="/logo-blanco.svg" />{" "}
               <p>Contenido del que importa.</p>
             </div>
 

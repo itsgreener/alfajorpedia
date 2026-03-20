@@ -1,5 +1,4 @@
 .catalogo-search {
-  width: 50%;
   height: 8vh;
   min-height: 50px;
   display: flex;
@@ -7,6 +6,14 @@
   background: var(--white);
   border-radius: 20px;
   overflow: hidden;
+}
+
+.mobile-width {
+  width: 75%;
+}
+
+.desktop-width {
+  width: 50%;
 }
 
 .catalogo-search input {

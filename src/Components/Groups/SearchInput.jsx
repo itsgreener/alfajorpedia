@@ -1,8 +1,12 @@
 import "./SearchInput.css";
 
-function SearchInput({ onChange }) {
+function SearchInput({ onChange, isMobile = false }) {
   return (
-    <div className="catalogo-search">
+    <div
+      className={`catalogo-search ${
+        isMobile ? "mobile-width" : "desktop-width"
+      }`}
+    >
       <input
         type="text"
         placeholder="Busca tu match"

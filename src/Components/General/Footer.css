@@ -40,7 +40,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 45%;
+  width: 60%;
+  gap: 2vh;
 }
 
 .footer-brand {
@@ -49,6 +50,10 @@
   align-items: center;
   gap: 1vw;
   font-size: var(--footer-brand);
+}
+
+.footer-brand img {
+  width: 33%;
 }
 
 .footer-newsletter {

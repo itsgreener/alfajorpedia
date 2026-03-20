@@ -9,8 +9,8 @@
 .carousel-track-social {
   position: relative;
   aspect-ratio: 9 / 16;
-  height: 65vh;
-  max-height: 700px;
+  height: 70vh;
+  max-height: 600px;
   min-height: 256px;
   max-width: fit-content;
   display: flex;
@@ -24,7 +24,6 @@
   aspect-ratio: 4/3;
   width: 22.5vw;
   max-width: 1000px;
-  min-width: 256px;
   height: fit-content;
   display: flex;
   align-items: center;

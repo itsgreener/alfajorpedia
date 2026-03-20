@@ -28,6 +28,7 @@ nav {
 }
 
 .nav-link {
+  width: 100%;
   color: var(--white);
   font-size: var(--small-text);
   letter-spacing: 1px;

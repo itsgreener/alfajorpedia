@@ -4,7 +4,9 @@ function Header({ onFavoriteClick, onSubscribeClick }) {
   return (
     <nav>
       <div className="nav-left">
-        <img src="/logoAlfajorpedia.svg" className="nav-link"/>
+        <a href="/" className="nav-link">
+          <img src="/logo-blanco.svg" className="nav-link"/>
+        </a>
         <a href="#catalog" className="nav-link">
           CATÁLOGO
         </a>
