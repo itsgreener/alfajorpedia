@@ -6,15 +6,18 @@ export function useFilteredData(data) {
   const filteredData = useMemo(() => {
     if (!searchContent) return data;
     const q = searchContent.toLowerCase();
+    console.log(data[0]);
     return data.filter(
       (i) =>
-        i.name.toLowerCase().includes(q) ||
-        i.description.toLowerCase().includes(q) ||
-        i.tagline.toLowerCase().includes(q) ||
-        i.producer.toLowerCase().includes(q) ||
-        i.importer?.toLowerCase().includes(q) ||
-        i.brands.some((b) => b.toLowerCase().includes(q)) ||
-        i.categories.some((c) => c.toLowerCase().includes(q)),
+        i.nombre.toLowerCase().includes(q) ||
+        i.descripcion?.toLowerCase().includes(q) ||
+        i.tagline?.toLowerCase().includes(q) ||
+        i.variedad?.toLowerCase().includes(q) ||
+        i.empresa?.toLowerCase().includes(q) ||
+        i.empresa_imp?.toLowerCase().includes(q) ||
+        i.empresa_proc?.toLowerCase().includes(q) ||
+        i.marca?.toLowerCase().includes(q) ||
+        i.categorias?.toLowerCase().includes(q) 
     );
   }, [data, searchContent]);
   return { filteredData, setSearchContent };

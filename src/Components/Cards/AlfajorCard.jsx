@@ -7,18 +7,18 @@ const AlfajorCard = memo(({ alfajor, onClick }) => {
   const { setFavAlfajor } = useSetFavorites();
   const { id, nombre, gramos, calorias, tagline, foto_url, isFav } = alfajor;
 
-  const hasValidImage =
-    typeof foto_url === "string" &&
-    foto_url.trim() !== "" &&
-    (foto_url.startsWith("http://") ||
-      foto_url.startsWith("https://") ||
-      foto_url.startsWith("/"));
+  const imgUrl = `https://res.cloudinary.com/dnvp65swm/image/upload/f_auto,q_auto/v1774009977/${foto_url}.webp`;
 
   return (
     <div className="alfajor-card" onClick={onClick}>
       <div className="card-image-wrapper">
-        {hasValidImage ? (
-          <img src={foto_url} alt={nombre} className="card-image" />
+        {imgUrl ? (
+          <img
+            src={imgUrl}
+            alt={nombre}
+            className="card-image"
+            loading="lazy"
+          />
         ) : (
           <div className="card-image placeholder" />
         )}
