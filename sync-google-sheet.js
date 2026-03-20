@@ -18,13 +18,19 @@ const pool = mysql.createPool({
 });
 
 function toNumber(value) {
-  if (value == null || value === "") return null;
-  const parsed = Number(String(value).replace(",", ".").trim());
+  if (value == null) return null;
+
+  const text = String(value).trim();
+  if (text === "") return null;
+
+  const normalized = text.replace(",", ".");
+  const parsed = Number(normalized);
+
   return Number.isNaN(parsed) ? null : parsed;
 }
 
 function normalizeText(value) {
-  if (value == null || value === "") return null;
+  if (value == null) return null;
   const text = String(value).trim();
   return text === "" ? null : text;
 }
@@ -33,7 +39,9 @@ async function fetchCsvRows() {
   const response = await fetch(SHEET_CSV_URL);
 
   if (!response.ok) {
-    throw new Error(`Error descargando CSV: ${response.status} ${response.statusText}`);
+    throw new Error(
+      `Error descargando CSV: ${response.status} ${response.statusText}`,
+    );
   }
 
   const csvText = await response.text();
@@ -59,7 +67,7 @@ async function fetchCsvRows() {
 
 async function syncRows(rows) {
   const clean = rows
-    .filter((r) => r["Marca"] && r["Variedad"])
+    .filter((r) => normalizeText(r["Marca"]) && normalizeText(r["Variedad"]))
     .map((r) => ({
       foto_url: normalizeText(r["Foto"]),
       marca: normalizeText(r["Marca"]),
@@ -77,12 +85,15 @@ async function syncRows(rows) {
       tiktok: normalizeText(r["TikTok"]),
       empresa_proc: normalizeText(r["Empresa productora"]),
       empresa_imp: normalizeText(r["Empresa importadora"]),
-    }));
+    }))
+    .filter((r) => r.foto_url);
 
   if (clean.length === 0) {
     console.log("No hay filas válidas para insertar");
     return;
   }
+
+  console.log("Primer registro limpio:", clean[0]);
 
   const values = clean.map((r) => [
     r.foto_url,
@@ -124,7 +135,8 @@ async function syncRows(rows) {
     )
     VALUES ?
     ON DUPLICATE KEY UPDATE
-      foto_url = VALUES(foto_url),
+      marca = VALUES(marca),
+      variedad = VALUES(variedad),
       empresa = VALUES(empresa),
       pais = VALUES(pais),
       descripcion = VALUES(descripcion),
@@ -145,7 +157,7 @@ async function syncRows(rows) {
 
   try {
     await conn.query(sql, [values]);
-    console.log(`OK. Filas procesadas: ${rows.length}`);
+    console.log(`OK. Filas CSV leídas: ${rows.length}`);
     console.log(`OK. Filas insertadas/actualizadas: ${clean.length}`);
   } finally {
     conn.release();
@@ -159,7 +171,7 @@ async function main() {
     console.log(`CSV descargado. Filas leídas: ${rows.length}`);
 
     if (rows.length > 0) {
-      console.log("Primer registro:", rows[0]);
+      console.log("Primer registro crudo:", rows[0]);
     }
 
     await syncRows(rows);
