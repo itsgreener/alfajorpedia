@@ -122,12 +122,12 @@ function Home() {
             </section>
           </div>
 
-          <section className="experiences-section">
+        {/* <section className="experiences-section">
             <div className="experiences-content">
               <p className="title white-text experiences-title">Experiencias</p>
               <MediaCarousel isNostalgia={false} />
             </div>
-          </section>
+          </section>*/}
 
           <section className="nostalgia">
             <p className="title nostalgia-title">Nostalgia</p>
