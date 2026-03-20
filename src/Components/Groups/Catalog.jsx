@@ -12,13 +12,32 @@ export default function Catalog({ alfajores, onClick, items }) {
   const currentItems = alfajores.slice(startIndex, endIndex);
 
   function scrollToTop() {
-    ref.current.scrollIntoView();
+    ref.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  const maxVisiblePages = 5;
+
+  let startPage = currentPage;
+  let endPage = currentPage + maxVisiblePages - 1;
+
+  if (endPage > totalPages) {
+    endPage = totalPages;
+    startPage = Math.max(1, totalPages - maxVisiblePages + 1);
+  }
+
+  const visiblePages = [];
+  for (let i = startPage; i <= endPage; i++) {
+    visiblePages.push(i);
   }
 
   return (
     <>
       {totalPages > 0 && (
-        <div ref={ref} className="catalogo-list" style={{ '--repeat': `${items / 4}` }}>
+        <div
+          ref={ref}
+          className="catalogo-list"
+          style={{ "--repeat": `${items / 4}` }}
+        >
           {currentItems.map((alfajor) => (
             <AlfajorCard
               key={alfajor.id}
@@ -28,6 +47,7 @@ export default function Catalog({ alfajores, onClick, items }) {
           ))}
         </div>
       )}
+
       <div className="pagination">
         {totalPages ? (
           <>
@@ -40,18 +60,20 @@ export default function Catalog({ alfajores, onClick, items }) {
             >
               Anterior
             </button>
-            {Array.from({ length: totalPages }, (_, index) => (
+
+            {visiblePages.map((page) => (
               <button
-                key={index + 1}
-                className={currentPage === index + 1 ? "active" : ""}
+                key={page}
+                className={currentPage === page ? "active" : ""}
                 onClick={() => {
-                  setCurrentPage(index + 1);
+                  setCurrentPage(page);
                   scrollToTop();
                 }}
               >
-                {index + 1}
+                {page}
               </button>
             ))}
+
             <button
               onClick={() => {
                 setCurrentPage((prev) => prev + 1);

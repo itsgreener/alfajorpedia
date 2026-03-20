@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { socialPosts } from "../../Assets/Data.js";
 import SocialPost from "../Cards/SocialPost";
 import "./MediaCarousel.css";
@@ -23,9 +23,10 @@ function getCardStyle(offset) {
 }
 
 function SocialCarousel({ isNostalgia }) {
-  const [centerIndex, setCenterIndex] = useState(2);
+  const [centerIndex, setCenterIndex] = useState(Math.floor(socialPosts.length / 2));
   const dragStartX = useRef(null);
   const isDragging = useRef(false);
+  const videoRefs = useRef([]);
   const total = socialPosts.length;
 
   const prev = useCallback(() => {
@@ -43,6 +44,20 @@ function SocialCarousel({ isNostalgia }) {
     return offset;
   };
 
+  useEffect(() => {
+    videoRefs.current.forEach((video, i) => {
+      if (!video) return;
+
+      if (i === centerIndex) {
+        video.currentTime = 0;
+        video.play().catch(() => {});
+      } else {
+        video.pause();
+        video.currentTime = 0;
+      }
+    });
+  }, [centerIndex]);
+
   const handlePointerDown = (e) => {
     dragStartX.current = e.clientX ?? e.touches?.[0]?.clientX;
     isDragging.current = false;
@@ -58,9 +73,11 @@ function SocialCarousel({ isNostalgia }) {
     if (dragStartX.current === null) return;
     const x = e.clientX ?? e.changedTouches?.[0]?.clientX;
     const delta = x - dragStartX.current;
+
     if (isDragging.current && Math.abs(delta) > 40) {
       delta < 0 ? next() : prev();
     }
+
     dragStartX.current = null;
     isDragging.current = false;
   };
@@ -81,9 +98,11 @@ function SocialCarousel({ isNostalgia }) {
       >
         {socialPosts.map((item, i) => {
           const offset = getOffset(i);
+          const isActive = offset === 0;
+
           return (
             <div
-              key={i}
+              key={item.id}
               className="carousel-slot"
               style={getCardStyle(offset)}
               onClick={() => {
@@ -92,11 +111,19 @@ function SocialCarousel({ isNostalgia }) {
                 }
               }}
             >
-              <SocialPost data={item} isNostalgia={isNostalgia} />
+              <SocialPost
+                data={item}
+                isNostalgia={isNostalgia}
+                isActive={isActive}
+                videoRef={(el) => {
+                  videoRefs.current[i] = el;
+                }}
+              />
             </div>
           );
         })}
       </div>
+
       <div className="carousel-controls">
         <button
           className={
@@ -118,6 +145,7 @@ function SocialCarousel({ isNostalgia }) {
             <polyline points="15 18 9 12 15 6" />
           </svg>
         </button>
+
         <div
           className={
             isNostalgia ? "carousel-dots-nostalgia" : "carousel-dots-social"
@@ -136,6 +164,7 @@ function SocialCarousel({ isNostalgia }) {
             />
           ))}
         </div>
+
         <button
           className={
             isNostalgia ? "carousel-btn-nostalgia" : "carousel-btn-social"
