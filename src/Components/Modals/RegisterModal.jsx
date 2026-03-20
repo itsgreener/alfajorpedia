@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuthActions } from "../../Hooks/useAuth.js";
+import { useAuthActions } from "../../Hooks/useAuth.jsx";
 import { validate } from "../../Hooks/useValidation.js";
 import "./RegisterModal.css";
 

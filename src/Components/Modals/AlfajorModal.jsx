@@ -1,4 +1,4 @@
-import { useAlfajoresActions } from "../../Hooks/useAlfajores.js";
+import { useAlfajoresActions } from "../../Hooks/useAlfajores.jsx";
 import { useSetFavorites } from "../../Hooks/useSetFavorites.jsx";
 import AddFavoritesButton from "../Cards/AddFavoritesButton.jsx";
 import "./AlfajorModal.css";

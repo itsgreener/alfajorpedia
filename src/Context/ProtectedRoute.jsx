@@ -1,5 +1,5 @@
 import LoginModal from "../Components/Modals/LoginModal.jsx";
-import { useAuthData } from "../Hooks/useAuth.js";
+import { useAuthData } from "../Hooks/useAuth.jsx";
 import { useModalStack } from "../Hooks/useModalStack.js";
 
 function ProtectedPath({ children }) {

@@ -1,4 +1,4 @@
-import { useAlfajoresData } from "../Hooks/useAlfajores.js";
+import { useAlfajoresData } from "../Hooks/useAlfajores.jsx";
 import { useModalStack } from "../Hooks/useModalStack.js";
 import ProtectedPath from "../Context/ProtectedRoute.jsx";
 import Footer from "../Components/General/Footer.jsx";

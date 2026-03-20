@@ -8,7 +8,7 @@ router.get("/", requireToken, async (req, res) => {
     const pool = req.app.locals.pool;
 
     const [rows] = await pool.query(
-      "SELECT alfajor_id FROM favorites WHERE user_id = ?",
+      "SELECT alfajor_id FROM favoritos WHERE usuario_id = ?",
       [req.user.id]
     );
 
@@ -26,7 +26,7 @@ router.post("/:alfajorId", requireToken, async (req, res) => {
     const pool = req.app.locals.pool;
 
     await pool.query(
-      "INSERT IGNORE INTO favorites (user_id, alfajor_id) VALUES (?, ?)",
+      "INSERT IGNORE INTO favoritos (usuario_id, alfajor_id) VALUES (?, ?)",
       [req.user.id, req.params.alfajorId]
     );
 
@@ -44,7 +44,7 @@ router.delete("/:alfajorId", requireToken, async (req, res) => {
     const pool = req.app.locals.pool;
 
     await pool.query(
-      "DELETE FROM favorites WHERE user_id = ? AND alfajor_id = ?",
+      "DELETE FROM favoritos WHERE usuario_id = ? AND alfajor_id = ?",
       [req.user.id, req.params.alfajorId]
     );
 

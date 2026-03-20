@@ -17,6 +17,7 @@ app.use((req, res, next) => {
   const allowedOrigins = [
     "https://alfajorpedia.com",
     "https://www.alfajorpedia.com",
+     "https://app.alfajorpedia.com",
     "http://localhost:5173",
   ];
 
@@ -60,7 +61,7 @@ app.get("/api/health", requireApiKey, (_req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
-app.post("/sync-alfajores", requireApiKey, async (req, res) => {
+app.post("/api/sync-alfajores", requireApiKey, async (req, res) => {
   try {
     const rows = req.body?.rows;
 
@@ -186,7 +187,7 @@ app.post("/sync-alfajores", requireApiKey, async (req, res) => {
   }
 });
 
-app.use("/api/auth", requireApiKey, authRoutes);
+app.use("/api/auth", authRoutes);
 app.use("/api/alfajores", alfajoresRoutes);
 app.use("/api/favorites", favoritesRoutes);
 
@@ -242,6 +243,19 @@ app.post("/api/subscribe", requireToken, async (req, res) => {
     });
   }
 });
+
+//de prueba:
+app.get("/api/test-node", (_req, res) => {
+  res.json({ ok: true, source: "node" });
+});
+
+app.post("/api/test-post", (req, res) => {
+  res.json({
+    ok: true,
+    body: req.body,
+  });
+});
+
 
 const PORT = process.env.PORT || 3000;
 

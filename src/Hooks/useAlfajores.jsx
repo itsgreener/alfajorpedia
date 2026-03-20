@@ -1,10 +1,10 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { useAuthData } from "./useAuth.js";
+import { useAuthData } from "./useAuth.jsx";
 
 const AlfajoresContext = createContext(null);
 
 export function AlfajoresProvider({ children }) {
-  const { token, user } = useAuthData();
+  const { token } = useAuthData();
 
   const [alfajores, setAlfajores] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -15,7 +15,7 @@ export function AlfajoresProvider({ children }) {
       setLoading(true);
       setError("");
 
-      const res = await fetch("https://alfajorpedia.com/api/alfajores", {
+      const res = await fetch("https://app.alfajorpedia.com/api/alfajores", {
         headers: token
           ? {
               Authorization: `Bearer ${token}`,
@@ -26,7 +26,7 @@ export function AlfajoresProvider({ children }) {
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.message || "Error cargando alfajores");
+        throw new Error(data.message || data.error || "Error cargando alfajores");
       }
 
       setAlfajores(data);
@@ -39,7 +39,7 @@ export function AlfajoresProvider({ children }) {
 
   useEffect(() => {
     fetchAlfajores();
-  }, [token, user]);
+  }, [token]);
 
   async function toggleFavoriteAlfajor(id, like) {
     if (!token) {
@@ -48,7 +48,7 @@ export function AlfajoresProvider({ children }) {
 
     const method = like ? "POST" : "DELETE";
 
-    const res = await fetch(`https://alfajorpedia.com/api/favorites/${id}`, {
+    const res = await fetch(`https://app.alfajorpedia.com/api/favorites/${id}`, {
       method,
       headers: {
         Authorization: `Bearer ${token}`,
@@ -58,7 +58,7 @@ export function AlfajoresProvider({ children }) {
     const data = await res.json().catch(() => ({}));
 
     if (!res.ok) {
-      throw new Error(data.message || "Error actualizando favorito");
+      throw new Error(data.message || data.error || "Error actualizando favorito");
     }
 
     setAlfajores((prev) =>
@@ -73,6 +73,7 @@ export function AlfajoresProvider({ children }) {
       alfajores,
       loading,
       error,
+      fetchAlfajores,
       toggleFavoriteAlfajor,
     }),
     [alfajores, loading, error],
@@ -111,6 +112,7 @@ export function useAlfajoresActions() {
   return {
     alfajorById,
     favoriteAlfajores,
+    fetchAlfajores: ctx.fetchAlfajores,
     toggleFavoriteAlfajor: ctx.toggleFavoriteAlfajor,
   };
 }

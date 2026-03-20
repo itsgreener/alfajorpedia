@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from "react";
-import { useAlfajoresActions } from "./useAlfajores.js";
-import { useAuthData } from "./useAuth.js";
+import { useAlfajoresActions } from "./useAlfajores.jsx";
+import { useAuthData } from "./useAuth.jsx";
 import { useModalStack } from "./useModalStack.js";
 import ProtectedPath from "../Context/ProtectedRoute.jsx";
 import AlfajorModal from "../Components/Modals/AlfajorModal.jsx";
