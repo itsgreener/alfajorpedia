@@ -5,7 +5,8 @@ import "./AlfajorCard.css";
 
 const AlfajorCard = memo(({ alfajor, onClick }) => {
   const { setFavAlfajor } = useSetFavorites();
-  const { id, nombre, gramos, calorias, tagline, foto_url, isFav } = alfajor;
+  const { id, nombre, pais, gramos, calorias, tagline, foto_url, isFav } =
+    alfajor;
 
   const imgUrl = `https://res.cloudinary.com/dnvp65swm/image/upload/f_auto,q_auto/v1774009977/${foto_url}.webp`;
 
@@ -29,6 +30,11 @@ const AlfajorCard = memo(({ alfajor, onClick }) => {
           <p className="card-name">{nombre}</p>
 
           <div className="card-meta">
+            <img
+              src={`/Flags/${pais}.webp`}
+              alt="flag"
+              className="card-flag"
+            />
             {gramos != null && <span className="card-weight">{gramos}g</span>}
             {calorias != null && (
               <span className="card-calories">{calorias} Cal</span>

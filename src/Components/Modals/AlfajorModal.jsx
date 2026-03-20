@@ -8,22 +8,18 @@ function AlfajorModal({ alfajorId }) {
   const { alfajorById } = useAlfajoresActions();
   const selectedAlfajor = alfajorById(alfajorId);
 
-  const hasValidImage =
-    typeof selectedAlfajor?.foto_url === "string" &&
-    selectedAlfajor.foto_url.trim() !== "" &&
-    (selectedAlfajor.foto_url.startsWith("http://") ||
-      selectedAlfajor.foto_url.startsWith("https://") ||
-      selectedAlfajor.foto_url.startsWith("/"));
+  const imgUrl = `https://res.cloudinary.com/dnvp65swm/image/upload/f_auto,q_auto/v1774009977/${selectedAlfajor.foto_url}.webp`;
 
   return (
     <div className="alfajor-detail">
       {selectedAlfajor ? (
         <>
-          {hasValidImage ? (
+          {imgUrl ? (
             <img
               className="alfajor-detail-img"
-              src={selectedAlfajor.foto_url}
+              src={imgUrl}
               alt={selectedAlfajor.nombre}
+              loading="lazy"
             />
           ) : (
             <div className="alfajor-detail-img" />
@@ -33,6 +29,7 @@ function AlfajorModal({ alfajorId }) {
             <p className="title">{selectedAlfajor.nombre}</p>
 
             <div className="alfajor-detail-meta">
+              <img src={`/Flags/${selectedAlfajor.pais}.webp`} alt="flag" className="alfajor-detail-flag"/>
               {selectedAlfajor.gramos != null && (
                 <span>{selectedAlfajor.gramos}g</span>
               )}
