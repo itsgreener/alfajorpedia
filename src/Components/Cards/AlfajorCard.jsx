@@ -1,6 +1,8 @@
 import { memo } from "react";
 import { useSetFavorites } from "../../Hooks/useSetFavorites.jsx";
 import AddFavoritesButton from "./AddFavoritesButton";
+import { getCloudinaryImageUrl } from "../../Helpers/alfajoresDisplay.js";
+
 import "./AlfajorCard.css";
 
 const AlfajorCard = memo(({ alfajor, onClick }) => {
@@ -20,7 +22,7 @@ const AlfajorCard = memo(({ alfajor, onClick }) => {
     isFav,
   } = alfajor;
 
-  const imgUrl = `https://res.cloudinary.com/dnvp65swm/image/upload/f_auto,q_auto/v1774009977/${foto_url}.webp`;
+  const imgUrl = getCloudinaryImageUrl(foto_url);
 
   return (
     <div className="alfajor-card" onClick={onClick}>

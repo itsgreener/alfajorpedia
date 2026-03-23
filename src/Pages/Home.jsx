@@ -14,7 +14,10 @@ import LoginModal from "../Components/Modals/LoginModal.jsx";
 import CatalogSection from "../Components/Groups/CatalogSection.jsx";
 import MobileCatalog from "../Components/General/MobileCatalog.jsx";
 import { useEffect, useMemo, useState } from "react";
-import { getAlfajoresConImagenAleatoriosPorHora } from "../Helpers/alfajoresDisplay.js";
+import {
+  filtrarAlfajoresConImagenReal,
+  getAlfajoresConImagenAleatoriosPorHora,
+} from "../Helpers/alfajoresDisplay.js";
 import Contact from "../Components/General/Contact.jsx";
 import "./Home.css";
 
@@ -24,6 +27,9 @@ function Home() {
   const { isMobile } = useBreakpoint();
 
   const [hourTick, setHourTick] = useState(Date.now());
+  const [alfajoresConImagenReal, setAlfajoresConImagenReal] = useState([]);
+const [imagenesLoading, setImagenesLoading] = useState(true);
+
 
   useEffect(() => {
   function scheduleNextHourUpdate() {
@@ -44,11 +50,42 @@ function Home() {
   return () => clearTimeout(timeoutId);
 }, [hourTick]);
 
-const alfajoresConImagen = useMemo(() => {
-  return getAlfajoresConImagenAleatoriosPorHora(alfajores, hourTick);
-}, [alfajores, hourTick]);
 
- const featuredAlfajor = alfajoresConImagen[0];
+
+useEffect(() => {
+  let cancelled = false;
+
+  async function validarImagenes() {
+    try {
+      setImagenesLoading(true);
+      const validos = await filtrarAlfajoresConImagenReal(alfajores);
+      if (!cancelled) {
+        setAlfajoresConImagenReal(validos);
+      }
+    } finally {
+      if (!cancelled) {
+        setImagenesLoading(false);
+      }
+    }
+  }
+
+  if (alfajores.length > 0) {
+    validarImagenes();
+  } else {
+    setAlfajoresConImagenReal([]);
+    setImagenesLoading(false);
+  }
+
+  return () => {
+    cancelled = true;
+  };
+}, [alfajores]);
+
+const alfajoresAleatorios = useMemo(() => {
+  return getAlfajoresConImagenAleatoriosPorHora(alfajoresConImagenReal, hourTick);
+}, [alfajoresConImagenReal, hourTick]);
+
+const featuredAlfajor = alfajoresAleatorios[0];
 
  const alfajoresPower = useMemo(() => {
     return [...alfajores]
@@ -91,7 +128,7 @@ const alfajoresAltos = useMemo(() => {
     });
   }, [alfajores]);
 
-  if (loading) {
+  if (loading  || imagenesLoading) {
     return <p className="text loading">Cargando alfajores...</p>;
   }
 
@@ -102,7 +139,7 @@ const alfajoresAltos = useMemo(() => {
   return (
     <>
       {isMobile ? (
-        <MobileCatalog alfajores={alfajoresConImagen} />
+        <MobileCatalog alfajores={alfajoresConImagenReal} />
       ) : (
         <>
           <Header
@@ -203,7 +240,7 @@ const alfajoresAltos = useMemo(() => {
             <MediaCarousel isNostalgia={true} />
           </section>
 
-         <CatalogSection alfajores={alfajoresConImagen} />
+         <CatalogSection alfajores={alfajoresConImagenReal} />
 
           <Contact />
         </>

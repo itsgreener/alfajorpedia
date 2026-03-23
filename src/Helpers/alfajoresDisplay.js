@@ -28,6 +28,33 @@ function shuffleWithSeed(items, seedString) {
 
   return arr;
 }
+
+export function getCloudinaryImageUrl(fotoUrl) {
+  if (!fotoUrl || typeof fotoUrl !== "string") return null;
+
+  return `https://res.cloudinary.com/dnvp65swm/image/upload/f_auto,q_auto/v1774009977/${fotoUrl}.webp`;
+}
+
+export async function filtrarAlfajoresConImagenReal(alfajores) {
+  const checks = await Promise.all(
+    alfajores.map(async (alfajor) => {
+      if (!alfajor?.foto_url || typeof alfajor.foto_url !== "string") {
+        return null;
+      }
+
+      const url = getCloudinaryImageUrl(alfajor.foto_url);
+
+      try {
+        const res = await fetch(url, { method: "HEAD" });
+        return res.ok ? alfajor : null;
+      } catch {
+        return null;
+      }
+    }),
+  );
+
+  return checks.filter(Boolean);
+}
 export function getAlfajoresConImagenAleatoriosPorHora(alfajores, tick = Date.now()) {
   const now = new Date(tick);
   const seed = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}-${now.getHours()}`;
