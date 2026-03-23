@@ -1,17 +1,5 @@
 function hasImage(alfajor) {
-  const image = alfajor?.foto_url;
-  return (
-    typeof image === "string" &&
-    image.trim() !== "" &&
-    (image.startsWith("http://") ||
-      image.startsWith("https://") ||
-      image.startsWith("/"))
-  );
-}
-
-function getHourSeed() {
-  const now = new Date();
-  return `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}-${now.getHours()}`;
+  return typeof alfajor?.foto_url === "string" && alfajor.foto_url.trim() !== "";
 }
 
 function hashString(str) {
@@ -21,7 +9,6 @@ function hashString(str) {
   }
   return hash;
 }
-
 function seededRandom(seed) {
   let state = seed >>> 0;
   return function random() {
@@ -41,9 +28,10 @@ function shuffleWithSeed(items, seedString) {
 
   return arr;
 }
-
-export function getAlfajoresConImagenAleatoriosPorHora(alfajores) {
+export function getAlfajoresConImagenAleatoriosPorHora(alfajores, tick = Date.now()) {
+  const now = new Date(tick);
+  const seed = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}-${now.getHours()}`;
   const soloConImagen = alfajores.filter(hasImage);
-  const seed = getHourSeed();
+
   return shuffleWithSeed(soloConImagen, seed);
 }
