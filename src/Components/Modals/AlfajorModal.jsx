@@ -10,7 +10,11 @@ function AlfajorModal({ alfajorId }) {
   const selectedAlfajor = alfajorById(alfajorId.id ?? alfajorId);
 
   const imgUrl = getCloudinaryImageUrl(selectedAlfajor.foto_url);
-
+  const flagName = selectedAlfajor?.pais
+    ?.trim()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
   return (
     <div className="alfajor-detail">
       {selectedAlfajor ? (
@@ -30,8 +34,8 @@ function AlfajorModal({ alfajorId }) {
 
             <div className="alfajor-detail-meta">
               <img
-                src={`/Flags/${selectedAlfajor.pais}.webp`}
-                alt="flag"
+                src={`/Flags/${flagName}.webp`}
+                alt={selectedAlfajor.pais}
                 className="alfajor-detail-flag"
               />
               {selectedAlfajor.gramos != null && (

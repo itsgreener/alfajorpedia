@@ -14,7 +14,7 @@ function Header({ onFavoriteClick, onSubscribeClick }) {
       <div className="nav-right">
         <div className="nav-right-text">
           <button className="nav-link" onClick={onFavoriteClick}>
-            FAVORITOS
+            FAVORITOS 
           </button>
           <button className="nav-link" onClick={onSubscribeClick}>
             SUSCRÍBETE

@@ -1,7 +1,6 @@
 import { useAlfajoresData } from "../Hooks/useAlfajores.jsx";
 import { useModalStack } from "../Hooks/useModalStack.js";
 import { useBreakpoint } from "../Hooks/useBreakpoint.js";
-import ProtectedPath from "../Context/ProtectedRoute.jsx";
 import MobileFooter from "../Components/General/MobileFooter.jsx";
 import Footer from "../Components/General/Footer.jsx";
 import Header from "../Components/General/Header.jsx";
@@ -16,12 +15,14 @@ import MobileCatalog from "../Components/General/MobileCatalog.jsx";
 import { useEffect, useState } from "react";
 import { filtrarAlfajoresConImagenReal } from "../Helpers/alfajoresDisplay.js";
 import Contact from "../Components/General/Contact.jsx";
+import { useAuthData } from "../Hooks/useAuth.jsx";
 import "./Home.css";
 
 function Home() {
   const { currentModal, pushModal } = useModalStack();
   const { alfajores, loading, error } = useAlfajoresData();
   const { isMobile } = useBreakpoint();
+  const { user, authLoading } = useAuthData();
 
   const [hourTick, setHourTick] = useState(Date.now());
   const [alfajoresConImagenReal, setAlfajoresConImagenReal] = useState([]);
@@ -75,6 +76,10 @@ function Home() {
     };
   }, [alfajores]);
 
+  function filterByUrl(fotoUrl) {
+    return alfajores.filter((item) => item.foto_url === fotoUrl);
+  }
+
   const featuredAlfajor = filterByUrl("alfajorpedia-0001");
 
   const alfajoresPower = [
@@ -97,9 +102,16 @@ function Home() {
     ...filterByUrl("alfajorpedia-1014"),
   ];
 
-  function filterByUrl(fotoUrl) {
-    return alfajores.filter((item) => item.foto_url === fotoUrl);
+function handleFavoriteClick() {
+  if (authLoading) return;
+
+  if (!user) {
+    pushModal(<LoginModal />);
+    return;
   }
+
+  pushModal(<FavoriteModal />);
+}
 
   if (loading || imagenesLoading) {
     return <p className="text loading">Cargando alfajores...</p>;
@@ -109,22 +121,19 @@ function Home() {
     return <p className="text">Error: {error}</p>;
   }
 
+
+
   return (
     <>
       {isMobile ? (
         <MobileCatalog alfajores={alfajoresConImagenReal} />
       ) : (
         <>
-          <Header
-            onFavoriteClick={() =>
-              pushModal(
-                <ProtectedPath>
-                  <FavoriteModal />
-                </ProtectedPath>,
-              )
-            }
+       <Header
+            onFavoriteClick={handleFavoriteClick}
             onSubscribeClick={() => pushModal(<LoginModal />)}
           />
+
 
           <div className="body" id="home">
             <section className="card hover">
@@ -231,14 +240,8 @@ function Home() {
       {isMobile ? (
         <MobileFooter />
       ) : (
-        <Footer
-          onFavoriteClick={() =>
-            pushModal(
-              <ProtectedPath>
-                <FavoriteModal />
-              </ProtectedPath>,
-            )
-          }
+          <Footer
+          onFavoriteClick={handleFavoriteClick}
           onSubscribeClick={() => pushModal(<LoginModal />)}
         />
       )}

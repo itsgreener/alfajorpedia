@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useFilteredData } from "../../Hooks/useFilteredData";
 import { useModalStack } from "../../Hooks/useModalStack";
 import AlfajorModal from "../Modals/AlfajorModal";
@@ -7,7 +8,29 @@ import "./CatalogSection.css";
 
 function CatalogSection({ alfajores, fromFavorite = false }) {
   const { pushModal } = useModalStack();
-  const { filteredData, setSearchContent } = useFilteredData(alfajores);
+  const [randomOrder, setRandomOrder] = useState([]);
+
+  useEffect(() => {
+    function shuffleArray(array) {
+      const copy = [...array];
+
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+
+      return copy;
+    }
+
+    if (fromFavorite) {
+      setRandomOrder(alfajores);
+      return;
+    }
+
+    setRandomOrder(shuffleArray(alfajores));
+  }, [alfajores, fromFavorite]);
+
+  const { filteredData, setSearchContent } = useFilteredData(randomOrder);
 
   return (
     <section className="catalog-section">
@@ -17,15 +40,16 @@ function CatalogSection({ alfajores, fromFavorite = false }) {
         </p>
         <SearchInput onChange={setSearchContent} />
       </div>
-      <div className={fromFavorite ? "catalog-content" : "catalog-padding catalog-content"}>
+
+      <div
+        className={
+          fromFavorite ? "catalog-content" : "catalog-padding catalog-content"
+        }
+      >
         <Catalog
           alfajores={filteredData}
           onClick={(alfajor) =>
-            pushModal(
-              <AlfajorModal
-                alfajorId={alfajor.id}
-              />,
-            )
+            pushModal(<AlfajorModal alfajorId={alfajor.id} />)
           }
           items={fromFavorite ? 16 : 20}
         />

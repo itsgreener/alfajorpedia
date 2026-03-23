@@ -12,6 +12,7 @@ const AddFavoritesButton = memo(function AddFavoritesButton({
 
   return (
     <button
+    type="button"
       onClick={toggle}
       className="favorite-btn"
       aria-label={active ? "Quitar de favoritos" : "Agregar a favoritos"}

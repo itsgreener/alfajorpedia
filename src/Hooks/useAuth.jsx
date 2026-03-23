@@ -1,92 +1,67 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useContext, useMemo, useState } from "react";
 
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [token, setToken] = useState(localStorage.getItem("token") || "");
+  const [token, setToken] = useState("");
   const [user, setUser] = useState(null);
-  const [authLoading, setAuthLoading] = useState(true);
-
-  useEffect(() => {
-    async function loadMe() {
-      if (!token) {
-        setUser(null);
-        setAuthLoading(false);
-        return;
-      }
-
-      try {
-        const res = await fetch("https://app.alfajorpedia.com/api/auth/me", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        const data = await res.json();
-
-        if (!res.ok) {
-          throw new Error(data.message || data.error || "No se pudo recuperar el usuario");
-        }
-
-        setUser(data.user);
-      } catch {
-        localStorage.removeItem("token");
-        setToken("");
-        setUser(null);
-      } finally {
-        setAuthLoading(false);
-      }
-    }
-
-    loadMe();
-  }, [token]);
+  const [authLoading, setAuthLoading] = useState(false);
 
   async function login({ email, password }) {
-    const res = await fetch("https://app.alfajorpedia.com/api/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
+    setAuthLoading(true);
 
-    const data = await res.json();
+    try {
+      const res = await fetch("https://app.alfajorpedia.com/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-    if (!res.ok) {
-      throw new Error(data.message || data.error || "Error al iniciar sesión");
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || data.error || "Error al iniciar sesión");
+      }
+
+      setToken(data.token);
+      setUser(data.user);
+
+      return data;
+    } finally {
+      setAuthLoading(false);
     }
-
-    localStorage.setItem("token", data.token);
-    setToken(data.token);
-    setUser(data.user);
-
-    return data;
   }
 
   async function register({ email, password }) {
-    const res = await fetch("https://app.alfajorpedia.com/api/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
+    setAuthLoading(true);
 
-    const data = await res.json();
+    try {
+      const res = await fetch("https://app.alfajorpedia.com/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-    if (!res.ok) {
-      throw new Error(data.message || data.error || "Error al registrarse");
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || data.error || "Error al registrarse");
+      }
+
+      setToken(data.token);
+      setUser(data.user);
+
+      return data;
+    } finally {
+      setAuthLoading(false);
     }
-
-    localStorage.setItem("token", data.token);
-    setToken(data.token);
-    setUser(data.user);
-
-    return data;
   }
 
   function logout() {
-    localStorage.removeItem("token");
     setToken("");
     setUser(null);
   }
