@@ -6,7 +6,6 @@ export function useFilteredData(data) {
   const filteredData = useMemo(() => {
     if (!searchContent) return data;
     const q = searchContent.toLowerCase();
-    console.log(data[0]);
     return data.filter(
       (i) =>
         i.nombre.toLowerCase().includes(q) ||

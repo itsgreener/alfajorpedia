@@ -2,7 +2,6 @@ import { memo } from "react";
 import { useSetFavorites } from "../../Hooks/useSetFavorites.jsx";
 import AddFavoritesButton from "./AddFavoritesButton";
 import { getCloudinaryImageUrl } from "../../Helpers/alfajoresDisplay.js";
-
 import "./AlfajorCard.css";
 
 const AlfajorCard = memo(({ alfajor, onClick }) => {

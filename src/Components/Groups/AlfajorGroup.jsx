@@ -8,6 +8,7 @@ function AlfajorGroup({ alfajores, amount }) {
 
   const style = { "--columns": amount };
 
+
   return (
     <div className="alfajor-group" style={style}>
       {alfajores.slice(0, amount).map((alfajor) => (

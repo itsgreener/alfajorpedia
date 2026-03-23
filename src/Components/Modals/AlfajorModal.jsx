@@ -1,14 +1,15 @@
 import { useAlfajoresActions } from "../../Hooks/useAlfajores.jsx";
 import { useSetFavorites } from "../../Hooks/useSetFavorites.jsx";
 import AddFavoritesButton from "../Cards/AddFavoritesButton.jsx";
+import { getCloudinaryImageUrl } from "../../Helpers/alfajoresDisplay.js";
 import "./AlfajorModal.css";
 
 function AlfajorModal({ alfajorId }) {
   const { setFavAlfajor } = useSetFavorites();
   const { alfajorById } = useAlfajoresActions();
-  const selectedAlfajor = alfajorById(alfajorId);
+  const selectedAlfajor = alfajorById(alfajorId.id ?? alfajorId);
 
-  const imgUrl = `https://res.cloudinary.com/dnvp65swm/image/upload/f_auto,q_auto/v1774009977/${selectedAlfajor.foto_url}.webp`;
+  const imgUrl = getCloudinaryImageUrl(selectedAlfajor.foto_url);
 
   return (
     <div className="alfajor-detail">
@@ -29,7 +30,11 @@ function AlfajorModal({ alfajorId }) {
             <p className="title">{selectedAlfajor.nombre}</p>
 
             <div className="alfajor-detail-meta">
-              <img src={`/Flags/${selectedAlfajor.pais}.webp`} alt="flag" className="alfajor-detail-flag"/>
+              <img
+                src={`/Flags/${selectedAlfajor.pais}.webp`}
+                alt="flag"
+                className="alfajor-detail-flag"
+              />
               {selectedAlfajor.gramos != null && (
                 <span>{selectedAlfajor.gramos}g</span>
               )}

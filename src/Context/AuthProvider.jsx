@@ -20,7 +20,6 @@ function AuthProvider({ children }) {
     }
 
     setUser(data.user);
-    console.log("Login successful! " + data.user.email + " is logged in.");
   }, []);
 
   const logout = useCallback(() => setUser(null), []);
@@ -39,7 +38,7 @@ function AuthProvider({ children }) {
     }
 
     setUser(data.user);
-    console.log("User registered: ", data.user.email);
+    ("User registered: ", data.user.email);
   }, []);
 
   return (
