@@ -12,10 +12,12 @@ function AlfajoresProvider({ children }) {
     () => alfajores.filter((a) => a.isFav),
     [alfajores],
   );
+
   const alfajorById = useCallback(
     (id) => alfajores.find((a) => a.id == id),
     [alfajores],
   );
+  
   const toggleFavoriteAlfajor = useCallback((id, like) => {
     setAlfajores((prev) =>
       prev.map((a) => (a.id == id ? { ...a, isFav: like } : a)),

@@ -14,7 +14,7 @@ function ModalProvider({ children }) {
 
   return (
     <ModalContext.Provider
-      value={{ stack, currentModal,pushModal, popModal, clearModalStack }}
+      value={{ stack, currentModal, pushModal, popModal, clearModalStack }}
     >
       {children}
     </ModalContext.Provider>

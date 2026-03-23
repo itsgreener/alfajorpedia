@@ -7,7 +7,7 @@ export function useSetFavorites() {
 
   async function setFavAlfajor(id, like) {
     if (!token) {
-      throw new Error("No autenticado");
+      console.warn("No autenticado");
     }
 
     await toggleFavoriteAlfajor(id, like);

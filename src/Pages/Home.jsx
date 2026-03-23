@@ -13,8 +13,8 @@ import FavoriteModal from "../Components/Modals/FavoriteModal.jsx";
 import LoginModal from "../Components/Modals/LoginModal.jsx";
 import CatalogSection from "../Components/Groups/CatalogSection.jsx";
 import MobileCatalog from "../Components/General/MobileCatalog.jsx";
-import { useEffect, useState } from "react";
-import { filtrarAlfajoresConImagenReal } from "../Helpers/alfajoresDisplay.js";
+//import { useEffect, useState } from "react";
+//import { filtrarAlfajoresConImagenReal } from "../Helpers/alfajoresDisplay.js";
 import Contact from "../Components/General/Contact.jsx";
 import "./Home.css";
 
@@ -23,7 +23,7 @@ function Home() {
   const { alfajores, loading, error } = useAlfajoresData();
   const { isMobile } = useBreakpoint();
 
-  const [hourTick, setHourTick] = useState(Date.now());
+  /*const [hourTick, setHourTick] = useState(Date.now());
   const [alfajoresConImagenReal, setAlfajoresConImagenReal] = useState([]);
   const [imagenesLoading, setImagenesLoading] = useState(true);
 
@@ -73,7 +73,7 @@ function Home() {
     return () => {
       cancelled = true;
     };
-  }, [alfajores]);
+  }, [alfajores]);*/
 
   const featuredAlfajor = filterByUrl("alfajorpedia-0001");
 
@@ -101,7 +101,7 @@ function Home() {
     return alfajores.filter((item) => item.foto_url === fotoUrl);
   }
 
-  if (loading || imagenesLoading) {
+  if (loading) {
     return <p className="text loading">Cargando alfajores...</p>;
   }
 
@@ -112,7 +112,7 @@ function Home() {
   return (
     <>
       {isMobile ? (
-        <MobileCatalog alfajores={alfajoresConImagenReal} />
+        <MobileCatalog alfajores={alfajores} />
       ) : (
         <>
           <Header
@@ -222,7 +222,7 @@ function Home() {
             <MediaCarousel isNostalgia={true} />
           </section>
 
-          <CatalogSection alfajores={alfajoresConImagenReal} />
+          <CatalogSection alfajores={alfajores} />
 
           <Contact />
         </>
