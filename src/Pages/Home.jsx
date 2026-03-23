@@ -92,7 +92,7 @@ const alfajoresAltos = useMemo(() => {
   }, [alfajores]);
 
   if (loading) {
-    return <p className="text">Cargando alfajores...</p>;
+    return <p className="text loading">Cargando alfajores...</p>;
   }
 
   if (error) {
@@ -191,7 +191,7 @@ const alfajoresAltos = useMemo(() => {
             </section>
           </div>
 
-        {/* <section className="experiences-section">
+          {/* <section className="experiences-section">
             <div className="experiences-content">
               <p className="title white-text experiences-title">Experiencias</p>
               <MediaCarousel isNostalgia={false} />

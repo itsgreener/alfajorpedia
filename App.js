@@ -329,7 +329,7 @@ app.post("/api/email", async (req, res) => {
     });
 
     await transporter.sendMail({
-      from: `"TR Greener" <${process.env.MAIL_USER}>`,
+      from: `<${process.env.MAIL_USER}> "Alfajorpedia"`,
       to: process.env.MAIL_TO,
       subject: `[Web] New message from ${escapeHtml(name)}`,
       text: `
@@ -343,7 +343,7 @@ MESSAGE:
 ${message}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Sent from https://tr.itsgreener.com
+Sent from https://alfajorpedia.com
 ${new Date().toLocaleString("en-US")}
       `,
       html: `
