@@ -129,7 +129,7 @@ const alfajoresAltos = useMemo(() => {
   }, [alfajores]);
 
   if (loading  || imagenesLoading) {
-    return <p className="text loading">Cargando alfajores...</p>;
+    return <p className="text loading">Cargando alfajores YA!...</p>;
   }
 
   if (error) {
