@@ -1,42 +1,68 @@
 import "./SocialPost.css";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 
 
 export default function SocialPost({ isNostalgia, data, videoRef, isActive }) {
   const [muted, setMuted] = useState(true);
+   const localVideoRef = useRef(null);
+
+  useEffect(() => {
+    if (!isActive) {
+      setMuted(true);
+    }
+  }, [isActive]);
+
+  const setRefs = (el) => {
+    localVideoRef.current = el;
+    if (videoRef) videoRef(el);
+  };
+
+  const handleVideoClick = (e) => {
+    e.stopPropagation();
+
+    if (!isActive || !localVideoRef.current) return;
+
+    const video = localVideoRef.current;
+
+    if (muted) {
+      video.muted = false;
+      video.play().catch(() => {});
+      setMuted(false);
+    } else {
+      video.muted = true;
+      setMuted(true);
+    }
+  };
   const content = (
     <>
       {data.type === "video" ? (
-        <video
-          ref={videoRef}
-          className="social-post-image"
-          src={data.src}
-           poster={data.poster}
-          muted={muted}
-          playsInline
-          loop
-          preload={isActive ? "auto" : "metadata"}
-          controls={false}
-          onClick={(e) => {
-            e.stopPropagation();
-
-            if (!isActive) return;
-
-            const video = e.currentTarget;
-
-            if (muted) {
-              video.muted = false;
-              video.play().catch(() => {});
-              setMuted(false);
-            } else {
-              video.muted = true;
-              setMuted(true);
-            }
-          }}
-        />
+          isActive ? (
+          <video
+            ref={setRefs}
+            className="social-post-image"
+            src={data.src}
+            poster={data.poster}
+            muted={muted}
+            playsInline
+            loop
+            preload="auto"
+            controls={false}
+            onClick={handleVideoClick}
+          />
       ) : (
-        <img src={data.image} alt="post" className="social-post-image" />
+         <img
+            src={data.poster}
+            alt="video poster"
+            className="social-post-image"
+          />
+        )
+      ) : (
+        <img
+          src={data.image}
+          alt="post"
+          className="social-post-image"
+        />
       )}
 
       <div className="social-post-overlay" />
