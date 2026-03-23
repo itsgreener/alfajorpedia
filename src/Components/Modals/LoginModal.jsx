@@ -31,6 +31,9 @@ try {
       await login({ email, password });
 
       clearModalStack();
+      if (protectedNode) {
+  pushModal(protectedNode);
+}
     } catch (err) {
       setServerError(err.message || "No se pudo iniciar sesión");
     } finally {

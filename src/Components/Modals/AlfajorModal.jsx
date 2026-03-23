@@ -1,5 +1,4 @@
 import { useAlfajoresActions } from "../../Hooks/useAlfajores.jsx";
-import { useSetFavorites } from "../../Hooks/useSetFavorites.jsx";
 import AddFavoritesButton from "../Cards/AddFavoritesButton.jsx";
 import { getCloudinaryImageUrl } from "../../Helpers/alfajoresDisplay.js";
 import "./AlfajorModal.css";

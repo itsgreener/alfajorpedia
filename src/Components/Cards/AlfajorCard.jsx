@@ -1,11 +1,13 @@
 import { memo } from "react";
-import { useSetFavorites } from "../../Hooks/useSetFavorites.jsx";
+import { useAlfajoresActions } from "../../Hooks/useAlfajores.jsx";
+import { useRequireLogin } from "../../Hooks/useRequiedLogin.jsx";
 import AddFavoritesButton from "./AddFavoritesButton";
 import { getCloudinaryImageUrl } from "../../Helpers/alfajoresDisplay.js";
 import "./AlfajorCard.css";
 
 const AlfajorCard = memo(({ alfajor, onClick }) => {
-  const { setFavAlfajor } = useSetFavorites();
+  const { toggleFavoriteAlfajor } = useAlfajoresActions();
+  const { requireLogin } = useRequireLogin();
 
   const {
     id,
@@ -137,7 +139,11 @@ const AlfajorCard = memo(({ alfajor, onClick }) => {
         <div className="card-actions">
           <AddFavoritesButton
             active={isFav}
-            onChange={(like) => setFavAlfajor(id, like)}
+            onChange={async (like) => {
+              const ok = requireLogin();
+              if (!ok) return;
+              await toggleFavoriteAlfajor(id, like);
+            }}
           />
         </div>
       </div>
