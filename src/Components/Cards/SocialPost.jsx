@@ -1,11 +1,10 @@
 import "./SocialPost.css";
+import { useState } from "react";
 
-export default function SocialPost({
-  isNostalgia,
-  data,
-  videoRef,
-  isActive,
-}) {
+
+
+export default function SocialPost({ isNostalgia, data, videoRef, isActive }) {
+  const [muted, setMuted] = useState(true);
   const content = (
     <>
       {data.type === "video" ? (
@@ -13,18 +12,31 @@ export default function SocialPost({
           ref={videoRef}
           className="social-post-image"
           src={data.src}
-          muted
+           poster={data.poster}
+          muted={muted}
           playsInline
           loop
           preload={isActive ? "auto" : "metadata"}
-          controls={isActive}
+          controls={false}
+          onClick={(e) => {
+            e.stopPropagation();
+
+            if (!isActive) return;
+
+            const video = e.currentTarget;
+
+            if (muted) {
+              video.muted = false;
+              video.play().catch(() => {});
+              setMuted(false);
+            } else {
+              video.muted = true;
+              setMuted(true);
+            }
+          }}
         />
       ) : (
-        <img
-          src={data.image}
-          alt="post"
-          className="social-post-image"
-        />
+        <img src={data.image} alt="post" className="social-post-image" />
       )}
 
       <div className="social-post-overlay" />
@@ -33,7 +45,7 @@ export default function SocialPost({
         <p className="social-post-username">{data.username}</p>
         <p className="social-post-text">{data.caption}</p>
 
-    {/*}    <div className="social-post-likes">
+        {/*}    <div className="social-post-likes">
           <svg
             width="20"
             height="20"
@@ -67,9 +79,7 @@ export default function SocialPost({
           {content}
         </a>
       ) : (
-        <div className="social-post-link">
-          {content}
-        </div>
+        <div className="social-post-link">{content}</div>
       )}
     </div>
   );
