@@ -13,6 +13,8 @@ import FavoriteModal from "../Components/Modals/FavoriteModal.jsx";
 import LoginModal from "../Components/Modals/LoginModal.jsx";
 import CatalogSection from "../Components/Groups/CatalogSection.jsx";
 import MobileCatalog from "../Components/General/MobileCatalog.jsx";
+import { useEffect, useMemo, useState } from "react";
+import { getAlfajoresConImagenAleatoriosPorHora } from "../Helpers/alfajoresDisplay.js";
 import Contact from "../Components/General/Contact.jsx";
 import "./Home.css";
 
@@ -21,7 +23,73 @@ function Home() {
   const { alfajores, loading, error } = useAlfajoresData();
   const { isMobile } = useBreakpoint();
 
-  const featuredAlfajor = alfajores[2] ?? alfajores[0];
+  const [hourTick, setHourTick] = useState(Date.now());
+
+  useEffect(() => {
+  function scheduleNextHourUpdate() {
+    const now = new Date();
+    const nextHour = new Date(now);
+    nextHour.setMinutes(0, 0, 0);
+    nextHour.setHours(now.getHours() + 1);
+
+    const msUntilNextHour = nextHour.getTime() - now.getTime();
+
+    return setTimeout(() => {
+      setHourTick(Date.now());
+    }, msUntilNextHour);
+  }
+
+  const timeoutId = scheduleNextHourUpdate();
+
+  return () => clearTimeout(timeoutId);
+}, [hourTick]);
+
+const alfajoresConImagen = useMemo(() => {
+  return getAlfajoresConImagenAleatoriosPorHora(alfajores, hourTick);
+}, [alfajores, hourTick]);
+
+ const featuredAlfajor = alfajoresConImagen[0];
+
+ const alfajoresPower = useMemo(() => {
+    return [...alfajores]
+      .filter((a) => a.calorias != null || a.gramos != null)
+      .sort((a, b) => {
+        const caloriasA = a.calorias ?? -1;
+        const caloriasB = b.calorias ?? -1;
+        const gramosA = a.gramos ?? -1;
+        const gramosB = b.gramos ?? -1;
+
+        if (caloriasB !== caloriasA) return caloriasB - caloriasA;
+        return gramosB - gramosA;
+      });
+  }, [alfajores]);
+
+const alfajoresAltos = useMemo(() => {
+  return alfajores.filter((a) => {
+    const texto =
+      `${a.nombre || ""} ${a.tagline || ""} ${a.descripcion || ""} ${a.categorias || ""}`.toLowerCase();
+
+    return (
+      texto.includes("triple") ||
+      texto.includes("3 capas") ||
+      texto.includes("tres capas")
+    );
+  });
+}, [alfajores]);
+
+  // Pistachos = detectar texto
+  const alfajoresPistacho = useMemo(() => {
+    return alfajores.filter((a) => {
+      const texto =
+        `${a.nombre || ""} ${a.tagline || ""} ${a.descripcion || ""} ${a.categorias || ""}`.toLowerCase();
+
+      return (
+        texto.includes("pistacho") ||
+        texto.includes("pistacchio") ||
+        texto.includes("pistachio")
+      );
+    });
+  }, [alfajores]);
 
   if (loading) {
     return <p className="text">Cargando alfajores...</p>;
@@ -34,7 +102,7 @@ function Home() {
   return (
     <>
       {isMobile ? (
-        <MobileCatalog alfajores={alfajores} />
+        <MobileCatalog alfajores={alfajoresConImagen} />
       ) : (
         <>
           <Header
@@ -91,7 +159,7 @@ function Home() {
                   <strong> Alfajores que dejan huella.</strong>
                 </p>
               </div>
-              <AlfajorGroup amount={3} alfajores={alfajores} />
+             <AlfajorGroup amount={3} alfajores={alfajoresPower} />
             </section>
 
             <section className="group">
@@ -105,21 +173,21 @@ function Home() {
                   <span className="big-title">altos</span>
                 </p>
               </div>
-              <AlfajorGroup amount={4} alfajores={alfajores} />
+              <AlfajorGroup amount={4} alfajores={alfajoresAltos} />
             </section>
 
             <section className="group">
               <div className="spicy-texts">
                 <p className="title">
                   Los más <br />
-                  <span className="big-title">picantes</span>
+                  <span className="big-title">pistacho</span>
                 </p>
                 <p className="text spicy-text">
-                  <strong>Los que se atreven.</strong> Alfajores que <br />{" "}
-                  rompen las reglas y se salen con la suya.
+                 <strong>Los que van de frente.</strong> Alfajores con pistacho
+                  <br /> para quien no quiere lo de siempre.
                 </p>
               </div>
-              <AlfajorGroup amount={4} alfajores={alfajores} />
+              <AlfajorGroup amount={4} alfajores={alfajoresPistacho} />
             </section>
           </div>
 
@@ -135,7 +203,7 @@ function Home() {
             <MediaCarousel isNostalgia={true} />
           </section>
 
-          <CatalogSection alfajores={alfajores} />
+         <CatalogSection alfajores={alfajoresConImagen} />
 
           <Contact />
         </>
