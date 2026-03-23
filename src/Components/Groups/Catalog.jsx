@@ -1,10 +1,11 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useLayoutEffect } from "react";
 import AlfajorCard from "../Cards/AlfajorCard";
 import "./Catalog.css";
 
 export default function Catalog({ alfajores, onClick, items }) {
   const [currentPage, setCurrentPage] = useState(1);
   const ref = useRef(null);
+  const prevAlfajoresRef = useRef(alfajores);
 
   const totalPages = Math.ceil(alfajores.length / items);
   const startIndex = (currentPage - 1) * items;
@@ -29,6 +30,14 @@ export default function Catalog({ alfajores, onClick, items }) {
   for (let i = startPage; i <= endPage; i++) {
     visiblePages.push(i);
   }
+
+  useLayoutEffect(() => {
+    if (prevAlfajoresRef.current !== alfajores) {
+      prevAlfajoresRef.current = alfajores; 
+      // eslint-disable-next-line -- reset intencional
+      setCurrentPage(1);
+    }
+  }, [alfajores]);
 
   return (
     <>

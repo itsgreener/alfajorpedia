@@ -15,16 +15,15 @@ function AlfajorModal({ alfajorId }) {
     <div className="alfajor-detail">
       {selectedAlfajor ? (
         <>
-          {imgUrl ? (
-            <img
-              className="alfajor-detail-img"
-              src={imgUrl}
-              alt={selectedAlfajor.nombre}
-              loading="lazy"
-            />
-          ) : (
-            <div className="alfajor-detail-img" />
-          )}
+          <img
+            className="alfajor-detail-img"
+            src={imgUrl || "/placeholder.webp"}
+            alt={selectedAlfajor.nombre}
+            loading="lazy"
+            onError={(e) => {
+              e.target.src = "/placeholder.webp";
+            }}
+          />
 
           <div className="alfajor-detail-info">
             <p className="title">{selectedAlfajor.nombre}</p>

@@ -26,16 +26,15 @@ const AlfajorCard = memo(({ alfajor, onClick }) => {
   return (
     <div className="alfajor-card" onClick={onClick}>
       <div className="card-image-wrapper">
-        {imgUrl ? (
-          <img
-            src={imgUrl}
-            alt={nombre}
-            className="card-image"
-            loading="lazy"
-          />
-        ) : (
-          <div className="card-image placeholder" />
-        )}
+        <img
+          src={imgUrl || "/placeholder.webp"}
+          alt={nombre}
+          className="card-image"
+          loading="lazy"
+          onError={(e) => {
+            e.target.src = "/placeholder.webp";
+          }}
+        />
       </div>
 
       <div className="card-body">
