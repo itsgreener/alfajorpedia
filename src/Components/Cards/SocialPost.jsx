@@ -12,6 +12,11 @@ export default function SocialPost({ isNostalgia, data, videoRef, isActive }) {
       setMuted(true);
     }
   }, [isActive]);
+   useEffect(() => {
+    if (localVideoRef.current) {
+      localVideoRef.current.muted = muted;
+    }
+  }, [muted]);
 
   const setRefs = (el) => {
     localVideoRef.current = el;
@@ -19,51 +24,67 @@ export default function SocialPost({ isNostalgia, data, videoRef, isActive }) {
   };
 
   const handleVideoClick = (e) => {
+    console.log("click video");
     e.stopPropagation();
 
     if (!isActive || !localVideoRef.current) return;
 
     const video = localVideoRef.current;
 
-    if (muted) {
-      video.muted = false;
-      video.play().catch(() => {});
-      setMuted(false);
-    } else {
-      video.muted = true;
-      setMuted(true);
-    }
-  };
+    if (video.muted) {
+    video.muted = false;
+    video.volume = 1;
+    video.play().catch(console.error);
+    setMuted(false);
+  } else {
+    video.muted = true;
+    setMuted(true);
+  }
+};
   const content = (
     <>
       {data.type === "video" ? (
           isActive ? (
-          <video
-            ref={setRefs}
-            className="social-post-image"
-            src={data.src}
-            poster={data.poster}
-            muted={muted}
-            playsInline
-            loop
-            preload="auto"
-            controls={false}
-            onClick={handleVideoClick}
-          />
-      ) : (
-         <img
-            src={data.poster}
-            alt="video poster"
-            className="social-post-image"
-          />
-        )
-      ) : (
-        <img
-          src={data.image}
-          alt="post"
-          className="social-post-image"
-        />
+    <>
+      <video
+        ref={setRefs}
+        className="social-post-image"
+        src={data.src}
+        poster={data.poster}
+        muted={muted}
+        playsInline
+        loop
+        preload="auto"
+        controls={false}
+        onClick={handleVideoClick}
+      />
+
+      {isActive && muted && (
+        <div
+          className="video-sound-overlay"
+          onClick={(e) => {
+            e.stopPropagation();
+            handleVideoClick(e);
+          }}
+        >
+          🔊 Activar sonido
+        </div>
       )}
+    </>
+  ) : (
+    <img
+      src={data.poster}
+      alt="video poster"
+      className="social-post-image"
+    />
+  )
+) : (
+  <img
+    src={data.image}
+    alt="post"
+    className="social-post-image"
+  />
+)}
 
       <div className="social-post-overlay" />
 

@@ -72,3 +72,26 @@ color: var(--white);
 .social-post-likes-count {
   font-weight: bold;
 }
+.social-post-overlay,
+.social-post-content {
+  pointer-events: none;
+}
+.video-sound-overlay {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 10px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 20;
+  backdrop-filter: blur(4px);
+  transition: opacity 0.3s ease;
+}
+
+.video-sound-overlay:hover {
+  background: rgba(0, 0, 0, 0.9);
+}

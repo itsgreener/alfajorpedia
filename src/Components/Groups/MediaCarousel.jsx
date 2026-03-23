@@ -44,19 +44,21 @@ function SocialCarousel({ isNostalgia }) {
     return offset;
   };
 
-  useEffect(() => {
-    videoRefs.current.forEach((video, i) => {
-      if (!video) return;
+ useEffect(() => {
+  videoRefs.current.forEach((video, i) => {
+    if (!video) return;
 
-      if (i === centerIndex) {
-        video.currentTime = 0;
-        video.play().catch(() => {});
-      } else {
-        video.pause();
-        video.currentTime = 0;
-      }
-    });
-  }, [centerIndex]);
+    if (i === centerIndex) {
+      video.currentTime = 0;
+      video.muted = true;
+      video.play().catch(() => {});
+    } else {
+      video.pause();
+      video.currentTime = 0;
+      video.muted = true;
+    }
+  });
+}, [centerIndex]);
 
   const handlePointerDown = (e) => {
     dragStartX.current = e.clientX ?? e.touches?.[0]?.clientX;
