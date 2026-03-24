@@ -14,7 +14,12 @@ export function useSetFavorites() {
       return;
     }
 
-    await toggleFavoriteAlfajor(id, like);
+    try {
+      await toggleFavoriteAlfajor(id, like);
+    } catch (error) {
+      console.error("Error actualizando favorito:", error);
+      alert(error.message || "Error actualizando favorito");
+    }
   }
 
   return { setFavAlfajor };
