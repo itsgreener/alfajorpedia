@@ -5,6 +5,8 @@ function Contact() {
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userMessage, setUserMessage] = useState("");
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
 
   const sendEmail = async () => {
     try {
@@ -24,15 +26,12 @@ function Contact() {
         throw new Error(err.message || "Error enviando el mail");
       }
 
-      const data = await response.json();
-      console.log(data);
-
-      alert("Message sent successfully");
+      setSuccess("¡Muchas gracias por tu mensaje!");
       setUserName("");
       setUserEmail("");
       setUserMessage("");
     } catch (e) {
-      console.log("Error Log: ", e);
+      setError(`Error: ${e.message}`);
     }
   };
 
@@ -67,20 +66,25 @@ function Contact() {
             <div className="contacto-form-row">
               <input
                 type="text"
-                placeholder="nombre"
+                placeholder="Nombre"
                 onChange={(e) => setUserName(e.target.value)}
+                value={userName}
               />
               <input
                 type="email"
-                placeholder="email"
+                placeholder="Email"
                 onChange={(e) => setUserEmail(e.target.value)}
+                value={userEmail}
               />
             </div>
             <textarea
-              placeholder="texto"
+              placeholder="Escribe tu mensaje aquí..."
               onChange={(e) => setUserMessage(e.target.value)}
+              value={userMessage}
             />
             <div className="contacto-form-actions">
+              {success && <p className="text contact-success">{success}</p>}
+              {error && <p className="contact-error">{error}</p>}
               <button type="submit">Enviar</button>
             </div>
           </form>

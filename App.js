@@ -273,28 +273,31 @@ app.post("/api/email", async (req, res) => {
     if (!name || !email || !message) {
       return res.status(400).json({
         success: false,
-        message: "Required fields are missing",
+        message:
+          `Faltan los siguientes campos: ${!name ? "nombre " : ""}${!email ? "email " : ""}${
+            !message ? "mensaje" : ""
+          }`.trim(),
       });
     }
 
     if (!email.includes("@") || email.length > 254) {
       return res.status(422).json({
         success: false,
-        message: "Invalid email",
+        message: "Email no válido",
       });
     }
 
     if (name.length > 100) {
       return res.status(422).json({
         success: false,
-        message: "Name too long",
+        message: "Nombre demasiado largo",
       });
     }
 
     if (message.length > 5000) {
       return res.status(422).json({
         success: false,
-        message: "Message too long",
+        message: "Mensaje demasiado largo",
       });
     }
 
@@ -302,7 +305,7 @@ app.post("/api/email", async (req, res) => {
     if (urlPattern.test(message)) {
       return res.status(422).json({
         success: false,
-        message: "URLs are not allowed in the message",
+        message: "URLs no permitidas en el mensaje",
       });
     }
 
@@ -314,7 +317,7 @@ app.post("/api/email", async (req, res) => {
     ) {
       return res.status(422).json({
         success: false,
-        message: "HTML tags are not allowed",
+        message: "HTML no permitido en el mensaje",
       });
     }
 
