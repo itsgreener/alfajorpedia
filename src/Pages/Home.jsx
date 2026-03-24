@@ -47,34 +47,38 @@ function Home() {
     return () => clearTimeout(timeoutId);
   }, [hourTick]);
 
+  const imageSignature = alfajores
+  .map((a) => `${a.id}:${a.foto_url}`)
+  .join("|");
+  
   useEffect(() => {
     let cancelled = false;
 
-    async function validarImagenes() {
-      try {
-        setImagenesLoading(true);
-        const validos = await filtrarAlfajoresConImagenReal(alfajores);
-        if (!cancelled) {
-          setAlfajoresConImagenReal(validos);
-        }
-      } finally {
-        if (!cancelled) {
-          setImagenesLoading(false);
-        }
+  async function validarImagenes() {
+    try {
+      setImagenesLoading(true);
+      const validos = await filtrarAlfajoresConImagenReal(alfajores);
+      if (!cancelled) {
+        setAlfajoresConImagenReal(validos);
+      }
+    } finally {
+      if (!cancelled) {
+        setImagenesLoading(false);
       }
     }
+  }
 
-    if (alfajores.length > 0) {
-      validarImagenes();
-    } else {
-      setAlfajoresConImagenReal([]);
-      setImagenesLoading(false);
-    }
+  if (alfajores.length > 0) {
+    validarImagenes();
+  } else {
+    setAlfajoresConImagenReal([]);
+    setImagenesLoading(false);
+  }
 
-    return () => {
-      cancelled = true;
-    };
-  }, [alfajores]);
+  return () => {
+    cancelled = true;
+  };
+}, [imageSignature]);
 
   function filterByUrl(fotoUrl) {
     return alfajores.filter((item) => item.foto_url === fotoUrl);
@@ -106,7 +110,7 @@ function handleFavoriteClick() {
   if (authLoading) return;
 
   if (!user) {
-    pushModal(<LoginModal />);
+   pushModal(<LoginModal protectedNode={<FavoriteModal />} />);
     return;
   }
 

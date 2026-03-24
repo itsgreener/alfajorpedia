@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useFilteredData } from "../../Hooks/useFilteredData";
 import { useModalStack } from "../../Hooks/useModalStack";
 import AlfajorModal from "../Modals/AlfajorModal";
@@ -6,31 +6,36 @@ import Catalog from "./Catalog";
 import SearchInput from "./SearchInput";
 import "./CatalogSection.css";
 
+function shuffleArray(array) {
+  const copy = [...array];
+
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+
+  return copy;
+}
+
 function CatalogSection({ alfajores, fromFavorite = false }) {
   const { pushModal } = useModalStack();
   const [randomOrder, setRandomOrder] = useState([]);
+  const initializedRef = useRef(false);
 
   useEffect(() => {
-    function shuffleArray(array) {
-      const copy = [...array];
-
-      for (let i = copy.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [copy[i], copy[j]] = [copy[j], copy[i]];
-      }
-
-      return copy;
-    }
-
     if (fromFavorite) {
       setRandomOrder(alfajores);
       return;
     }
 
-    setRandomOrder(shuffleArray(alfajores));
+    if (!initializedRef.current && alfajores.length > 0) {
+      setRandomOrder(shuffleArray(alfajores));
+      initializedRef.current = true;
+    }
   }, [alfajores, fromFavorite]);
 
-  const { filteredData, setSearchContent } = useFilteredData(randomOrder);
+  const sourceData = fromFavorite ? alfajores : randomOrder;
+  const { filteredData, setSearchContent } = useFilteredData(sourceData);
 
   return (
     <section className="catalog-section">

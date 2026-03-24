@@ -37,30 +37,37 @@ export function AlfajoresProvider({ children }) {
     fetchAlfajores();
   }, [token]);
 
-  async function toggleFavoriteAlfajor(id, like) {
-    if (!token) {
-      throw new Error("No autenticado");
-    }
-
-    const res = await fetch(`https://app.alfajorpedia.com/api/favorites/${id}`, {
-      method: like ? "POST" : "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    const data = await res.json().catch(() => ({}));
-
-    if (!res.ok) {
-      throw new Error(data.message || data.error || "Error actualizando favorito");
-    }
-
-    setAlfajores((prev) =>
-      prev.map((alfajor) =>
-        alfajor.id === id ? { ...alfajor, isFav: like } : alfajor,
-      ),
-    );
+ async function toggleFavoriteAlfajor(id, like) {
+  if (!token) {
+    throw new Error("No autenticado");
   }
+
+  const res = await fetch(`https://app.alfajorpedia.com/api/favorites/${id}`, {
+    method: like ? "POST" : "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
+
+  const data = await res.json().catch(() => ({}));
+  console.log("toggleFavoriteAlfajor", {
+    id,
+    like,
+    status: res.status,
+    data,
+  });
+
+  if (!res.ok) {
+    throw new Error(data.message || data.error || "Error actualizando favorito");
+  }
+
+  setAlfajores((prev) =>
+    prev.map((alfajor) =>
+      alfajor.id === id ? { ...alfajor, isFav: like } : alfajor,
+    ),
+  );
+}
 
   const value = useMemo(
     () => ({
