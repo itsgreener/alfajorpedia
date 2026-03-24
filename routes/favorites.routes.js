@@ -25,14 +25,19 @@ router.post("/:alfajorId", requireToken, async (req, res) => {
   try {
     const pool = req.app.locals.pool;
 
-    await pool.query(
+    const [result] = await pool.query(
       "INSERT IGNORE INTO favoritos (usuario_id, alfajor_id) VALUES (?, ?)",
       [req.user.id, req.params.alfajorId]
     );
 
-    res.json({ ok: true });
+    return res.json({
+      ok: true,
+      userId: req.user.id,
+      alfajorId: req.params.alfajorId,
+      result,
+    });
   } catch (error) {
-    res.status(500).json({
+    return res.status(500).json({
       message: "Error guardando favorito",
       detail: error.message,
     });

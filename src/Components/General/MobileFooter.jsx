@@ -3,7 +3,9 @@ import "./MobileFooter.css";
 function MobileFooter() {
   return (
     <footer className="mobile-footer">
-      <h1 className="mobile-title">Alfajorpedia</h1>
+      <a href="/" className="nav-link">
+          <img src="/logo-blanco.svg" className="nav-link"/>
+        </a>
       <div className="mobile-header-buttons"></div>
     </footer>
   );
