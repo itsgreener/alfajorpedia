@@ -31,7 +31,7 @@ function Contact() {
       setUserEmail("");
       setUserMessage("");
     } catch (e) {
-      setError(`Error: ${e.message}`);
+      setError(e.message);
     }
   };
 
@@ -67,19 +67,31 @@ function Contact() {
               <input
                 type="text"
                 placeholder="Nombre"
-                onChange={(e) => setUserName(e.target.value)}
+                onChange={(e) => {
+                  setUserName(e.target.value);
+                  error && setError("");
+                  success && setSuccess("");
+                }}
                 value={userName}
               />
               <input
                 type="email"
                 placeholder="Email"
-                onChange={(e) => setUserEmail(e.target.value)}
+                onChange={(e) => {
+                  setUserEmail(e.target.value);
+                  error && setError("");
+                  success && setSuccess("");
+                }}
                 value={userEmail}
               />
             </div>
             <textarea
               placeholder="Escribe tu mensaje aquí..."
-              onChange={(e) => setUserMessage(e.target.value)}
+              onChange={(e) => {
+                setUserMessage(e.target.value);
+                error && setError("");
+                success && setSuccess("");
+              }}
               value={userMessage}
             />
             <div className="contacto-form-actions">

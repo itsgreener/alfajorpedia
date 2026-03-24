@@ -2,10 +2,12 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthActions } from "../../Hooks/useAuth.jsx";
 import { validate } from "../../Hooks/useValidation.js";
+import { useModalStack } from "../../Hooks/useModalStack.js";
 import "./RegisterModal.css";
 
-function RegisterModal({ onModalOpen, closeModal, protectedNode = null }) {
+function RegisterModal({ protectedNode = null }) {
   const { register } = useAuthActions();
+  const { pushModal, clearModalStack } = useModalStack();
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -31,7 +33,7 @@ function RegisterModal({ onModalOpen, closeModal, protectedNode = null }) {
 
       await register({ email, password });
 
-      protectedNode ? onModalOpen(protectedNode) : closeModal();
+      protectedNode ? pushModal(protectedNode) : clearModalStack();
     } catch (err) {
       setServerError(err.message || "No se pudo crear la cuenta");
     } finally {

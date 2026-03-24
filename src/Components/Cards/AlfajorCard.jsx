@@ -23,10 +23,10 @@ const AlfajorCard = memo(({ alfajor, onClick }) => {
 
   const imgUrl = getCloudinaryImageUrl(foto_url);
   const flagName = pais
-  ?.trim()
-  .toLowerCase()
-  .normalize("NFD")
-  .replace(/[\u0300-\u036f]/g, "");
+    ?.trim()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
 
   return (
     <div className="alfajor-card" onClick={onClick}>
@@ -48,10 +48,10 @@ const AlfajorCard = memo(({ alfajor, onClick }) => {
 
           <div className="card-meta">
             <img
-  src={`/Flags/${flagName}.webp`}
-  alt={pais}
-  className="card-flag"
-/>
+              src={`/Flags/${flagName}.webp`}
+              alt={pais}
+              className="card-flag"
+            />
             {gramos != null && <span className="card-weight">{gramos}g</span>}
             {calorias != null && (
               <span className="card-calories">{calorias} Cal</span>

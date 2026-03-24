@@ -55,6 +55,8 @@ export function AuthProvider({ children }) {
       setToken(data.token);
       setUser(data.user);
 
+      console.log(token);
+
       return data;
     } finally {
       setAuthLoading(false);

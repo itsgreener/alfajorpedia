@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useAuthActions } from "../../Hooks/useAuth";
-import RegisterModal from "./RegisterModal";
 import { validate } from "../../Hooks/useValidation";
 import { useModalStack } from "../../Hooks/useModalStack";
+import RegisterModal from "./RegisterModal";
 import "./LoginModal.css";
 
 function LoginModal({ protectedNode = null }) {
@@ -92,8 +92,6 @@ if (protectedNode) {
           onClick={() =>
             pushModal(
               <RegisterModal
-                onModalOpen={pushModal}
-                closeModal={clearModalStack}
                 protectedNode={protectedNode}
               />,
             )

@@ -15,14 +15,13 @@ import MobileCatalog from "../Components/General/MobileCatalog.jsx";
 import { useEffect, useState } from "react";
 import { filtrarAlfajoresConImagenReal } from "../Helpers/alfajoresDisplay.js";
 import Contact from "../Components/General/Contact.jsx";
-import { useAuthData } from "../Hooks/useAuth.jsx";
+import ProtectedPath from "../Context/ProtectedRoute.jsx";
 import "./Home.css";
 
 function Home() {
   const { currentModal, pushModal } = useModalStack();
   const { alfajores, loading, error } = useAlfajoresData();
   const { isMobile } = useBreakpoint();
-  const { user, authLoading } = useAuthData();
 
   const [hourTick, setHourTick] = useState(Date.now());
   const [alfajoresConImagenReal, setAlfajoresConImagenReal] = useState([]);
@@ -48,37 +47,37 @@ function Home() {
   }, [hourTick]);
 
   const imageSignature = alfajores
-  .map((a) => `${a.id}:${a.foto_url}`)
-  .join("|");
-  
+    .map((a) => `${a.id}:${a.foto_url}`)
+    .join("|");
+
   useEffect(() => {
     let cancelled = false;
 
-  async function validarImagenes() {
-    try {
-      setImagenesLoading(true);
-      const validos = await filtrarAlfajoresConImagenReal(alfajores);
-      if (!cancelled) {
-        setAlfajoresConImagenReal(validos);
-      }
-    } finally {
-      if (!cancelled) {
-        setImagenesLoading(false);
+    async function validarImagenes() {
+      try {
+        setImagenesLoading(true);
+        const validos = await filtrarAlfajoresConImagenReal(alfajores);
+        if (!cancelled) {
+          setAlfajoresConImagenReal(validos);
+        }
+      } finally {
+        if (!cancelled) {
+          setImagenesLoading(false);
+        }
       }
     }
-  }
 
-  if (alfajores.length > 0) {
-    validarImagenes();
-  } else {
-    setAlfajoresConImagenReal([]);
-    setImagenesLoading(false);
-  }
+    if (alfajores.length > 0) {
+      validarImagenes();
+    } else {
+      setAlfajoresConImagenReal([]);
+      setImagenesLoading(false);
+    }
 
-  return () => {
-    cancelled = true;
-  };
-}, [imageSignature]);
+    return () => {
+      cancelled = true;
+    };
+  }, [imageSignature]);
 
   function filterByUrl(fotoUrl) {
     return alfajores.filter((item) => item.foto_url === fotoUrl);
@@ -106,17 +105,6 @@ function Home() {
     ...filterByUrl("alfajorpedia-1014"),
   ];
 
-function handleFavoriteClick() {
-  if (authLoading) return;
-
-  if (!user) {
-   pushModal(<LoginModal protectedNode={<FavoriteModal />} />);
-    return;
-  }
-
-  pushModal(<FavoriteModal />);
-}
-
   if (loading || imagenesLoading) {
     return <p className="text loading">Cargando alfajores...</p>;
   }
@@ -125,19 +113,22 @@ function handleFavoriteClick() {
     return <p className="text">Error: {error}</p>;
   }
 
-
-
   return (
     <>
       {isMobile ? (
         <MobileCatalog alfajores={alfajoresConImagenReal} />
       ) : (
         <>
-       <Header
-            onFavoriteClick={handleFavoriteClick}
+          <Header
+            onFavoriteClick={() =>
+              pushModal(
+                <ProtectedPath>
+                  <FavoriteModal />
+                </ProtectedPath>,
+              )
+            }
             onSubscribeClick={() => pushModal(<LoginModal />)}
           />
-
 
           <div className="body" id="home">
             <section className="card hover">
@@ -244,8 +235,14 @@ function handleFavoriteClick() {
       {isMobile ? (
         <MobileFooter />
       ) : (
-          <Footer
-          onFavoriteClick={handleFavoriteClick}
+        <Footer
+          onFavoriteClick={() =>
+            pushModal(
+              <ProtectedPath>
+                <FavoriteModal />
+              </ProtectedPath>,
+            )
+          }
           onSubscribeClick={() => pushModal(<LoginModal />)}
         />
       )}
