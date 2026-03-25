@@ -4,8 +4,12 @@ import { useModalStack } from "../../Hooks/useModalStack";
 import AlfajorModal from "../Modals/AlfajorModal";
 import Catalog from "../Groups/Catalog";
 import SearchInput from "../Groups/SearchInput";
-import "./MobileCatalog.css";
 import Newsletter from "./Newsletter";
+import FavoriteModal from "../Modals/FavoriteModal";
+import ProtectedPath from "../../Context/ProtectedRoute";
+import LoginModal from "../Modals/LoginModal";
+import ContactModal from "../Modals/ContactModal";
+import "./MobileCatalog.css";
 
 function MobileCatalog({ alfajores }) {
   const { pushModal } = useModalStack();
@@ -35,6 +39,7 @@ function MobileCatalog({ alfajores }) {
             </svg>
           </button>
         </div>
+
         <div className="mobile-catalog-content">
           <p className="title">{alfajores.length} alfajores</p>
           <Catalog
@@ -61,13 +66,38 @@ function MobileCatalog({ alfajores }) {
                 </button>
               </div>
               <div className="burger-body">
-                <p>CATÁLOGO</p>
+                <p onClick={() => setBurgerOpen(false)}>CATÁLOGO</p>
                 <div className="burger-divider" />
-                <p onClick={() => console.log("Abre favs")}>FAVORITOS</p>
+                <p
+                  onClick={() => {
+                    setBurgerOpen(false);
+                    pushModal(
+                      <ProtectedPath>
+                        <FavoriteModal />
+                      </ProtectedPath>,
+                    );
+                  }}
+                >
+                  FAVORITOS
+                </p>
                 <div className="burger-divider" />
-                <p>CONTACTO</p>
+                <p
+                  onClick={() => {
+                    setBurgerOpen(false);
+                    pushModal(<ContactModal />);
+                  }}
+                >
+                  CONTACTO
+                </p>
                 <div className="burger-divider" />
-                <p>REGÍSTRATE</p>
+                <p
+                  onClick={() => {
+                    setBurgerOpen(false);
+                    pushModal(<LoginModal />);
+                  }}
+                >
+                  REGÍSTRATE
+                </p>
               </div>
             </div>
             <div className="burger-divider-footer" />
