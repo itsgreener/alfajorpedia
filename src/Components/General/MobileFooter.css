@@ -1,13 +1,18 @@
 .mobile-footer {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
   width: 100%;
-  max-width: 402px;
-  height: 50px;
+  max-width: 100vw;
+  height: 12vw;
   background: #fff;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 14px;
+  padding: 0 4vw;
   box-sizing: border-box;
+  z-index: 9999;
 }
 
 .mobile-footer-item {
@@ -16,6 +21,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 1.2vw;
   text-decoration: none;
   color: #000;
   flex: 1 1 0;
@@ -23,18 +29,15 @@
 }
 
 .mobile-footer-icon {
-  width: 18px;
-  height: 18px;
+  width: 4.5vw;
+  height: 4.5vw;
   display: block;
-  margin-bottom: 4px;
-  flex-shrink: 0;
+  object-fit: contain;
 }
 
 .mobile-footer-label {
-  margin: 0;
- padding-top: 10%;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 6px;
+  font-size: 2.2vw;
   font-weight: 400;
   line-height: 1;
   color: #222;
@@ -48,22 +51,14 @@
   align-items: center;
   justify-content: center;
   flex: 1.5 1 0;
-  min-width: 0;
-  text-decoration: none;
 }
 
 .mobile-footer-logo {
-  width: 112px;
+  width: 28vw;
   height: auto;
   display: block;
 }
 
-.mobile-footer a {
-  text-decoration: none;
-  color: inherit;
-}
-
-.mobile-footer img,
-.mobile-footer svg {
-  max-width: 100%;
+.main-container {
+  padding-bottom: 200vw;
 }
