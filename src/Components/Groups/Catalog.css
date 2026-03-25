@@ -1,4 +1,5 @@
-.catalogo-list {
+.catalog-list {
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(clamp(18%, 150px, 50%), 1fr));
   margin-top: 1.5%;

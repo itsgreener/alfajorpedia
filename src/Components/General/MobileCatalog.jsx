@@ -8,7 +8,7 @@ import Newsletter from "./Newsletter";
 import FavoriteModal from "../Modals/FavoriteModal";
 import ProtectedPath from "../../Context/ProtectedRoute";
 import LoginModal from "../Modals/LoginModal";
-import ContactModal from "../Modals/ContactModal";
+import Contact from "./Contact";
 import "./MobileCatalog.css";
 
 function MobileCatalog({ alfajores }) {
@@ -84,7 +84,7 @@ function MobileCatalog({ alfajores }) {
                 <p
                   onClick={() => {
                     setBurgerOpen(false);
-                    pushModal(<ContactModal />);
+                    pushModal(<Contact />);
                   }}
                 >
                   CONTACTO

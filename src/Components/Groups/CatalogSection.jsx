@@ -40,7 +40,7 @@ function CatalogSection({ alfajores, fromFavorite = false }) {
   return (
     <section className="catalog-section">
       <div className="catalog-header" id="catalog">
-        <p className="big-title white-text catalogo-title">
+        <p className="big-title white-text catalog-title">
           {alfajores.length} {fromFavorite ? "Favoritos" : "Alfajores"}
         </p>
         <SearchInput onChange={setSearchContent} />

@@ -44,7 +44,7 @@ export default function Catalog({ alfajores, onClick, items }) {
       {totalPages > 0 && (
         <div
           ref={ref}
-          className="catalogo-list"
+          className="catalog-list"
           style={{ "--repeat": `${items / 4}` }}
         >
           {currentItems.map((alfajor) => (

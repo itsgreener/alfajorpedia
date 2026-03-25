@@ -12,7 +12,7 @@ function SearchInput({ onChange }) {
             placeholder="Busca tu match"
             onChange={(e) => onChange(e.target.value)}
           />
-          <span className="catalog-search-divider" />
+          <span className="desktop-catalog-search-divider" />
           <button>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -34,8 +34,8 @@ function SearchInput({ onChange }) {
         <div className="mobile-catalog-search">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="22"
-            height="22"
+            width="25"
+            height="25"
             viewBox="0 0 24 24"
             fill="none"
             stroke="var(--black)"
