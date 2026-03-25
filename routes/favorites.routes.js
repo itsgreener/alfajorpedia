@@ -47,7 +47,6 @@ router.post("/:alfajorId", requireToken, async (req, res) => {
     });
   }
 });
-
 router.delete("/:alfajorId", requireToken, async (req, res) => {
   try {
     const pool = req.app.locals.pool;
