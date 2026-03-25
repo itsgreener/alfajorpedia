@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import { filtrarAlfajoresConImagenReal } from "../Helpers/alfajoresDisplay.js";
 import { useAlfajoresData } from "../Hooks/useAlfajores.jsx";
 import { useModalStack } from "../Hooks/useModalStack.js";
 import { useBreakpoint } from "../Hooks/useBreakpoint.js";
@@ -12,8 +14,6 @@ import FavoriteModal from "../Components/Modals/FavoriteModal.jsx";
 import LoginModal from "../Components/Modals/LoginModal.jsx";
 import CatalogSection from "../Components/Groups/CatalogSection.jsx";
 import MobileCatalog from "../Components/General/MobileCatalog.jsx";
-import { useEffect, useState } from "react";
-import { filtrarAlfajoresConImagenReal } from "../Helpers/alfajoresDisplay.js";
 import Contact from "../Components/General/Contact.jsx";
 import ProtectedPath from "../Context/ProtectedRoute.jsx";
 import "./Home.css";

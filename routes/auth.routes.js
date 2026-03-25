@@ -82,8 +82,6 @@ router.post("/login", async (req, res) => {
   }
 });
 
-
-
 router.get("/me", requireToken, async (req, res) => {
   return res.json({
     user: {

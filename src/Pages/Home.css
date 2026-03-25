@@ -90,11 +90,12 @@
 }
 
 .nostalgia {
-  margin: 6% 4.5%;
+  margin-bottom: 4.5%;
 }
 
 .nostalgia-title{
   pointer-events: none;
+  margin-left: 6%;
   margin-bottom: 4%;
 }
 
