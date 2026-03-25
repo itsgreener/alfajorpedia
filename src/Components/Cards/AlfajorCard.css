@@ -102,3 +102,21 @@
 .card-socials a:hover {
   opacity: 0.7;
 }
+
+@media (min-width: 1920px) {
+  .alfajor-card {
+    max-width: 450px;
+  }
+}
+
+@media (max-width: 768px) {
+  .alfajor-card {
+    max-width: 250px;
+  }
+}
+
+@media (max-width: 400px) {
+  .alfajor-card {
+    max-width: 200px;
+  }
+}
