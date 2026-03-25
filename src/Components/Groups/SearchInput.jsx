@@ -1,6 +1,8 @@
+import { useBreakpoint } from "../../Hooks/useBreakpoint";
 import "./SearchInput.css";
 
-function SearchInput({ onChange, isMobile = false }) {
+function SearchInput({ onChange }) {
+  const { isMobile } = useBreakpoint();
   return (
     <>
       {!isMobile ? (

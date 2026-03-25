@@ -56,50 +56,6 @@
   width: 33%;
 }
 
-.footer-newsletter {
-  display: flex;
-  flex-direction: column;
-}
-
-.footer-newsletter-input {
-  display: flex;
-  align-items: stretch;
-  width: 16vw;
-  height: 4.2vh;
-  font-size: var(--text);
-}
-
-.newsletter-title {
-  font-size: var(--text);
-}
-
-.footer-newsletter-input input {
-  flex: 1;
-  border: 0.08vw solid var(--light-gray);
-  border-right: none;
-  background: var(--white);
-  color: var(--black);
-  padding: 0 0.8vw;
-  font-family: "Haas", sans-serif;
-  outline: none;
-  box-sizing: border-box;
-}
-
-.footer-newsletter-input button {
-  width: 2.4vw;
-  border: 0.08vw solid var(--light-gray);
-  background: var(--white);
-  color: var(--black);
-  line-height: 1;
-  cursor: pointer;
-  padding: 0;
-}
-
-.newsletter-message {
-  margin-top: 0.8vh;
-  font-size: 0.9em;
-}
-
 .footer-social {
   display: flex;
   align-items: center;

@@ -1,0 +1,82 @@
+.footer-newsletter {
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+}
+
+.footer-newsletter-input {
+  display: flex;
+  align-items: stretch;
+  width: 16vw;
+  height: 4.2vh;
+  font-size: var(--text);
+}
+
+.newsletter-title {
+  font-size: var(--text);
+}
+
+.newsletter-title-mobile {
+  letter-spacing: 0.1em;
+  font-weight: bold;
+}
+
+.footer-newsletter-input input {
+  flex: 1;
+  border: 0.08vw solid var(--light-gray);
+  border-right: none;
+  background: var(--white);
+  color: var(--black);
+  padding: 0 0.8vw;
+  font-family: "Haas", sans-serif;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.footer-newsletter-input button {
+  width: 2.4vw;
+  border: 0.08vw solid var(--light-gray);
+  background: var(--white);
+  color: var(--black);
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+}
+
+.footer-newsletter-input-mobile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid var(--black);
+  color: var(--black);
+  border-radius: 10px;
+  background: none;
+  padding: 2.5% 5%;
+}
+
+.footer-newsletter-input-mobile button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--black);
+}
+
+.footer-newsletter-input-mobile input {
+  height: stretch;
+  width: 80%;
+  border: none;
+  outline: none;
+  background: none;
+  color: var(--black);
+}
+
+.newsletter-divider {
+  height: stretch;
+  width: 1px;
+  background: var(--black);
+}
+
+.newsletter-message {
+  margin-top: 0.8vh;
+  font-size: 0.9em;
+}

@@ -83,7 +83,7 @@ function Home() {
     return alfajores.filter((item) => item.foto_url === fotoUrl);
   }
 
-  const featuredAlfajor = filterByUrl("alfajorpedia-0001");
+  const featuredAlfajor = filterByUrl("alfajorpedia-0060");
 
   const alfajoresPower = [
     ...filterByUrl("alfajorpedia-0208"),

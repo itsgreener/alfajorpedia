@@ -1,37 +1,7 @@
+import Newsletter from "./Newsletter";
 import "./Footer.css";
-import { useState } from "react";
 
 function Footer({ onSubscribeClick, onFavoriteClick }) {
-  const [email, setEmail] = useState("");
-  const [status, setStatus] = useState("");
-
-  async function handleNewsletterSubmit(e) {
-    e.preventDefault();
-
-    try {
-      const res = await fetch("https://app.alfajorpedia.com/api/subscribe", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-        }),
-      });
-
-      if (!res.ok) {
-        setStatus("error");
-        return;
-      }
-
-      setStatus("ok");
-      setEmail("");
-    } catch (err) {
-      console.error(err);
-      setStatus("error");
-    }
-  }
-
   return (
     <footer className="footer-bg">
       <div className="footer">
@@ -42,36 +12,7 @@ function Footer({ onSubscribeClick, onFavoriteClick }) {
               <p>Contenido del que importa.</p>
             </div>
 
-            <div className="footer-newsletter">
-              <p className="white-text newsletter-title">
-                <strong>Recibe nuestra newsletter</strong>
-              </p>
-
-              <form
-                className="footer-newsletter-input"
-                onSubmit={handleNewsletterSubmit}
-              >
-                <input
-                  type="email"
-                  placeholder="Introduce tu email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-                <button type="submit">&gt;</button>
-              </form>
-
-              {status === "ok" && (
-                <p className="white-text newsletter-message">
-                  Revisa tu email para confirmar la suscripción.
-                </p>
-              )}
-              {status === "error" && (
-                <p className="white-text newsletter-message">
-                  No se pudo completar la suscripción.
-                </p>
-              )}
-            </div>
+            <Newsletter />
 
             <div className="footer-social">
               <a
