@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useFilteredData } from "../../Hooks/useFilteredData";
 import { useModalStack } from "../../Hooks/useModalStack";
 import AlfajorModal from "../Modals/AlfajorModal";
@@ -8,20 +8,82 @@ import Newsletter from "./Newsletter";
 import FavoriteModal from "../Modals/FavoriteModal";
 import ProtectedPath from "../../Context/ProtectedRoute";
 import LoginModal from "../Modals/LoginModal";
-import Contact from "./Contact";
 import "./MobileCatalog.css";
+
+function normalizeCategory(category) {
+  if (!category) return "";
+  return category.trim().toLowerCase();
+}
+
+function formatCategoryLabel(category) {
+  if (!category) return "";
+
+  const normalized = normalizeCategory(category);
+
+  if (normalized === "de leche") return "De leche";
+  if (normalized === "blanco") return "Blanco";
+  if (normalized === "frambuesa") return "Frambuesa";
+
+  return category;
+}
 
 function MobileCatalog({ alfajores }) {
   const { pushModal } = useModalStack();
   const { filteredData, setSearchContent } = useFilteredData(alfajores);
   const [burgerOpen, setBurgerOpen] = useState(false);
+  const [activeCategory, setActiveCategory] = useState(null);
+  const [categoryStartIndex, setCategoryStartIndex] = useState(0);
+
+  const categories = useMemo(() => {
+  const counts = alfajores.reduce((acc, alfajor) => {
+    const category = normalizeCategory(alfajor.categorias);
+    if (!category) return acc;
+
+    acc[category] = (acc[category] || 0) + 1;
+    return acc;
+  }, {});
+
+  return Object.entries(counts)
+    .sort((a, b) => b[1] - a[1])
+    .map(([category]) => category);
+}, [alfajores]);
+
+const visibleCategories = useMemo(() => {
+  return categories.slice(categoryStartIndex, categoryStartIndex + 3);
+}, [categories, categoryStartIndex]);
+
+  const canGoLeft = categoryStartIndex > 0;
+const canGoRight = categoryStartIndex + 3 < categories.length;
+
+const handlePrevCategories = () => {
+  if (!canGoLeft) return;
+  setCategoryStartIndex((prev) => prev - 1);
+};
+
+const handleNextCategories = () => {
+  if (!canGoRight) return;
+  setCategoryStartIndex((prev) => prev + 1);
+};
+
+  const finalFilteredData = useMemo(() => {
+    if (!activeCategory) return filteredData;
+
+    return filteredData.filter(
+      (alfajor) => normalizeCategory(alfajor.categorias) === activeCategory
+    );
+  }, [filteredData, activeCategory]);
 
   return (
     <>
       <section className="mobile-catalog-section">
         <div className="mobile-catalog-header" id="catalog">
           <SearchInput onChange={setSearchContent} />
-          <button onClick={() => setBurgerOpen(true)}>
+          <button
+            type="button"
+            className="mobile-burger-button"
+            onClick={() => setBurgerOpen(true)}
+            aria-label="Abrir menú"
+          >
             <svg
               width="24"
               height="17"
@@ -40,10 +102,67 @@ function MobileCatalog({ alfajores }) {
           </button>
         </div>
 
+     <div className="mobile-categories-wrapper">
+  <button
+    type="button"
+    className="mobile-categories-arrow"
+    onClick={handlePrevCategories}
+    disabled={!canGoLeft}
+    aria-label="Categorías anteriores"
+  >
+    <svg viewBox="0 0 24 24" className="mobile-categories-arrow-icon">
+      <path
+        d="M15 5L8 12L15 19"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  </button>
+
+  <div className="mobile-categories">
+    {visibleCategories.map((category) => (
+      <button
+        key={category}
+        type="button"
+        className={`mobile-category-button ${
+          activeCategory === category ? "active" : ""
+        }`}
+        onClick={() =>
+          setActiveCategory((prev) => (prev === category ? null : category))
+        }
+      >
+        {formatCategoryLabel(category)}
+      </button>
+    ))}
+  </div>
+
+  <button
+    type="button"
+    className="mobile-categories-arrow"
+    onClick={handleNextCategories}
+    disabled={!canGoRight}
+    aria-label="Categorías siguientes"
+  >
+    <svg viewBox="0 0 24 24" className="mobile-categories-arrow-icon">
+      <path
+        d="M9 5L16 12L9 19"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  </button>
+</div>
+
         <div className="mobile-catalog-content">
-          <p className="title">{alfajores.length} alfajores</p>
+          <p className="title">{finalFilteredData.length} alfajores</p>
           <Catalog
-            alfajores={filteredData}
+            alfajores={finalFilteredData}
             onClick={(alfajor) =>
               pushModal(<AlfajorModal alfajorId={alfajor.id} />)
             }
@@ -51,12 +170,13 @@ function MobileCatalog({ alfajores }) {
           />
         </div>
       </section>
+
       {burgerOpen && (
         <div className="burger-overlay" onClick={() => setBurgerOpen(false)}>
           <div className="burger-content">
             <div className="burger-margin" onClick={(e) => e.stopPropagation()}>
               <div className="burger-header">
-                <img src="/logoAlfajorpedia.svg" />
+                <img src="/logoAlfajorpedia.svg" alt="Logo Alfajorpedia" />
                 <button
                   className="burger-close"
                   onClick={() => setBurgerOpen(false)}
@@ -65,31 +185,37 @@ function MobileCatalog({ alfajores }) {
                   ✕
                 </button>
               </div>
+
               <div className="burger-body">
                 <p onClick={() => setBurgerOpen(false)}>CATÁLOGO</p>
                 <div className="burger-divider" />
+
                 <p
                   onClick={() => {
                     setBurgerOpen(false);
                     pushModal(
                       <ProtectedPath>
                         <FavoriteModal />
-                      </ProtectedPath>,
+                      </ProtectedPath>
                     );
                   }}
                 >
                   FAVORITOS
                 </p>
+
                 <div className="burger-divider" />
+
                 <p
                   onClick={() => {
                     setBurgerOpen(false);
-                    pushModal(<Contact />);
+                    pushModal(<ContactModal />);
                   }}
                 >
                   CONTACTO
                 </p>
+
                 <div className="burger-divider" />
+
                 <p
                   onClick={() => {
                     setBurgerOpen(false);
@@ -100,11 +226,15 @@ function MobileCatalog({ alfajores }) {
                 </p>
               </div>
             </div>
+
             <div className="burger-divider-footer" />
+
             <div className="burger-margin" onClick={(e) => e.stopPropagation()}>
               <Newsletter />
+
               <div className="burger-footer">
                 <img src="logoGreener.svg" alt="logo greener" />
+
                 <div className="burger-social">
                   <a
                     href="https://itsgreener.com/"
@@ -123,13 +253,13 @@ function MobileCatalog({ alfajores }) {
                         cy="12"
                         r="10"
                         stroke="black"
-                        stroke-width="1.5"
+                        strokeWidth="1.5"
                       />
                       <path
                         d="M2 12h20M3.5 7h17M3.5 17h17"
                         stroke="black"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
                       />
                       <ellipse
                         cx="12"
@@ -137,10 +267,11 @@ function MobileCatalog({ alfajores }) {
                         rx="4"
                         ry="10"
                         stroke="black"
-                        stroke-width="1.5"
+                        strokeWidth="1.5"
                       />
                     </svg>
                   </a>
+
                   <a
                     href="https://www.instagram.com/itsgreenerhere/"
                     target="_blank"
@@ -162,6 +293,7 @@ function MobileCatalog({ alfajores }) {
                       <circle cx="17.5" cy="6.5" r="0.5" fill="var(--white)" />
                     </svg>
                   </a>
+
                   <a
                     href="https://x.com/itsgreenernow"
                     target="_blank"

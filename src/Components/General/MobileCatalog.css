@@ -1,8 +1,9 @@
 .mobile-catalog-section {
-  margin: 4%;
-  padding-top: var(--safe-top);
+  width: 100%;
+  margin: 0;
+  padding-top: calc(var(--safe-top) + 3vh);
+  box-sizing: border-box;
 }
-
 .mobile-catalog-header {
   display: flex;
   flex-direction: row;
@@ -12,7 +13,7 @@
 
 .mobile-catalog-header button {
   background: none;
-  border: none;
+  border: none; 
   cursor: pointer;
 }
 
@@ -116,4 +117,67 @@
 
 .burger-social a {
   cursor: pointer;
+}
+
+.mobile-categories-wrapper {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 6vw 1fr 6vw;
+  align-items: center;
+  column-gap: 2vw;
+  margin-top: 3vh;
+  margin-bottom: 2vh;
+  box-sizing: border-box;
+}
+
+.mobile-categories {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 2.5vw;
+  align-items: center;
+}
+
+.mobile-categories-arrow {
+  width: 6vw;
+  height: 6vw;
+  border: none;
+  background: transparent;
+  color: var(--black);
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-categories-arrow:disabled {
+  opacity: 1;
+  cursor: default;
+}
+
+.mobile-categories-arrow-icon {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.mobile-category-button {
+  width: 100%;
+  border: 0.2vw solid var(--black);
+  background: var(--white);
+  color: var(--black);
+  border-radius: 1.2vw;
+  padding: 1.1vh 0;
+  font-size: 3.1vw;
+  line-height: 1;
+  white-space: nowrap;
+  text-align: center;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mobile-category-button.active {
+  background: var(--black);
+  color: var(--white);
 }
