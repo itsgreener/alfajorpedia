@@ -70,3 +70,146 @@
   color: red;
   font-size: var(--text);
 }
+
+/* MOBILE */
+
+.mobile-login-wrapper {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.mobile-login-card {
+  position: relative;
+  width: 100%;
+  border-radius: 3vw;
+  box-shadow: 0 0.8vw 3vw rgba(0, 0, 0, 0.08);
+  padding: 6vw 5vw 7vw;
+  box-sizing: border-box;
+}
+
+.mobile-login-close {
+  position: absolute;
+  top: 3vw;
+  right: 3vw;
+  width: 5.5vw;
+  height: 5.5vw;
+  border: none;
+  border-radius: 1vw;
+  background: #222;
+  color: #fff;
+  font-size: 4vw;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+.mobile-login-title {
+  margin: 10vw 0 8vw;
+  text-align: center;
+  font-weight: 700;
+  font-size: 5.8vw;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  color: var(--black);
+}
+
+.mobile-login-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 10vw;
+  margin-bottom: 8vw;
+  align-items: end;
+}
+
+.mobile-login-tab {
+  border: none;
+  background: transparent;
+  color: var(--black);
+  font-size: 3.9vw;
+  font-weight: 600;
+  line-height: 1;
+  padding: 0 0 2vw;
+  border-bottom: 0.35vw solid transparent;
+  cursor: pointer;
+}
+
+.mobile-login-tab.active {
+  border-bottom-color: var(--black);
+}
+
+.mobile-login-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.mobile-login-field {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2vh;
+  margin-bottom: 4vh;
+}
+
+.mobile-login-label {
+  font-size: 3.4vw;
+  font-weight: 500;
+  color: #9a9a9a;
+  line-height: 1;
+}
+
+.mobile-login-input {
+  width: 100%;
+  padding: 0 0 1.2vh;
+  border: none;
+  border-bottom: 0.25vw solid #9a9a9a;
+  border-radius: 0;
+  background: transparent;
+  font-size: 4.1vw;
+  line-height: 1.2;
+  color: var(--black);
+  box-sizing: border-box;
+  outline: none;
+}
+
+.mobile-login-input:focus {
+  border-bottom-color: var(--black);
+}
+
+.mobile-login-forgot {
+  width: fit-content;
+  margin-top: -0.5vh;
+  margin-bottom: 4vh;
+  border: none;
+  background: transparent;
+  padding: 0;
+  font-size: 3.7vw;
+  color: var(--black);
+  cursor: pointer;
+}
+
+.mobile-login-error {
+  color: red;
+  font-size: 3.4vw;
+  text-align: left;
+  margin-bottom: 2vh;
+}
+
+.mobile-login-error p {
+  margin: 0 0 1vh;
+}
+
+.mobile-login-btn {
+  width: 100%;
+  padding: 1.8vh 4vw;
+  background: var(--black);
+  color: var(--white);
+  border: none;
+  border-radius: 2vw;
+  font-size: 4vw;
+  line-height: 1;
+  cursor: pointer;
+}

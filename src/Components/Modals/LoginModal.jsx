@@ -4,6 +4,7 @@ import { validate } from "../../Hooks/useValidation";
 import { useModalStack } from "../../Hooks/useModalStack";
 import RegisterModal from "./RegisterModal";
 import "./LoginModal.css";
+import { useBreakpoint } from "../../Hooks/useBreakpoint";
 
 function LoginModal({ protectedNode = null }) {
   const { pushModal, clearModalStack } = useModalStack();
@@ -14,6 +15,7 @@ function LoginModal({ protectedNode = null }) {
   const [errors, setErrors] = useState({});
   const [serverError, setServerError] = useState("");
   const [loading, setLoading] = useState(false);
+  const { isMobile } = useBreakpoint();
 
 async function onSubmit(e) {
   e.preventDefault();
@@ -43,6 +45,90 @@ if (protectedNode) {
   }
 
    return (
+    <> {isMobile ?
+        <div className="mobile-login-wrapper">
+      <div className="mobile-login-card">
+        <p className="mobile-login-title">
+          Ingresa a tu
+          <br />
+          cuenta y guarda tus
+          <br />
+          alfajores favoritos
+        </p>
+
+        <div className="mobile-login-tabs">
+          <button type="button" className="mobile-login-tab active">
+            Login
+          </button>
+
+          <button
+            type="button"
+            className="mobile-login-tab"
+            onClick={() =>
+              pushModal(
+                <RegisterModal
+                  protectedNode={protectedNode}
+                  isMobile={isMobile}
+                />
+              )
+            }
+          >
+            Regístrate
+          </button>
+        </div>
+
+        <form
+          noValidate
+          className="mobile-login-form"
+          onSubmit={onSubmit}
+        >
+          <div className="mobile-login-field">
+            <label className="mobile-login-label">Email address</label>
+            <input
+              className="mobile-login-input"
+              type="email"
+              autoComplete="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              disabled={loading}
+            />
+          </div>
+
+          <div className="mobile-login-field">
+            <label className="mobile-login-label">Password</label>
+            <input
+              className="mobile-login-input"
+              type="password"
+              autoComplete="current-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              disabled={loading}
+            />
+          </div>
+
+          <button type="button" className="mobile-login-forgot">
+            Olvidaste tu contraseña?
+          </button>
+
+          {(errors.email || errors.password || serverError) && (
+            <div className="mobile-login-error">
+              {errors.email && <p>{errors.email}</p>}
+              {errors.password && <p>{errors.password}</p>}
+              {serverError && <p>{serverError}</p>}
+            </div>
+          )}
+
+          <button
+            type="submit"
+            className="mobile-login-btn"
+            disabled={loading}
+          >
+            {loading ? "Entrando..." : "Login"}
+          </button>
+        </form>
+      </div>
+    </div>
+    :
     <div className="login-wrapper">
       <p className="title">
         Ingresa a tu cuenta
@@ -102,6 +188,8 @@ if (protectedNode) {
         si aún no lo has hecho
       </p>
     </div>
+}
+    </>
   );
 }
 
