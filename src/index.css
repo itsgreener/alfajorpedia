@@ -97,6 +97,10 @@ html {
   color: var(--white);
 }
 
+.text-center {
+  text-align: center;
+}
+
 input:focus::placeholder,
 textarea:focus::placeholder {
   opacity: 0;

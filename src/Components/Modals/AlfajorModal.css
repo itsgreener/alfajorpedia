@@ -6,9 +6,23 @@
   gap: 4vw;
 }
 
+.mobile-alfajor-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15% 4% 4% 4%;
+  gap: 3vw;
+}
+
 .alfajor-detail-img {
   width: 30%;
   max-width: 400px;
+  object-fit: contain;
+}
+
+.mobile-alfajor-detail-img {
+  height: 27.5vh;
+  max-height: 333px;
   object-fit: contain;
 }
 
@@ -19,10 +33,18 @@
   flex: 1;
 }
 
+.alfajor-detail-mobile-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+  align-items: center;
+  justify-content: center;
+}
+
 .alfajor-detail-meta {
   display: flex;
   align-items: center;
-  gap: 1.5vw;
+  gap: 5%;
   color: var(--dark-gray);
   font-size: var(--big-text);
 }
@@ -43,6 +65,17 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.alfajor-detail-footer-mobile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.alfajor-detail-footer-mobile button {
+  margin-left: auto;
 }
 
 .alfajor-detail-socials {

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useFilteredData } from "../../Hooks/useFilteredData";
 import { useModalStack } from "../../Hooks/useModalStack";
+import { useBreakpoint } from "../../Hooks/useBreakpoint";
 import AlfajorModal from "../Modals/AlfajorModal";
 import Catalog from "./Catalog";
 import SearchInput from "./SearchInput";
@@ -19,6 +20,7 @@ function shuffleArray(array) {
 
 function CatalogSection({ alfajores, fromFavorite = false }) {
   const { pushModal } = useModalStack();
+  const { isMobile } = useBreakpoint();
   const [randomOrder, setRandomOrder] = useState([]);
   const initializedRef = useRef(false);
 
@@ -39,12 +41,18 @@ function CatalogSection({ alfajores, fromFavorite = false }) {
 
   return (
     <section className="catalog-section">
-      <div className="catalog-header" id="catalog">
-        <p className="big-title white-text catalog-title">
+      {isMobile && fromFavorite ? (
+        <p className="small-title mobile-catalog-title">
           {alfajores.length} {fromFavorite ? "Favoritos" : "Alfajores"}
         </p>
-        <SearchInput onChange={setSearchContent} />
-      </div>
+      ) : (
+        <div className="catalog-header" id="catalog">
+          <p className="big-title white-text catalog-title">
+            {alfajores.length} {fromFavorite ? "Favoritos" : "Alfajores"}
+          </p>
+          <SearchInput onChange={setSearchContent} />
+        </div>
+      )}
 
       <div
         className={

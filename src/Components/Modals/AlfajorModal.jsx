@@ -1,13 +1,15 @@
 import { useAlfajoresActions } from "../../Hooks/useAlfajores.jsx";
 import { useSetFavorites } from "../../Hooks/useSetFavorites.jsx";
-import AddFavoritesButton from "../Cards/AddFavoritesButton.jsx";
 import { getCloudinaryImageUrl } from "../../Helpers/alfajoresDisplay.js";
+import { useBreakpoint } from "../../Hooks/useBreakpoint.js";
+import AddFavoritesButton from "../Cards/AddFavoritesButton.jsx";
 import "./AlfajorModal.css";
 
 function AlfajorModal({ alfajorId }) {
   const { setFavAlfajor } = useSetFavorites();
   const { alfajorById } = useAlfajoresActions();
   const selectedAlfajor = alfajorById(alfajorId.id ?? alfajorId);
+  const { isMobile } = useBreakpoint();
 
   const imgUrl = getCloudinaryImageUrl(selectedAlfajor.foto_url);
   const flagName = selectedAlfajor?.pais
@@ -15,12 +17,18 @@ function AlfajorModal({ alfajorId }) {
     .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "");
+
   return (
-    <div className="alfajor-detail">
+    <div className={isMobile ? "mobile-alfajor-detail" : "alfajor-detail"}>
       {selectedAlfajor ? (
         <>
+          {isMobile && (
+            <p className="title text-center">{selectedAlfajor.nombre}</p>
+          )}
           <img
-            className="alfajor-detail-img"
+            className={
+              isMobile ? "mobile-alfajor-detail-img" : "alfajor-detail-img"
+            }
             src={imgUrl || "/placeholder.webp"}
             alt={selectedAlfajor.nombre}
             loading="lazy"
@@ -29,36 +37,73 @@ function AlfajorModal({ alfajorId }) {
             }}
           />
 
-          <div className="alfajor-detail-info">
-            <p className="title">{selectedAlfajor.nombre}</p>
+          <div
+            className={
+              isMobile
+                ? "alfajor-detail-info text-center"
+                : "alfajor-detail-info"
+            }
+          >
+            {!isMobile && <p className="title">{selectedAlfajor.nombre}</p>}
+            {isMobile ? (
+              <div className="alfajor-detail-mobile-wrapper">
+                <div className="alfajor-detail-meta text-center">
+                  <img
+                    src={`/Flags/${flagName}.webp`}
+                    alt={selectedAlfajor.pais}
+                    className="alfajor-detail-flag"
+                  />
+                  {selectedAlfajor.gramos != null && (
+                    <span>{selectedAlfajor.gramos}g</span>
+                  )}
+                  {selectedAlfajor.calorias != null && (
+                    <span>{selectedAlfajor.calorias} Cal</span>
+                  )}
+                </div>
 
-            <div className="alfajor-detail-meta">
-              <img
-                src={`/Flags/${flagName}.webp`}
-                alt={selectedAlfajor.pais}
-                className="alfajor-detail-flag"
-              />
-              {selectedAlfajor.gramos != null && (
-                <span>{selectedAlfajor.gramos}g</span>
-              )}
-              {selectedAlfajor.calorias != null && (
-                <span>{selectedAlfajor.calorias} Cal</span>
-              )}
-            </div>
+                {selectedAlfajor.tagline && (
+                  <p className="alfajor-detail-tagline">
+                    <strong>{selectedAlfajor.tagline}</strong>
+                  </p>
+                )}
 
-            {selectedAlfajor.tagline && (
-              <p className="alfajor-detail-tagline">
-                <strong>{selectedAlfajor.tagline}</strong>
-              </p>
+                {selectedAlfajor.descripcion && (
+                  <p className="alfajor-detail-description">
+                    {selectedAlfajor.descripcion}
+                  </p>
+                )}
+              </div>
+            ) : (
+              <>
+                <div className="alfajor-detail-meta">
+                  <img
+                    src={`/Flags/${flagName}.webp`}
+                    alt={selectedAlfajor.pais}
+                    className="alfajor-detail-flag"
+                  />
+                  {selectedAlfajor.gramos != null && (
+                    <span>{selectedAlfajor.gramos}g</span>
+                  )}
+                  {selectedAlfajor.calorias != null && (
+                    <span>{selectedAlfajor.calorias} Cal</span>
+                  )}
+                </div>
+
+                {selectedAlfajor.tagline && (
+                  <p className="alfajor-detail-tagline">
+                    <strong>{selectedAlfajor.tagline}</strong>
+                  </p>
+                )}
+
+                {selectedAlfajor.descripcion && (
+                  <p className="alfajor-detail-description">
+                    {selectedAlfajor.descripcion}
+                  </p>
+                )}
+              </>
             )}
 
-            {selectedAlfajor.descripcion && (
-              <p className="alfajor-detail-description">
-                {selectedAlfajor.descripcion}
-              </p>
-            )}
-
-            <div className="alfajor-detail-footer">
+            <div className={isMobile ? "alfajor-detail-footer-mobile" : "alfajor-detail-footer"}>
               <div className="alfajor-detail-socials">
                 {selectedAlfajor.website && (
                   <a

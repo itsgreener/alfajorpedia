@@ -17,6 +17,10 @@
   line-height: 1;
 }
 
+.mobile-catalog-title{
+  margin-top: 4%;
+}
+
 .catalog-content {
   max-width: 2560px;
 }
