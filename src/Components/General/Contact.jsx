@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useBreakpoint } from "../../Hooks/useBreakpoint";
 import "./contact.css";
 
 function Contact() {
@@ -7,6 +8,7 @@ function Contact() {
   const [userMessage, setUserMessage] = useState("");
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
+  const { isMobile } = useBreakpoint();
 
   const sendEmail = async () => {
     try {
@@ -37,25 +39,38 @@ function Contact() {
 
   return (
     <section className="contacto">
-      <div className="contacto-top">
-        <p className="small-title white-text">
-          Nuestra ambición no tiene freno.
-        </p>
-      </div>
-      <div className="contacto-main">
-        <div className="contacto-left">
-          <p className="small-title">
-            ¿Falta tu alfajor?
-            <br />
-            Avísanos.
-          </p>
-          <p className="text">
-            No vamos a parar hasta encontrar
-            <br />
-            <strong>hasta el último alfajor del planeta.</strong>
+      {!isMobile && (
+        <div className="contacto-top">
+          <p className="small-title white-text">
+            Nuestra ambición no tiene freno.
           </p>
         </div>
-        <div className="contacto-right">
+      )}
+      <div className={isMobile ? "contacto-main-mobile" : "contacto-main"}>
+        {!isMobile ? (
+          <div className="contacto-left">
+            <p className="small-title">
+              ¿Falta tu alfajor?
+              <br />
+              Avísanos.
+            </p>
+            <p className="text">
+              No vamos a parar hasta encontrar
+              <br />
+              <strong>hasta el último alfajor del planeta.</strong>
+            </p>
+          </div>
+        ) : (
+          <>
+            <p className="small-title">¿Falta tu alfajor? Avísanos.</p>
+            <p className="text">
+              No vamos a parar hasta encontrar <br />
+              <strong>hasta el último alfajor del planeta.</strong>
+            </p>
+          </>
+        )}
+
+        {isMobile ? (
           <form
             className="contacto-form"
             onSubmit={(e) => {
@@ -63,28 +78,26 @@ function Contact() {
               sendEmail();
             }}
           >
-            <div className="contacto-form-row">
-              <input
-                type="text"
-                placeholder="Nombre"
-                onChange={(e) => {
-                  setUserName(e.target.value);
-                  error && setError("");
-                  success && setSuccess("");
-                }}
-                value={userName}
-              />
-              <input
-                type="email"
-                placeholder="Email"
-                onChange={(e) => {
-                  setUserEmail(e.target.value);
-                  error && setError("");
-                  success && setSuccess("");
-                }}
-                value={userEmail}
-              />
-            </div>
+            <input
+              type="text"
+              placeholder="Nombre"
+              onChange={(e) => {
+                setUserName(e.target.value);
+                error && setError("");
+                success && setSuccess("");
+              }}
+              value={userName}
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              onChange={(e) => {
+                setUserEmail(e.target.value);
+                error && setError("");
+                success && setSuccess("");
+              }}
+              value={userEmail}
+            />
             <textarea
               placeholder="Escribe tu mensaje aquí..."
               onChange={(e) => {
@@ -94,15 +107,63 @@ function Contact() {
               }}
               value={userMessage}
             />
-            <div className="contacto-form-actions">
-              {success && <p className="text contact-success">{success}</p>}
-              {error && <p className="contact-error">{error}</p>}
-              <button type="submit">Enviar</button>
-            </div>
+            {success && <p className="text contact-success">{success}</p>}
+            {error && <p className="contact-error">{error}</p>}
+            <button className="mobile-form-submit hover" type="submit">
+              <strong>Enviar</strong>
+            </button>
           </form>
-        </div>
+        ) : (
+          <div className="contacto-right">
+            <form
+              className="contacto-form"
+              onSubmit={(e) => {
+                e.preventDefault();
+                sendEmail();
+              }}
+            >
+              <div className="contacto-form-row">
+                <input
+                  type="text"
+                  placeholder="Nombre"
+                  onChange={(e) => {
+                    setUserName(e.target.value);
+                    error && setError("");
+                    success && setSuccess("");
+                  }}
+                  value={userName}
+                />
+                <input
+                  type="email"
+                  placeholder="Email"
+                  onChange={(e) => {
+                    setUserEmail(e.target.value);
+                    error && setError("");
+                    success && setSuccess("");
+                  }}
+                  value={userEmail}
+                />
+              </div>
+              <textarea
+                placeholder="Escribe tu mensaje aquí..."
+                onChange={(e) => {
+                  setUserMessage(e.target.value);
+                  error && setError("");
+                  success && setSuccess("");
+                }}
+                value={userMessage}
+              />
+              <div className="contacto-form-actions">
+                {success && <p className="text contact-success">{success}</p>}
+                {error && <p className="contact-error">{error}</p>}
+                <button type="submit">Enviar</button>
+              </div>
+            </form>
+          </div>
+        )}
       </div>
     </section>
   );
 }
+
 export default Contact;
