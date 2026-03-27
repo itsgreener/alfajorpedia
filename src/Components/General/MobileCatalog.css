@@ -171,9 +171,10 @@
   background: var(--white);
   color: var(--black);
   border-radius: 1.2vw;
-  padding: 1.1vh 0;
-  font-size: var(--text);
+  padding: 1.1vh .5vh;
+  font-size: var(--big-text);
   line-height: 1;
+  letter-spacing: .65px;
   white-space: nowrap;
   text-align: center;
   cursor: pointer;
