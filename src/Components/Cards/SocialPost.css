@@ -4,7 +4,6 @@
   aspect-ratio: 9/16;
   height: 70vh;
   max-height: 600px;
-  max-width: fit-content;
   position: relative;
 }
 
@@ -14,7 +13,6 @@
   aspect-ratio: 4/3;
   width: 22.5vw;
   max-width: 1000px;
-  height: fit-content;
   position: relative;
 }
 

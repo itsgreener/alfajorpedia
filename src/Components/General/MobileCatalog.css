@@ -43,7 +43,6 @@
   position: fixed;
   top: 0;
   width: 100vw;
-  height: fit-content;
   background: var(--white);
   border-radius: 0 0 50px 50px;
 }
@@ -67,7 +66,6 @@
 }
 
 .burger-close {
-  width: fit-content;
   border: none;
   background: none;
   cursor: pointer;
