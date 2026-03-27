@@ -83,12 +83,25 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/me", requireToken, async (req, res) => {
-  return res.json({
-    user: {
-      id: req.user.id,
-      email: req.user.email,
-    },
-  });
+  try {
+    const pool = req.app.locals.pool;
+
+    const [rows] = await pool.query(
+      "SELECT id, email FROM usuarios WHERE id = ?",
+      [req.user.id]
+    );
+
+    if (!rows.length) {
+      return res.status(404).json({ message: "Usuario no encontrado" });
+    }
+
+    res.json(rows[0]);
+  } catch (error) {
+    res.status(500).json({
+      message: "Error obteniendo usuario",
+      detail: error.message,
+    });
+  }
 });
 
 module.exports = router;

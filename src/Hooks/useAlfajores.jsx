@@ -37,7 +37,7 @@ export function AlfajoresProvider({ children }) {
     fetchAlfajores();
   }, [token]);
 
- async function toggleFavoriteAlfajor(id, like) {
+async function toggleFavoriteAlfajor(id, like) {
   if (!token) {
     throw new Error("No autenticado");
   }
@@ -62,11 +62,7 @@ export function AlfajoresProvider({ children }) {
     throw new Error(data.message || data.error || "Error actualizando favorito");
   }
 
-  setAlfajores((prev) =>
-    prev.map((alfajor) =>
-      alfajor.id === id ? { ...alfajor, isFav: like } : alfajor,
-    ),
-  );
+  await fetchAlfajores();
 }
 
   const value = useMemo(
