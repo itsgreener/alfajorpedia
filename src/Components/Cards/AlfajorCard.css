@@ -26,7 +26,6 @@
 }
 
 .card-body {
-  height: fit-content;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
