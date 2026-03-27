@@ -25,28 +25,32 @@ router.post("/:alfajorId", requireToken, async (req, res) => {
   try {
     const pool = req.app.locals.pool;
 
-    const [[dbInfo]] = await pool.query("SELECT DATABASE() AS db");
-
     const [result] = await pool.query(
-      "INSERT IGNORE INTO favoritos (usuario_id, alfajor_id) VALUES (?, ?)",
+      "INSERT INTO favoritos (usuario_id, alfajor_id) VALUES (?, ?)",
       [req.user.id, req.params.alfajorId]
     );
 
-    return res.json({
+    return res.status(201).json({
       ok: true,
-      db: dbInfo.db,
       userId: req.user.id,
       alfajorId: req.params.alfajorId,
       affectedRows: result.affectedRows,
-      warningStatus: result.warningStatus,
     });
   } catch (error) {
+    if (error.code === "ER_DUP_ENTRY") {
+      return res.status(409).json({
+        ok: false,
+        message: "Ese alfajor ya está en favoritos",
+      });
+    }
+
     return res.status(500).json({
       message: "Error guardando favorito",
       detail: error.message,
     });
   }
 });
+
 router.delete("/:alfajorId", requireToken, async (req, res) => {
   try {
     const pool = req.app.locals.pool;

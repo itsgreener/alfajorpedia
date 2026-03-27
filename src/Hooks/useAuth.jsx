@@ -1,11 +1,47 @@
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [token, setToken] = useState("");
+   const [token, setToken] = useState(localStorage.getItem("token") || "");
   const [user, setUser] = useState(null);
   const [authLoading, setAuthLoading] = useState(false);
+
+  useEffect(() => {
+    async function fetchMe() {
+      if (!token) {
+        setUser(null);
+        setAuthLoading(false);
+        return;
+      }
+
+      try {
+        const res = await fetch("https://app.alfajorpedia.com/api/auth/me", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const data = await res.json().catch(() => ({}));
+
+        if (!res.ok) {
+          localStorage.removeItem("token");
+          setToken("");
+          setUser(null);
+          setAuthLoading(false);
+          return;
+        }
+
+        setUser(data);
+      } catch {
+        setUser(null);
+      } finally {
+        setAuthLoading(false);
+      }
+    }
+
+    fetchMe();
+  }, [token]);
 
   async function login({ email, password }) {
     setAuthLoading(true);
@@ -25,6 +61,7 @@ export function AuthProvider({ children }) {
         throw new Error(data.message || data.error || "Error al iniciar sesión");
       }
 
+       localStorage.setItem("token", data.token);
       setToken(data.token);
       setUser(data.user);
 
@@ -52,10 +89,9 @@ export function AuthProvider({ children }) {
         throw new Error(data.message || data.error || "Error al registrarse");
       }
 
+      localStorage.setItem("token", data.token);
       setToken(data.token);
       setUser(data.user);
-
-      console.log(token);
 
       return data;
     } finally {
@@ -64,6 +100,7 @@ export function AuthProvider({ children }) {
   }
 
   function logout() {
+    localStorage.removeItem("token");
     setToken("");
     setUser(null);
   }
