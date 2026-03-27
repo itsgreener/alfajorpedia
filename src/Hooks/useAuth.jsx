@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from "react";
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-   const [token, setToken] = useState(localStorage.getItem("token") || "");
+  const [token, setToken] = useState(localStorage.getItem("token") || "");
   const [user, setUser] = useState(null);
   const [authLoading, setAuthLoading] = useState(false);
 
@@ -58,10 +58,12 @@ export function AuthProvider({ children }) {
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.message || data.error || "Error al iniciar sesión");
+        throw new Error(
+          data.message || data.error || "Error al iniciar sesión",
+        );
       }
 
-       localStorage.setItem("token", data.token);
+      localStorage.setItem("token", data.token);
       setToken(data.token);
       setUser(data.user);
 
@@ -75,13 +77,16 @@ export function AuthProvider({ children }) {
     setAuthLoading(true);
 
     try {
-      const res = await fetch("https://app.alfajorpedia.com/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const res = await fetch(
+        "https://app.alfajorpedia.com/api/auth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
         },
-        body: JSON.stringify({ email, password }),
-      });
+      );
 
       const data = await res.json();
 

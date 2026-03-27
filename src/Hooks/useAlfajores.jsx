@@ -48,6 +48,7 @@ async function toggleFavoriteAlfajor(id, like) {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
+    
   });
 
   const data = await res.json().catch(() => ({}));
