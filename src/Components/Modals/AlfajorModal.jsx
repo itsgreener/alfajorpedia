@@ -20,6 +20,14 @@ function AlfajorModal({ alfajorId }) {
 
   return (
     <div className={isMobile ? "mobile-alfajor-detail" : "alfajor-detail"}>
+      {isMobile && (
+        <div className="favorites-button-mobile">
+          <AddFavoritesButton
+            active={selectedAlfajor.isFav}
+            onChange={(like) => setFavAlfajor(selectedAlfajor.id, like)}
+          />
+        </div>
+      )}
       {selectedAlfajor ? (
         <>
           {isMobile && (
@@ -47,7 +55,7 @@ function AlfajorModal({ alfajorId }) {
             {!isMobile && <p className="title">{selectedAlfajor.nombre}</p>}
             {isMobile ? (
               <div className="alfajor-detail-mobile-wrapper">
-                <div className="alfajor-detail-meta text-center">
+                <div className="alfajor-detail-meta-mobile text-center">
                   <img
                     src={`/Flags/${flagName}.webp`}
                     alt={selectedAlfajor.pais}
@@ -103,8 +111,20 @@ function AlfajorModal({ alfajorId }) {
               </>
             )}
 
-            <div className={isMobile ? "alfajor-detail-footer-mobile" : "alfajor-detail-footer"}>
-              <div className="alfajor-detail-socials">
+            <div
+              className={
+                isMobile
+                  ? "alfajor-detail-footer-mobile"
+                  : "alfajor-detail-footer"
+              }
+            >
+              <div
+                className={
+                  isMobile
+                    ? "alfajor-detail-socials-mobile"
+                    : "alfajor-detail-socials"
+                }
+              >
                 {selectedAlfajor.website && (
                   <a
                     href={selectedAlfajor.website}
@@ -171,11 +191,12 @@ function AlfajorModal({ alfajorId }) {
                   </a>
                 )}
               </div>
-
-              <AddFavoritesButton
-                active={selectedAlfajor.isFav}
-                onChange={(like) => setFavAlfajor(selectedAlfajor.id, like)}
-              />
+              {!isMobile && (
+                <AddFavoritesButton
+                  active={selectedAlfajor.isFav}
+                  onChange={(like) => setFavAlfajor(selectedAlfajor.id, like)}
+                />
+              )}
             </div>
           </div>
         </>

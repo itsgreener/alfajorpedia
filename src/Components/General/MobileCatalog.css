@@ -169,7 +169,7 @@
   color: var(--black);
   border-radius: 1.2vw;
   padding: 1.1vh 0;
-  font-size: 3.1vw;
+  font-size: var(--text);
   line-height: 1;
   white-space: nowrap;
   text-align: center;

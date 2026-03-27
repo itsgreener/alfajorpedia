@@ -198,7 +198,7 @@
 
 .mobile-register-error {
   color: red;
-  font-size: 3.4vw;
+  font-size: var(--big-text);
   text-align: left;
   margin-bottom: 2vh;
 }

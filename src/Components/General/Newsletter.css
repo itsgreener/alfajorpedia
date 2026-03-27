@@ -62,21 +62,21 @@
 }
 
 .footer-newsletter-input-mobile input {
-  height: stretch;
   width: 80%;
   border: none;
   outline: none;
   background: none;
   color: var(--black);
+  font-size: var(--text);
 }
 
 .newsletter-divider {
-  height: stretch;
+  height: 3vh;
   width: 1px;
   background: var(--black);
 }
 
 .newsletter-message {
   margin-top: 0.8vh;
-  font-size: 0.9em;
+  font-size: var(--small-text);
 }
