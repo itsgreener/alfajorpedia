@@ -83,7 +83,7 @@ function Home() {
     return alfajores.filter((item) => item.foto_url === fotoUrl);
   }
 
-  const featuredAlfajor = filterByUrl("alfajorpedia-0060");
+  const featuredAlfajor = filterByUrl("alfajorpedia-0060")[0];
 
   const alfajoresPower = [
     ...filterByUrl("alfajorpedia-0208"),
@@ -136,7 +136,7 @@ function Home() {
                 className="header-content-row"
                 onClick={() =>
                   featuredAlfajor &&
-                  pushModal(<AlfajorModal alfajorId={featuredAlfajor[0].id} />)
+                  pushModal(<AlfajorModal alfajorId={featuredAlfajor.id} />)
                 }
               >
                 <div className="header-text-col">
@@ -154,7 +154,7 @@ function Home() {
                 <div>
                   <img
                     className="header-image-content"
-                    src={`https://res.cloudinary.com/dnvp65swm/image/upload/f_auto,q_auto/v1774009977/${featuredAlfajor[0].foto_url}.webp`}
+                    src={`https://res.cloudinary.com/dnvp65swm/image/upload/f_auto,q_auto/v1774009977/${featuredAlfajor.foto_url}.webp`}
                     alt="featured alfajor"
                   />
                 </div>
@@ -246,7 +246,6 @@ function Home() {
           onSubscribeClick={() => pushModal(<LoginModal />)}
         />
       )}
-
       {currentModal && <EmptyModal>{currentModal}</EmptyModal>}
     </>
   );
