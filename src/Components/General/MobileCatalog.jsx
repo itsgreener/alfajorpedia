@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import { useFilteredData } from "../../Hooks/useFilteredData";
 import { useModalStack } from "../../Hooks/useModalStack";
 import AlfajorModal from "../Modals/AlfajorModal";
@@ -31,48 +31,42 @@ function formatCategoryLabel(category) {
 function MobileCatalog({ alfajores }) {
   const { pushModal } = useModalStack();
   const { filteredData, setSearchContent } = useFilteredData(alfajores);
+  const categoriesRef = useRef(null);
   const [burgerOpen, setBurgerOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState(null);
-  const [categoryStartIndex, setCategoryStartIndex] = useState(0);
 
   const categories = useMemo(() => {
-  const counts = alfajores.reduce((acc, alfajor) => {
-    const category = normalizeCategory(alfajor.categorias);
-    if (!category) return acc;
+    const counts = alfajores.reduce((acc, alfajor) => {
+      const category = normalizeCategory(alfajor.categorias);
+      if (!category) return acc;
 
-    acc[category] = (acc[category] || 0) + 1;
-    return acc;
-  }, {});
+      acc[category] = (acc[category] || 0) + 1;
+      return acc;
+    }, {});
 
-  return Object.entries(counts)
-    .sort((a, b) => b[1] - a[1])
-    .map(([category]) => category);
-}, [alfajores]);
-
-const visibleCategories = useMemo(() => {
-  return categories.slice(categoryStartIndex, categoryStartIndex + 3);
-}, [categories, categoryStartIndex]);
-
-  const canGoLeft = categoryStartIndex > 0;
-const canGoRight = categoryStartIndex + 3 < categories.length;
-
-const handlePrevCategories = () => {
-  if (!canGoLeft) return;
-  setCategoryStartIndex((prev) => prev - 1);
-};
-
-const handleNextCategories = () => {
-  if (!canGoRight) return;
-  setCategoryStartIndex((prev) => prev + 1);
-};
+    return Object.entries(counts)
+      .sort((a, b) => b[1] - a[1])
+      .map(([category]) => category);
+  }, [alfajores]);
 
   const finalFilteredData = useMemo(() => {
     if (!activeCategory) return filteredData;
 
     return filteredData.filter(
-      (alfajor) => normalizeCategory(alfajor.categorias) === activeCategory
+      (alfajor) => normalizeCategory(alfajor.categorias) === activeCategory,
     );
   }, [filteredData, activeCategory]);
+
+  const scroll = (direction) => {
+    const container = categoriesRef.current;
+    if (!container) return;
+
+    const buttonWidth = window.innerWidth * 0.28 + window.innerWidth * 0.025; // 28vw + gap
+    container.scrollBy({
+      left: direction === "left" ? -buttonWidth : buttonWidth,
+      behavior: "smooth",
+    });
+  };
 
   return (
     <>
@@ -102,63 +96,60 @@ const handleNextCategories = () => {
             </svg>
           </button>
         </div>
+        <div className="mobile-categories-wrapper">
+          <button
+            onClick={() => scroll("left")}
+            className="mobile-categories-arrow"
+            aria-label="Categorías anteriores"
+          >
+            <svg viewBox="0 0 24 24" className="mobile-categories-arrow-icon">
+              <path
+                d="M15 5L8 12L15 19"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
 
-     <div className="mobile-categories-wrapper">
-  <button
-    type="button"
-    className="mobile-categories-arrow"
-    onClick={handlePrevCategories}
-    disabled={!canGoLeft}
-    aria-label="Categorías anteriores"
-  >
-    <svg viewBox="0 0 24 24" className="mobile-categories-arrow-icon">
-      <path
-        d="M15 5L8 12L15 19"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  </button>
+          <div className="mobile-categories" ref={categoriesRef}>
+            {categories.map((category) => (
+              <button
+                key={category}
+                type="button"
+                className={`mobile-category-button ${
+                  activeCategory === category ? "active" : ""
+                }`}
+                onClick={() =>
+                  setActiveCategory((prev) =>
+                    prev === category ? null : category,
+                  )
+                }
+              >
+                {formatCategoryLabel(category)}
+              </button>
+            ))}
+          </div>
 
-  <div className="mobile-categories">
-    {visibleCategories.map((category) => (
-      <button
-        key={category}
-        type="button"
-        className={`mobile-category-button ${
-          activeCategory === category ? "active" : ""
-        }`}
-        onClick={() =>
-          setActiveCategory((prev) => (prev === category ? null : category))
-        }
-      >
-        {formatCategoryLabel(category)}
-      </button>
-    ))}
-  </div>
-
-  <button
-    type="button"
-    className="mobile-categories-arrow"
-    onClick={handleNextCategories}
-    disabled={!canGoRight}
-    aria-label="Categorías siguientes"
-  >
-    <svg viewBox="0 0 24 24" className="mobile-categories-arrow-icon">
-      <path
-        d="M9 5L16 12L9 19"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  </button>
-</div>
+          <button
+            onClick={() => scroll("right")}
+            className="mobile-categories-arrow"
+            aria-label="Categorías siguientes"
+          >
+            <svg viewBox="0 0 24 24" className="mobile-categories-arrow-icon">
+              <path
+                d="M9 5L16 12L9 19"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
 
         <div className="mobile-catalog-content">
           <p className="title">{finalFilteredData.length} alfajores</p>
@@ -197,7 +188,7 @@ const handleNextCategories = () => {
                     pushModal(
                       <ProtectedPath>
                         <FavoriteModal />
-                      </ProtectedPath>
+                      </ProtectedPath>,
                     );
                   }}
                 >

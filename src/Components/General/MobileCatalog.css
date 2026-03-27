@@ -13,7 +13,7 @@
 
 .mobile-catalog-header button {
   background: none;
-  border: none; 
+  border: none;
   cursor: pointer;
 }
 
@@ -120,20 +120,23 @@
 
 .mobile-categories-wrapper {
   width: 100%;
-  display: grid;
-  grid-template-columns: 6vw 1fr 6vw;
+  display: flex;
+  flex-direction: row;
   align-items: center;
-  column-gap: 2vw;
+  gap: 2vw;
   margin-top: 3vh;
   margin-bottom: 2vh;
   box-sizing: border-box;
 }
 
 .mobile-categories {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  column-gap: 2.5vw;
+  display: flex;
+  flex-direction: row;
+  gap: 2.5vw;
   align-items: center;
+  overflow-x: auto;
+  flex: 1;
+  min-width: 0;
 }
 
 .mobile-categories-arrow {
@@ -147,6 +150,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .mobile-categories-arrow:disabled {
@@ -161,7 +165,8 @@
 }
 
 .mobile-category-button {
-  width: 100%;
+  flex-shrink: 0;
+  width: 28vw;
   border: 0.2vw solid var(--black);
   background: var(--white);
   color: var(--black);
