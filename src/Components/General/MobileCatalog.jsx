@@ -11,6 +11,18 @@ import LoginModal from "../Modals/LoginModal";
 import Contact from "./Contact";
 import "./MobileCatalog.css";
 
+function shuffleArray(array) {
+  const copy = [...array];
+
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+
+  return copy;
+}
+
+
 function normalizeCategory(category) {
   if (!category) return "";
   return category.trim().toLowerCase();
@@ -28,26 +40,31 @@ function formatCategoryLabel(category) {
   return category;
 }
 
-function MobileCatalog({ alfajores }) {
+function MobileCatalog({ alfajores, randomSeed }) {
   const { pushModal } = useModalStack();
-  const { filteredData, setSearchContent } = useFilteredData(alfajores);
+
   const categoriesRef = useRef(null);
   const [burgerOpen, setBurgerOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState(null);
 
+const shuffledAlfajores = useMemo(() => {
+  return shuffleArray(alfajores);
+}, [alfajores, randomSeed]);
+const { filteredData, setSearchContent } = useFilteredData(shuffledAlfajores);
+
   const categories = useMemo(() => {
-    const counts = alfajores.reduce((acc, alfajor) => {
-      const category = normalizeCategory(alfajor.categorias);
-      if (!category) return acc;
+  const counts = shuffledAlfajores.reduce((acc, alfajor) => {
+    const category = normalizeCategory(alfajor.categorias);
+    if (!category) return acc;
 
-      acc[category] = (acc[category] || 0) + 1;
-      return acc;
-    }, {});
+    acc[category] = (acc[category] || 0) + 1;
+    return acc;
+  }, {});
 
-    return Object.entries(counts)
-      .sort((a, b) => b[1] - a[1])
-      .map(([category]) => category);
-  }, [alfajores]);
+  return Object.entries(counts)
+    .sort((a, b) => b[1] - a[1])
+    .map(([category]) => category);
+}, [shuffledAlfajores]);
 
   const finalFilteredData = useMemo(() => {
     if (!activeCategory) return filteredData;

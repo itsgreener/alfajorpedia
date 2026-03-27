@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useFilteredData } from "../../Hooks/useFilteredData";
 import { useModalStack } from "../../Hooks/useModalStack";
 import { useBreakpoint } from "../../Hooks/useBreakpoint";
@@ -18,11 +18,11 @@ function shuffleArray(array) {
   return copy;
 }
 
-function CatalogSection({ alfajores, fromFavorite = false }) {
+function CatalogSection({ alfajores, fromFavorite = false, randomSeed }) {
   const { pushModal } = useModalStack();
   const { isMobile } = useBreakpoint();
   const [randomOrder, setRandomOrder] = useState([]);
-  const initializedRef = useRef(false);
+  {/*const initializedRef = useRef(false); */}
 
   useEffect(() => {
     if (fromFavorite) {
@@ -30,11 +30,12 @@ function CatalogSection({ alfajores, fromFavorite = false }) {
       return;
     }
 
-    if (!initializedRef.current && alfajores.length > 0) {
-      setRandomOrder(shuffleArray(alfajores));
-      initializedRef.current = true;
-    }
-  }, [alfajores, fromFavorite]);
+ if (alfajores.length > 0) {
+    setRandomOrder(shuffleArray(alfajores));
+  } else {
+    setRandomOrder([]);
+  }
+}, [alfajores, fromFavorite, randomSeed]);
 
   const sourceData = fromFavorite ? alfajores : randomOrder;
   const { filteredData, setSearchContent } = useFilteredData(sourceData);

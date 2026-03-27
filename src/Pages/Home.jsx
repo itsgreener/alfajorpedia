@@ -116,7 +116,7 @@ function Home() {
   return (
     <>
       {isMobile ? (
-        <MobileCatalog alfajores={alfajoresConImagenReal} />
+        <MobileCatalog alfajores={alfajoresConImagenReal} randomSeed={hourTick} />
       ) : (
         <>
           <Header
@@ -226,7 +226,7 @@ function Home() {
             <MediaCarousel isNostalgia={true} />
           </section>
 
-          <CatalogSection alfajores={alfajoresConImagenReal} />
+          <CatalogSection alfajores={alfajoresConImagenReal} randomSeed={hourTick} />
 
           <Contact />
         </>
