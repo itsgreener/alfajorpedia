@@ -9,7 +9,7 @@ import FavoriteModal from "../Modals/FavoriteModal";
 import ProtectedPath from "../../Context/ProtectedRoute";
 import LoginModal from "../Modals/LoginModal";
 import Contact from "./Contact";
-import "./MobileCatalog.css";
+import styles from "./MobileCatalog.module.css";
 
 function shuffleArray(array) {
   const copy = [...array];
@@ -51,6 +51,7 @@ function MobileCatalog({ alfajores, randomSeed }) {
     () => alfajores.map((a) => `${a.id}:${a.foto_url}`).join("|"),
     [alfajores],
   );
+
   useEffect(() => {
     if (alfajores.length > 0) {
       setMobileOrder(shuffleArray(alfajores));
@@ -105,12 +106,12 @@ function MobileCatalog({ alfajores, randomSeed }) {
 
   return (
     <>
-      <section className="mobile-catalog-section">
-        <div className="mobile-catalog-header" id="catalog">
+      <section className={styles.mobileCatalogSection}>
+        <div className={styles.mobileCatalogHeader} id="catalog">
           <SearchInput onChange={setSearchContent} />
           <button
             type="button"
-            className="mobile-burger-button"
+            className={styles.mobileBurgerButton}
             onClick={() => setBurgerOpen(true)}
             aria-label="Abrir menú"
           >
@@ -131,13 +132,16 @@ function MobileCatalog({ alfajores, randomSeed }) {
             </svg>
           </button>
         </div>
-        <div className="mobile-categories-wrapper">
+        <div className={styles.mobileCategoriesWrapper}>
           <button
             onClick={() => scroll("left")}
-            className="mobile-categories-arrow"
+            className={styles.mobileCategoriesArrow}
             aria-label="Categorías anteriores"
           >
-            <svg viewBox="0 0 24 24" className="mobile-categories-arrow-icon">
+            <svg
+              viewBox="0 0 24 24"
+              className={styles.mobileCategoriesArrowIcon}
+            >
               <path
                 d="M15 5L8 12L15 19"
                 fill="none"
@@ -149,12 +153,12 @@ function MobileCatalog({ alfajores, randomSeed }) {
             </svg>
           </button>
 
-          <div className="mobile-categories" ref={categoriesRef}>
+          <div className={styles.mobileCategories} ref={categoriesRef}>
             {categories.map((category) => (
               <button
                 key={category}
                 type="button"
-                className={`mobile-category-button ${
+                className={`${styles.mobileCategoryButton} ${
                   activeCategory === category ? "active" : ""
                 }`}
                 onClick={() =>
@@ -170,10 +174,13 @@ function MobileCatalog({ alfajores, randomSeed }) {
 
           <button
             onClick={() => scroll("right")}
-            className="mobile-categories-arrow"
+            className={styles.mobileCategoriesArrow}
             aria-label="Categorías siguientes"
           >
-            <svg viewBox="0 0 24 24" className="mobile-categories-arrow-icon">
+            <svg
+              viewBox="0 0 24 24"
+              className={styles.mobileCategoriesArrowIcon}
+            >
               <path
                 d="M9 5L16 12L9 19"
                 fill="none"
@@ -186,7 +193,7 @@ function MobileCatalog({ alfajores, randomSeed }) {
           </button>
         </div>
 
-        <div className="mobile-catalog-content">
+        <div className={styles.mobileCatalogContent}>
           <p className="title">{finalFilteredData.length} alfajores</p>
           <Catalog
             alfajores={finalFilteredData}
@@ -199,13 +206,19 @@ function MobileCatalog({ alfajores, randomSeed }) {
       </section>
 
       {burgerOpen && (
-        <div className="burger-overlay" onClick={() => setBurgerOpen(false)}>
-          <div className="burger-content">
-            <div className="burger-margin" onClick={(e) => e.stopPropagation()}>
-              <div className="burger-header">
+        <div
+          className={styles.burgerOverlay}
+          onClick={() => setBurgerOpen(false)}
+        >
+          <div className={styles.burgerContent}>
+            <div
+              className={styles.burgerMargin}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className={styles.burgerHeader}>
                 <img src="/logoAlfajorpedia.svg" alt="Logo Alfajorpedia" />
                 <button
-                  className="burger-close"
+                  className={styles.burgerClose}
                   onClick={() => setBurgerOpen(false)}
                   aria-label="Cerrar"
                 >
@@ -213,9 +226,9 @@ function MobileCatalog({ alfajores, randomSeed }) {
                 </button>
               </div>
 
-              <div className="burger-body">
+              <div className={styles.burgerBody}>
                 <p onClick={() => setBurgerOpen(false)}>CATÁLOGO</p>
-                <div className="burger-divider" />
+                <div className={styles.burgerDivider} />
 
                 <p
                   onClick={() => {
@@ -230,7 +243,7 @@ function MobileCatalog({ alfajores, randomSeed }) {
                   FAVORITOS
                 </p>
 
-                <div className="burger-divider" />
+                <div className={styles.burgerDivider} />
 
                 <p
                   onClick={() => {
@@ -241,7 +254,7 @@ function MobileCatalog({ alfajores, randomSeed }) {
                   CONTACTO
                 </p>
 
-                <div className="burger-divider" />
+                <div className={styles.burgerDivider} />
 
                 <p
                   onClick={() => {
@@ -254,12 +267,15 @@ function MobileCatalog({ alfajores, randomSeed }) {
               </div>
             </div>
 
-            <div className="burger-divider-footer" />
+            <div className={styles.burgerDividerFooter} />
 
-            <div className="burger-margin" onClick={(e) => e.stopPropagation()}>
+            <div
+              className={styles.burgerMargin}
+              onClick={(e) => e.stopPropagation()}
+            >
               <Newsletter />
 
-              <div className="burger-footer">
+              <div className={styles.burgerFooter}>
                 <a
                   href="https://itsgreener.com/"
                   target="_blank"
@@ -268,7 +284,7 @@ function MobileCatalog({ alfajores, randomSeed }) {
                   <img src="logoGreener.svg" alt="logo greener" />
                 </a>
 
-                <div className="burger-social">
+                <div className={styles.burgerSocial}>
                   <a
                     href="https://itsgreener.com/"
                     target="_blank"

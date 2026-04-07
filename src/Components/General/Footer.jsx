@@ -1,20 +1,20 @@
+import { Link } from "react-router-dom";
 import Newsletter from "./Newsletter";
-import "./Footer.css";
+import styles from "./Footer.module.css";
 
 function Footer({ onSubscribeClick, onFavoriteClick }) {
   return (
-    <footer className="footer-bg">
-      <div className="footer">
-        <div className="footer-main">
-          <div className="footer-left">
-            <div className="footer-brand white-text">
-              <img src="/logo-blanco.svg" />{" "}
-              <p>Contenido del que importa.</p>
+    <footer className={styles.footerBg}>
+      <div className={styles.footer}>
+        <div className={styles.footerMain}>
+          <div className={styles.footerLeft}>
+            <div className={`${styles.footerBrand} white-text`}>
+              <img src="/logo-blanco.svg" /> <p>Contenido del que importa.</p>
             </div>
 
             <Newsletter />
 
-            <div className="footer-social">
+            <div className={styles.footerSocial}>
               <a
                 href="https://www.instagram.com/itsgreenerhere/"
                 target="_blank"
@@ -68,39 +68,45 @@ function Footer({ onSubscribeClick, onFavoriteClick }) {
               </a>
             </div>
           </div>
-          <div className="footer-right">
-            <div className="footer-col">
+          <div className={styles.footerRight}>
+            <div className={styles.footerCol}>
               <p className="white-text">
                 <strong>Menú</strong>
               </p>
               <a href="#catalog">Catálogo</a>
-              <button className="footer-link-btn" onClick={onFavoriteClick}>
+              <button
+                className={styles.footerLinkBtn}
+                onClick={onFavoriteClick}
+              >
                 Favoritos
               </button>
               <a href="#contact">Contacto</a>
-              <button className="footer-link-btn" onClick={onSubscribeClick}>
+              <button
+                className={styles.footerLinkBtn}
+                onClick={onSubscribeClick}
+              >
                 Regístrate
               </button>
             </div>
-            <div className="footer-col">
+            <div className={styles.footerCol}>
               <p className="white-text">
                 <strong>Información</strong>
               </p>
-              <a href="/privacy">Condiciones Generales</a>
-              <a href="/privacy">Aviso Legal</a>
-              <a href="/privacy">Política de Cookies</a>
-              <a href="/privacy">Política de Privacidad</a>
+              <Link to="/privacy">Condiciones Generales</Link>
+              <Link to="/privacy">Aviso Legal</Link>
+              <Link to="/privacy">Política de Cookies</Link>
+              <Link to="/privacy">Política de Privacidad</Link>
             </div>
           </div>
         </div>
-        <div className="footer-bottom">
-           <a className="footer-bottom-logo"
-                  href="https://itsgreener.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-         
-                  <img src="/logoGreener.gif" alt="Logo Greener" />
+        <div className={styles.footerBottom}>
+          <a
+            className={styles.footerBottomLogo}
+            href="https://itsgreener.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src="/logoGreener.gif" alt="Logo Greener" />
           </a>
         </div>
       </div>

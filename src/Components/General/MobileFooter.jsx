@@ -3,8 +3,7 @@ import { useModalStack } from "../../Hooks/useModalStack";
 import ProtectedPath from "../../Context/ProtectedRoute";
 import FavoriteModal from "../Modals/FavoriteModal";
 import SocialModal from "../Modals/SocialModal";
-
-import "./MobileFooter.css";
+import styles from "./MobileFooter.module.css";
 
 function MobileFooter() {
   const { pushModal } = useModalStack();
@@ -12,16 +11,16 @@ function MobileFooter() {
   const location = useLocation();
 
   return (
-    <footer className="mobile-footer">
+    <footer className={styles.mobileFooter}>
       <button
-        className="mobile-footer-item"
+        className={styles.mobileFooterItem}
         onClick={() => pushModal(<SocialModal />)}
       >
         <img src="/vector.svg" />
-        <span className="mobile-footer-label">EXPERIENCIAS</span>
+        <span className={styles.mobileFooterLabel}>EXPERIENCIAS</span>
       </button>
       <button
-        className="mobile-footer-item"
+        className={styles.mobileFooterItem}
         onClick={() =>
           pushModal(
             <ProtectedPath>
@@ -31,10 +30,10 @@ function MobileFooter() {
         }
       >
         <img src="/cor.svg" />
-        <span className="mobile-footer-label">FAVORITOS</span>
+        <span className={styles.mobileFooterLabel}>FAVORITOS</span>
       </button>
       <button
-        className="mobile-footer-item"
+        className={styles.mobileFooterItem}
         onClick={() =>
           location.pathname === "/"
             ? window.scrollTo({ top: 0 })
@@ -42,16 +41,16 @@ function MobileFooter() {
         }
       >
         <img src="/buscar.svg" />
-        <span className="mobile-footer-label">BUSCAR</span>
+        <span className={styles.mobileFooterLabel}>BUSCAR</span>
       </button>
       <button
-        className="mobile-footer-item"
+        className={styles.mobileFooterItem}
         onClick={() => (location.pathname === "/" ? navigate("/") : "")}
       >
         <img
           src="/logoAlfajorpedia.svg"
           alt="Alfajorpedia"
-          className="mobile-footer-logo"
+          className={styles.mobileFooterLogo}
         />
       </button>
     </footer>

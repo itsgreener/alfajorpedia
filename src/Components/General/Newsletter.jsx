@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useBreakpoint } from "../../Hooks/useBreakpoint";
-import "./Newsletter.css";
+import styles from "./Newsletter.module.css";
 
 function Newsletter() {
   const { isMobile } = useBreakpoint();
@@ -35,9 +35,9 @@ function Newsletter() {
   }
 
   return (
-    <div className="footer-newsletter">
+    <div className={styles.footerNewsletter}>
       <p
-        className={`${isMobile ? "newsletter-title-mobile" : "newsletter-title white-text"}`}
+        className={`${isMobile ? styles.newsletterTitleMobile : `${styles.newsletterTitle} white-text`}`}
       >
         <strong>
           {isMobile ? "RECIBE NUESTRA NEWSLETTER" : "Recibe nuestra newsletter"}
@@ -47,8 +47,8 @@ function Newsletter() {
       <form
         className={
           isMobile
-            ? "footer-newsletter-input-mobile"
-            : "footer-newsletter-input"
+            ? styles.footerNewsletterInputMobile
+            : styles.footerNewsletterInput
         }
         onSubmit={handleNewsletterSubmit}
       >
@@ -59,7 +59,7 @@ function Newsletter() {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-        {isMobile && <div className="newsletter-divider" />}
+        {isMobile && <div className={styles.newsletterDivider} />}
         <button type="submit">
           {isMobile ? (
             <svg
@@ -82,12 +82,16 @@ function Newsletter() {
         </button>
       </form>
       {status === "ok" && (
-        <p className={`${!isMobile && "white-text"} newsletter-message`}>
+        <p
+          className={`${!isMobile && "white-text"} ${styles.newsletterMessage}`}
+        >
           Revisa tu email para confirmar la suscripción.
         </p>
       )}
       {status === "error" && (
-        <p className={`newsletter-message ${!isMobile && "white-text"}`}>
+        <p
+          className={` ${styles.newsletterMessage} ${!isMobile && "white-text"}`}
+        >
           No se pudo completar la suscripción.
         </p>
       )}

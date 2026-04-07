@@ -1,22 +1,22 @@
-import "./Header.css";
+import styles from "./Header.module.css";
 
 function Header({ onFavoriteClick, onSubscribeClick }) {
   return (
     <nav>
-      <div className="nav-left">
-        <a href="/" className="nav-link">
-          <img src="/logo-blanco.svg" className="nav-link"/>
+      <div className={styles.navLeft}>
+        <a href="/" className={styles.navLink}>
+          <img src="/logo-blanco.svg" className={styles.navLink} />
         </a>
-        <a href="#catalog" className="nav-link">
+        <a href="#catalog" className={styles.navLink}>
           CATÁLOGO
         </a>
       </div>
-      <div className="nav-right">
-        <div className="nav-right-text">
-          <button className="nav-link" onClick={onFavoriteClick}>
-            FAVORITOS 
+      <div className={styles.navRight}>
+        <div className={styles.navRightText}>
+          <button className={styles.navLink} onClick={onFavoriteClick}>
+            FAVORITOS
           </button>
-          <button className="nav-link" onClick={onSubscribeClick}>
+          <button className={styles.navLink} onClick={onSubscribeClick}>
             SUSCRÍBETE
           </button>
         </div>

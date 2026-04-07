@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useBreakpoint } from "../../Hooks/useBreakpoint";
-import "./contact.css";
+import styles from "./contact.module.css";
 
 function Contact() {
   const [userName, setUserName] = useState("");
@@ -38,17 +38,17 @@ function Contact() {
   };
 
   return (
-    <section className="contacto">
+    <section className={styles.contact}>
       {!isMobile && (
-        <div className="contacto-top">
+        <div className={styles.contactTop}>
           <p className="small-title white-text">
             Nuestra ambición no tiene freno.
           </p>
         </div>
       )}
-      <div className={isMobile ? "contacto-main-mobile" : "contacto-main"}>
+      <div className={isMobile ? styles.contactMainMobile : styles.contactMain}>
         {!isMobile ? (
-          <div className="contacto-left">
+          <div className={styles.contactLeft}>
             <p className="small-title">
               ¿Falta tu alfajor?
               <br />
@@ -72,7 +72,7 @@ function Contact() {
 
         {isMobile ? (
           <form
-            className="contacto-form"
+            className={styles.contactForm}
             onSubmit={(e) => {
               e.preventDefault();
               sendEmail();
@@ -107,22 +107,22 @@ function Contact() {
               }}
               value={userMessage}
             />
-            {success && <p className="text contact-success">{success}</p>}
-            {error && <p className="contact-error">{error}</p>}
-            <button className="mobile-form-submit hover" type="submit">
+            {success && <p className={styles.contactSuccess}>{success}</p>}
+            {error && <p className={styles.contactError}>{error}</p>}
+            <button className={`${styles.mobileFormSubmit} hover`} type="submit">
               <strong>Enviar</strong>
             </button>
           </form>
         ) : (
-          <div className="contacto-right">
+          <div className={styles.contactRight}>
             <form
-              className="contacto-form"
+              className={styles.contactForm}
               onSubmit={(e) => {
                 e.preventDefault();
                 sendEmail();
               }}
             >
-              <div className="contacto-form-row">
+              <div className={styles.contactFormRow}>
                 <input
                   type="text"
                   placeholder="Nombre"
@@ -153,9 +153,9 @@ function Contact() {
                 }}
                 value={userMessage}
               />
-              <div className="contacto-form-actions">
-                {success && <p className="text contact-success">{success}</p>}
-                {error && <p className="contact-error">{error}</p>}
+              <div className={styles.contactFormActions}>
+                {success && <p className={styles.contactSuccess}>{success}</p>}
+                {error && <p className={styles.contactError}>{error}</p>}
                 <button type="submit">Enviar</button>
               </div>
             </form>
