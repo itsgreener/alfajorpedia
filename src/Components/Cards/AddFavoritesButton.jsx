@@ -1,5 +1,5 @@
 import { memo } from "react";
-import "./AddFavoritesButton.css";
+import styles from "./AddFavoritesButton.module.css";
 
 const AddFavoritesButton = memo(function AddFavoritesButton({
   active = false,
@@ -14,7 +14,7 @@ const AddFavoritesButton = memo(function AddFavoritesButton({
     <button
     type="button"
       onClick={toggle}
-      className="favorite-btn"
+      className={styles.favoriteBtn}
       aria-label={active ? "Quitar de favoritos" : "Agregar a favoritos"}
     >
       <svg

@@ -2,7 +2,7 @@ import { memo } from "react";
 import { useSetFavorites } from "../../Hooks/useSetFavorites.jsx";
 import AddFavoritesButton from "./AddFavoritesButton";
 import { getCloudinaryImageUrl } from "../../Helpers/alfajoresDisplay.js";
-import "./AlfajorCard.css";
+import styles from "./AlfajorCard.module.css";
 
 const AlfajorCard = memo(({ alfajor, onClick }) => {
   const { setFavAlfajor } = useSetFavorites();
@@ -29,12 +29,12 @@ const AlfajorCard = memo(({ alfajor, onClick }) => {
     .replace(/[\u0300-\u036f]/g, "");
 
   return (
-    <div className="alfajor-card" onClick={onClick}>
-      <div className="card-image-wrapper">
+    <div className={styles.alfajorCard} onClick={onClick}>
+      <div className={styles.cardImageWrapper}>
         <img
           src={imgUrl || "/placeholder.webp"}
           alt={nombre}
-          className="card-image"
+          className={styles.cardImage}
           loading="lazy"
           onError={(e) => {
             e.target.src = "/placeholder.webp";
@@ -42,23 +42,25 @@ const AlfajorCard = memo(({ alfajor, onClick }) => {
         />
       </div>
 
-      <div className="card-body">
-        <div className="card-content">
-          <p className="card-name">{nombre}</p>
+      <div className={styles.cardBody}>
+        <div className={styles.cardContent}>
+          <p className={styles.cardName}>{nombre}</p>
 
-          <div className="card-meta">
+          <div className={styles.cardMeta}>
             <img
               src={`/Flags/${flagName}.webp`}
               alt={pais}
-              className="card-flag"
+              className={styles.cardFlag}
             />
-            {gramos && <span className="card-weight">{gramos}g</span>}
-            {calorias && <span className="card-calories">{calorias} kcal</span>}
+            {gramos && <span className={styles.cardWeight}>{gramos}g</span>}
+            {calorias && (
+              <span className={styles.cardCalories}>{calorias} kcal</span>
+            )}
           </div>
 
-          <p className="card-description">{tagline}</p>
+          <p className={styles.cardDescription}>{tagline}</p>
 
-          <div className="card-socials">
+          <div className={styles.cardSocials}>
             {website && (
               <a
                 href={website}
@@ -141,7 +143,7 @@ const AlfajorCard = memo(({ alfajor, onClick }) => {
           </div>
         </div>
 
-        <div className="card-actions">
+        <div className={styles.cardActions}>
           <AddFavoritesButton
             active={isFav}
             onChange={(like) => setFavAlfajor(id, like)}

@@ -1,4 +1,4 @@
-.social-post {
+.socialPost {
   display: flex;
   flex-direction: column;
   aspect-ratio: 9/16;
@@ -7,7 +7,7 @@
   position: relative;
 }
 
-.nostalgia-post {
+.nostalgiaPost {
   display: flex;
   flex-direction: column;
   aspect-ratio: 4/3;
@@ -16,19 +16,19 @@
   position: relative;
 }
 
-.social-post-link{
-color: var(--white);
+.socialPostLink {
+  color: var(--white);
   width: 100%;
   height: 100%;
 }
 
-.social-post-image {
+.socialPostImage {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.social-post-overlay {
+.socialPostOverlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
@@ -39,7 +39,7 @@ color: var(--white);
   );
 }
 
-.social-post-content {
+.socialPostContent {
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -50,31 +50,33 @@ color: var(--white);
   inset: 0;
 }
 
-.social-post-username {
+.socialPostUsername {
   font-weight: bold;
   font-size: var(--big-text);
 }
 
-.social-post-text {
+.socialPostText {
   font-size: var(--text);
   opacity: 0.9;
 }
 
-.social-post-likes {
+.socialPostLikes {
   display: flex;
   align-items: center;
   gap: 2.5%;
   margin-top: 2.5%;
 }
 
-.social-post-likes-count {
+.socialPostLikesCount {
   font-weight: bold;
 }
-.social-post-overlay,
-.social-post-content {
+
+.socialPostOverlay,
+.socialPostContent {
   pointer-events: none;
 }
-.video-sound-overlay {
+
+.videoSoundOverlay {
   position: absolute;
   bottom: 10%;
   left: 50%;
@@ -88,8 +90,8 @@ color: var(--white);
   z-index: 20;
   backdrop-filter: blur(4px);
   transition: opacity 0.3s ease;
-}
 
-.video-sound-overlay:hover {
-  background: rgba(0, 0, 0, 0.9);
+  &:hover {
+    background: rgba(0, 0, 0, 0.9);
+  }
 }

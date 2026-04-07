@@ -1,18 +1,17 @@
-import "./SocialPost.css";
 import { useEffect, useRef, useState } from "react";
-
-
+import styles from "./SocialPost.module.css";
 
 export default function SocialPost({ isNostalgia, data, videoRef, isActive }) {
   const [muted, setMuted] = useState(true);
-   const localVideoRef = useRef(null);
+  const localVideoRef = useRef(null);
 
   useEffect(() => {
     if (!isActive) {
       setMuted(true);
     }
   }, [isActive]);
-   useEffect(() => {
+
+  useEffect(() => {
     if (localVideoRef.current) {
       localVideoRef.current.muted = muted;
     }
@@ -32,67 +31,64 @@ export default function SocialPost({ isNostalgia, data, videoRef, isActive }) {
     const video = localVideoRef.current;
 
     if (video.muted) {
-    video.muted = false;
-    video.volume = 1;
-    video.play().catch(console.error);
-    setMuted(false);
-  } else {
-    video.muted = true;
-    setMuted(true);
-  }
-};
+      video.muted = false;
+      video.volume = 1;
+      video.play().catch(console.error);
+      setMuted(false);
+    } else {
+      video.muted = true;
+      setMuted(true);
+    }
+  };
+
   const content = (
     <>
       {data.type === "video" ? (
-          isActive ? (
-    <>
-      <video
-        ref={setRefs}
-        className="social-post-image"
-        src={data.src}
-        poster={data.poster}
-        muted={muted}
-        playsInline
-        loop
-        preload="auto"
-        controls={false}
-        onClick={handleVideoClick}
-      />
+        isActive ? (
+          <>
+            <video
+              ref={setRefs}
+              className={styles.socialPostImage}
+              src={data.src}
+              poster={data.poster}
+              muted={muted}
+              playsInline
+              loop
+              preload="auto"
+              controls={false}
+              onClick={handleVideoClick}
+            />
 
-      {isActive && muted && (
-        <div
-          className="video-sound-overlay"
-          onClick={(e) => {
-            e.stopPropagation();
-            handleVideoClick(e);
-          }}
-        >
-          🔊 Activar sonido
-        </div>
+            {isActive && muted && (
+              <div
+                className={styles.videoSoundOverlay}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleVideoClick(e);
+                }}
+              >
+                🔊 Activar sonido
+              </div>
+            )}
+          </>
+        ) : (
+          <img
+            src={data.poster}
+            alt="video poster"
+            className={styles.socialPostImage}
+          />
+        )
+      ) : (
+        <img src={data.image} alt="post" className={styles.socialPostImage} />
       )}
-    </>
-  ) : (
-    <img
-      src={data.poster}
-      alt="video poster"
-      className="social-post-image"
-    />
-  )
-) : (
-  <img
-    src={data.image}
-    alt="post"
-    className="social-post-image"
-  />
-)}
 
-      <div className="social-post-overlay" />
+      <div className={styles.socialPostOverlay} />
 
-      <div className="social-post-content">
-        <p className="social-post-username">{data.username}</p>
-        <p className="social-post-text">{data.caption}</p>
+      <div className={styles.socialPostContent}>
+        <p className={styles.socialPostUsername}>{data.username}</p>
+        <p className={styles.socialPostText}>{data.caption}</p>
 
-        {/*}    <div className="social-post-likes">
+        {/*}    <div className={styles.socialPostLikes}>
           <svg
             width="20"
             height="20"
@@ -104,7 +100,7 @@ export default function SocialPost({ isNostalgia, data, videoRef, isActive }) {
               fill="#ef4444"
             />
           </svg>
-          <span className="social-post-likes-count">{data.likes}</span>
+          <span className={styles.socialPostLikesCount}>{data.likes}</span>
         </div>*/}
       </div>
     </>
@@ -113,7 +109,9 @@ export default function SocialPost({ isNostalgia, data, videoRef, isActive }) {
   return (
     <div
       className={
-        isNostalgia ? "card hover nostalgia-post" : "card hover social-post"
+        isNostalgia
+          ? `${styles.nostalgiaPost} card hover`
+          : `${styles.socialPost} card hover`
       }
     >
       {data.type === "image" && data.link ? (
@@ -121,12 +119,12 @@ export default function SocialPost({ isNostalgia, data, videoRef, isActive }) {
           href={data.link}
           target="_blank"
           rel="noopener noreferrer"
-          className="social-post-link"
+          className={styles.socialPostLink}
         >
           {content}
         </a>
       ) : (
-        <div className="social-post-link">{content}</div>
+        <div className={styles.socialPostLink}>{content}</div>
       )}
     </div>
   );

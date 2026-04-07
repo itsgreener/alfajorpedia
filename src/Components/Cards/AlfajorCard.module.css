@@ -1,4 +1,4 @@
-.alfajor-card {
+.alfajorCard {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -9,7 +9,7 @@
   margin: 0 auto;
 }
 
-.card-image-wrapper {
+.cardImageWrapper {
   margin-top: 5%;
   background: var(--white);
   display: flex;
@@ -18,14 +18,14 @@
   min-height: 200px;
 }
 
-.card-image {
+.cardImage {
   max-height: 25vh;
   width: 100%;
   height: 100%;
   object-fit: contain;
 }
 
-.card-body {
+.cardBody {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -33,40 +33,40 @@
   padding: 10%;
 }
 
-.card-content {
+.cardContent {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.card-name {
+.cardName {
   font-size: var(--subtitle);
   font-weight: bold;
   color: var(--black);
 }
 
-.card-flag {
+.cardFlag {
   width: 27.5px;
   object-fit: cover;
 }
 
-.card-meta {
+.cardMeta {
   display: flex;
   align-items: center;
   gap: 5%;
 }
 
-.card-weight {
+.cardWeight {
   font-size: var(--text);
   color: var(--black);
 }
 
-.card-calories {
+.cardCalories {
   font-size: var(--text);
   color: var(--black);
 }
 
-.card-description {
+.cardDescription {
   font-size: var(--big-text);
   color: var(--black);
   line-height: 1.5;
@@ -78,28 +78,28 @@
   overflow: hidden;
 }
 
-.card-actions {
+.cardActions {
   display: flex;
   align-items: center;
   justify-content: flex-end;
 }
 
-.card-socials {
+.cardSocials {
   display: flex;
   gap: 10px;
   margin-top: 10px;
-}
 
-.card-socials a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--black);
-  text-decoration: none;
-}
+  & a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--black);
+    text-decoration: none;
 
-.card-socials a:hover {
-  opacity: 0.7;
+    &:hover {
+      opacity: 0.7;
+    }
+  }
 }
 
 @media (min-width: 1920px) {
