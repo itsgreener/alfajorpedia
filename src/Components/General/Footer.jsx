@@ -94,9 +94,14 @@ function Footer({ onSubscribeClick, onFavoriteClick }) {
           </div>
         </div>
         <div className="footer-bottom">
-          <div className="footer-bottom-logo">
-            <img src="/logoGreener.gif" alt="Logo Greener" />
-          </div>
+           <a className="footer-bottom-logo"
+                  href="https://itsgreener.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+         
+                  <img src="/logoGreener.gif" alt="Logo Greener" />
+          </a>
         </div>
       </div>
     </footer>
