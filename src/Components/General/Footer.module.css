@@ -20,14 +20,14 @@
 }
 
 .footerBottomLogo {
-  width: 80vw;
+  width: 50vw;
   height: 10vh;
   display: flex;
   align-items: center;
   justify-content: center;
 
   & img {
-    max-width: 60%;
+    max-width: 50vw;
   }
 }
 
