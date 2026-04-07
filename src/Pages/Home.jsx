@@ -16,7 +16,7 @@ import CatalogSection from "../Components/Groups/CatalogSection.jsx";
 import MobileCatalog from "../Components/General/MobileCatalog.jsx";
 import Contact from "../Components/General/Contact.jsx";
 import ProtectedPath from "../Context/ProtectedRoute.jsx";
-import "./Home.css";
+import styles from "./Home.module.css";
 
 function Home() {
   const { currentModal, pushModal } = useModalStack();
@@ -27,7 +27,6 @@ function Home() {
   const [alfajoresConImagenReal, setAlfajoresConImagenReal] = useState([]);
   const [imagenesLoading, setImagenesLoading] = useState(true);
 
-  
   useEffect(() => {
     function scheduleNextHourUpdate() {
       const now = new Date();
@@ -47,12 +46,12 @@ function Home() {
     return () => clearTimeout(timeoutId);
   }, [hourTick]);
 
-const imageSignature = useMemo(
+  const imageSignature = useMemo(
     () => alfajores.map((a) => `${a.id}:${a.foto_url}`).join("|"),
-    [alfajores]
+    [alfajores],
   );
 
-useEffect(() => {
+  useEffect(() => {
     let cancelled = false;
 
     async function validarImagenes() {
@@ -82,13 +81,12 @@ useEffect(() => {
     };
   }, [imageSignature]);
 
-  // SOLO sincroniza favoritos, sin loading
   useEffect(() => {
     setAlfajoresConImagenReal((prev) =>
       prev.map((item) => {
         const actual = alfajores.find((a) => Number(a.id) === Number(item.id));
         return actual ? { ...item, isFav: actual.isFav } : item;
-      })
+      }),
     );
   }, [alfajores]);
 
@@ -119,7 +117,7 @@ useEffect(() => {
   ];
 
   if (loading || imagenesLoading) {
-    return <p className="text loading">Cargando alfajores...</p>;
+    return <p className={`${styles.loading} text`}>Cargando alfajores...</p>;
   }
 
   if (error) {
@@ -129,7 +127,10 @@ useEffect(() => {
   return (
     <>
       {isMobile ? (
-        <MobileCatalog alfajores={alfajoresConImagenReal} randomSeed={hourTick} />
+        <MobileCatalog
+          alfajores={alfajoresConImagenReal}
+          randomSeed={hourTick}
+        />
       ) : (
         <>
           <Header
@@ -143,21 +144,21 @@ useEffect(() => {
             onSubscribeClick={() => pushModal(<LoginModal />)}
           />
 
-          <div className="body" id="home">
+          <div className={styles.body} id="home">
             <section className="card hover">
               <div
-                className="header-content-row"
+                className={styles.headerContentRow}
                 onClick={() =>
                   featuredAlfajor &&
                   pushModal(<AlfajorModal alfajorId={featuredAlfajor.id} />)
                 }
               >
-                <div className="header-text-col">
+                <div className={styles.headerTextCol}>
                   <p className="big-title">
                     Un clásico de <br />
                     todos los tiempos
                   </p>
-                  <p className="text head-text">
+                  <p className={`${styles.headText} text`}>
                     Tres capas de dulce de leche, papel que se pega a los dedos,
                     y cero pretensiones. Lleva décadas sin cambiar la receta ni
                     el envoltorio. No tiene community manager.{" "}
@@ -166,7 +167,7 @@ useEffect(() => {
                 </div>
                 <div>
                   <img
-                    className="header-image-content"
+                    className={styles.headerImageContent}
                     src={`https://res.cloudinary.com/dnvp65swm/image/upload/f_auto,q_auto/v1774009977/${featuredAlfajor.foto_url}.webp`}
                     alt="featured alfajor"
                   />
@@ -174,13 +175,13 @@ useEffect(() => {
               </div>
             </section>
 
-            <section className="group">
-              <div className="power-texts">
+            <section className={styles.group}>
+              <div className={styles.powerTexts}>
                 <p className="title">
                   Los más <br />
                   <span className="big-title">power</span>
                 </p>
-                <p className="text power-text">
+                <p className={`${styles.powerText} text`}>
                   Se necesitan las dos manos y un respirar
                   <br /> pausado.
                   <strong> Alfajores que dejan huella.</strong>
@@ -192,9 +193,9 @@ useEffect(() => {
               />
             </section>
 
-            <section className="group">
-              <div className="height-texts">
-                <p className="text height-text">
+            <section className={styles.group}>
+              <div className={styles.heightTexts}>
+                <p className={`${styles.heightText} text`}>
                   <strong>Triple capa para arriba.</strong> Cada piso es <br />{" "}
                   una decisión que alguien tomó bien.
                 </p>
@@ -209,13 +210,13 @@ useEffect(() => {
               />
             </section>
 
-            <section className="group">
-              <div className="spicy-texts">
+            <section className={styles.group}>
+              <div className={styles.spicyTexts}>
                 <p className="title">
                   Los más <br />
                   <span className="big-title">pistacho</span>
                 </p>
-                <p className="text spicy-text">
+                <p className={`${styles.spicyText} text`}>
                   <strong>Los que van de frente.</strong> Alfajores con pistacho
                   <br /> para quien no quiere lo de siempre.
                 </p>
@@ -234,12 +235,15 @@ useEffect(() => {
             </div>
           </section>*/}
 
-          <section className="nostalgia">
-            <p className="title nostalgia-title">Nostalgia</p>
+          <section className={styles.nostalgia}>
+            <p className={`${styles.nostalgiaTitle} text`}>Nostalgia</p>
             <MediaCarousel isNostalgia={true} />
           </section>
 
-          <CatalogSection alfajores={alfajoresConImagenReal} randomSeed={hourTick} />
+          <CatalogSection
+            alfajores={alfajoresConImagenReal}
+            randomSeed={hourTick}
+          />
 
           <Contact />
         </>

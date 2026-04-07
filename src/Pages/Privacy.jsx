@@ -3,27 +3,27 @@ import { useBreakpoint } from "../Hooks/useBreakpoint";
 import Footer from "../Components/General/Footer";
 import MobileFooter from "../Components/General/MobileFooter";
 import Header from "../Components/General/Header";
-import "./Privacy.css";
+import styles from "./Privacy.module.css";
 
 function Privacy() {
   const { isMobile } = useBreakpoint();
   const navigate = useNavigate();
 
   return (
-    <div className="legal-page">
+    <div className={styles.legalPage}>
       {!isMobile && (
         <Header
           onFavoriteClick={() => navigate("/")}
           onSubscribeClick={() => navigate("/")}
         />
       )}
-      <main className="legal-main">
-        <section id="s1" className="legal-section">
-          <div className="legal-section__header">
-            <span className="legal-section__num">01</span>
-            <h2 className="legal-section__title">Información general</h2>
+      <main className={styles.legalMain}>
+        <section id="s1" className={styles.legalSection}>
+          <div className={styles.legalSection__header}>
+            <span className={styles.legalSection__num}>01</span>
+            <h2 className={styles.legalSection__title}>Información general</h2>
           </div>
-          <div className="legal-section__body">
+          <div className={styles.legalSection__body}>
             <p>
               En cumplimiento con el deber de información establecido en la
               normativa vigente, se informa que el presente sitio web, accesible
@@ -37,9 +37,9 @@ function Privacy() {
               </a>{" "}
               (en adelante, el <em>"Sitio Web"</em>), es titularidad de:
             </p>
-            <div className="legal-infobox">
-              <span className="legal-infobox__label">Titular</span>
-              <span className="legal-infobox__value">
+            <div className={styles.legalInfobox}>
+              <span className={styles.legalInfobox__label}>Titular</span>
+              <span className={styles.legalInfobox__value}>
                 XAGA CREATIVIDAD INTERACTIVA, S.A. · CIF: A64652639
               </span>
             </div>
@@ -51,12 +51,12 @@ function Privacy() {
           </div>
         </section>
 
-        <section id="s2" className="legal-section">
-          <div className="legal-section__header">
-            <span className="legal-section__num">02</span>
-            <h2 className="legal-section__title">Objeto</h2>
+        <section id="s2" className={styles.legalSection}>
+          <div className={styles.legalSection__header}>
+            <span className={styles.legalSection__num}>02</span>
+            <h2 className={styles.legalSection__title}>Objeto</h2>
           </div>
-          <div className="legal-section__body">
+          <div className={styles.legalSection__body}>
             <p>
               El Sitio Web tiene como finalidad ofrecer contenido informativo y
               editorial relacionado con alfajores, incluyendo, entre otros,
@@ -70,14 +70,14 @@ function Privacy() {
           </div>
         </section>
 
-        <section id="s3" className="legal-section">
-          <div className="legal-section__header">
-            <span className="legal-section__num">03</span>
-            <h2 className="legal-section__title">
+        <section id="s3" className={styles.legalSection}>
+          <div className={styles.legalSection__header}>
+            <span className={styles.legalSection__num}>03</span>
+            <h2 className={styles.legalSection__title}>
               Condiciones de acceso y uso
             </h2>
           </div>
-          <div className="legal-section__body">
+          <div className={styles.legalSection__body}>
             <p>
               El acceso al Sitio Web es gratuito, salvo en lo relativo al coste
               de la conexión a través de la red de telecomunicaciones
@@ -89,15 +89,15 @@ function Privacy() {
               moral, las buenas costumbres y el orden público.
             </p>
             <p>Queda expresamente prohibido:</p>
-            <ul className="legal-list">
-              <li className="legal-list__item">
+            <ul className={styles.legalList}>
+              <li className={styles.legalListItem}>
                 Utilizar el Sitio Web con fines ilícitos o lesivos.
               </li>
-              <li className="legal-list__item">
+              <li className={styles.legalListItem}>
                 Provocar daños en los sistemas físicos o lógicos del titular o
                 de terceros.
               </li>
-              <li className="legal-list__item">
+              <li className={styles.legalListItem}>
                 Introducir o difundir virus informáticos o cualquier otro
                 sistema susceptible de causar daños.
               </li>
@@ -105,12 +105,12 @@ function Privacy() {
           </div>
         </section>
 
-        <section id="s4" className="legal-section">
-          <div className="legal-section__header">
-            <span className="legal-section__num">04</span>
-            <h2 className="legal-section__title">Registro de usuarios</h2>
+        <section id="s4" className={styles.legalSection}>
+          <div className={styles.legalSection__header}>
+            <span className={styles.legalSection__num}>04</span>
+            <h2 className={styles.legalSection__title}>Registro de usuarios</h2>
           </div>
-          <div className="legal-section__body">
+          <div className={styles.legalSection__body}>
             <p>
               El Sitio Web puede requerir el registro del Usuario para acceder a
               determinadas funcionalidades (como guardar favoritos).
@@ -127,14 +127,14 @@ function Privacy() {
           </div>
         </section>
 
-        <section id="s5" className="legal-section">
-          <div className="legal-section__header">
-            <span className="legal-section__num">05</span>
-            <h2 className="legal-section__title">
+        <section id="s5" className={styles.legalSection}>
+          <div className={styles.legalSection__header}>
+            <span className={styles.legalSection__num}>05</span>
+            <h2 className={styles.legalSection__title}>
               Propiedad intelectual e industrial
             </h2>
           </div>
-          <div className="legal-section__body">
+          <div className={styles.legalSection__body}>
             <p>
               Todos los contenidos del Sitio Web (textos, imágenes, diseños,
               estructura, código fuente, etc.) son titularidad del titular del
@@ -154,12 +154,12 @@ function Privacy() {
           </div>
         </section>
 
-        <section id="s6" className="legal-section">
-          <div className="legal-section__header">
-            <span className="legal-section__num">06</span>
-            <h2 className="legal-section__title">Responsabilidad</h2>
+        <section id="s6" className={styles.legalSection}>
+          <div className={styles.legalSection__header}>
+            <span className={styles.legalSection__num}>06</span>
+            <h2 className={styles.legalSection__title}>Responsabilidad</h2>
           </div>
-          <div className="legal-section__body">
+          <div className={styles.legalSection__body}>
             <p>
               El titular del Sitio Web no garantiza la exactitud, integridad o
               actualidad de los contenidos.
@@ -170,15 +170,15 @@ function Privacy() {
               ni como recomendaciones de consumo.
             </p>
             <p>El titular no se hace responsable de:</p>
-            <ul className="legal-list">
-              <li className="legal-list__item">
+            <ul className={styles.legalList}>
+              <li className={styles.legalListItem}>
                 Errores u omisiones en los contenidos.
               </li>
-              <li className="legal-list__item">
+              <li className={styles.legalListItem}>
                 Decisiones tomadas por el Usuario basadas en la información del
                 Sitio Web.
               </li>
-              <li className="legal-list__item">
+              <li className={styles.legalListItem}>
                 Daños derivados del uso del Sitio Web.
               </li>
             </ul>
@@ -189,12 +189,12 @@ function Privacy() {
           </div>
         </section>
 
-        <section id="s7" className="legal-section">
-          <div className="legal-section__header">
-            <span className="legal-section__num">07</span>
-            <h2 className="legal-section__title">Enlaces externos</h2>
+        <section id="s7" className={styles.legalSection}>
+          <div className={styles.legalSection__header}>
+            <span className={styles.legalSection__num}>07</span>
+            <h2 className={styles.legalSection__title}>Enlaces externos</h2>
           </div>
-          <div className="legal-section__body">
+          <div className={styles.legalSection__body}>
             <p>El Sitio Web puede contener enlaces a páginas de terceros.</p>
             <p>
               El titular no se responsabiliza del contenido, políticas o
@@ -203,12 +203,12 @@ function Privacy() {
           </div>
         </section>
 
-        <section id="s8" className="legal-section">
-          <div className="legal-section__header">
-            <span className="legal-section__num">08</span>
-            <h2 className="legal-section__title">Protección de datos</h2>
+        <section id="s8" className={styles.legalSection}>
+          <div className={styles.legalSection__header}>
+            <span className={styles.legalSection__num}>08</span>
+            <h2 className={styles.legalSection__title}>Protección de datos</h2>
           </div>
-          <div className="legal-section__body">
+          <div className={styles.legalSection__body}>
             <p>
               El tratamiento de los datos personales del Usuario se regirá por
               lo dispuesto en la correspondiente Política de Privacidad.
@@ -216,12 +216,12 @@ function Privacy() {
           </div>
         </section>
 
-        <section id="s9" className="legal-section">
-          <div className="legal-section__header">
-            <span className="legal-section__num">09</span>
-            <h2 className="legal-section__title">Uso de cookies</h2>
+        <section id="s9" className={styles.legalSection}>
+          <div className={styles.legalSection__header}>
+            <span className={styles.legalSection__num}>09</span>
+            <h2 className={styles.legalSection__title}>Uso de cookies</h2>
           </div>
-          <div className="legal-section__body">
+          <div className={styles.legalSection__body}>
             <p>
               El Sitio Web utiliza cookies propias y/o de terceros con fines
               técnicos y de análisis. El Usuario puede consultar más información
@@ -230,12 +230,12 @@ function Privacy() {
           </div>
         </section>
 
-        <section id="s10" className="legal-section">
-          <div className="legal-section__header">
-            <span className="legal-section__num">10</span>
-            <h2 className="legal-section__title">Modificaciones</h2>
+        <section id="s10" className={styles.legalSection}>
+          <div className={styles.legalSection__header}>
+            <span className={styles.legalSection__num}>10</span>
+            <h2 className={styles.legalSection__title}>Modificaciones</h2>
           </div>
-          <div className="legal-section__body">
+          <div className={styles.legalSection__body}>
             <p>
               El titular se reserva el derecho de modificar en cualquier momento
               las presentes condiciones, siendo debidamente publicadas en el
@@ -244,14 +244,14 @@ function Privacy() {
           </div>
         </section>
 
-        <section id="s11" className="legal-section">
-          <div className="legal-section__header">
-            <span className="legal-section__num">11</span>
-            <h2 className="legal-section__title">
+        <section id="s11" className={styles.legalSection}>
+          <div className={styles.legalSection__header}>
+            <span className={styles.legalSection__num}>11</span>
+            <h2 className={styles.legalSection__title}>
               Legislación aplicable y jurisdicción
             </h2>
           </div>
-          <div className="legal-section__body">
+          <div className={styles.legalSection__body}>
             <p>
               Las presentes condiciones se rigen por la legislación española.
             </p>

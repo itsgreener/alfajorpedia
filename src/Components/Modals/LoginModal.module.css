@@ -1,4 +1,4 @@
-.login-wrapper {
+.loginWrapper {
   padding: 3% 1.5%;
   color: var(--black);
   display: flex;
@@ -6,14 +6,14 @@
   gap: 40px;
 }
 
-.login-form {
+.loginForm {
   width: 75%;
   display: flex;
   gap: 12px;
   align-items: center;
 }
 
-.login-input {
+.loginInput {
   flex: 1;
   padding: 16px 18px;
   font-size: var(--text);
@@ -21,17 +21,17 @@
   border: 1.5px solid var(--black);
   border-radius: 4px;
   outline: none;
+
+  &::placeholder {
+    color: var(--dark-gray);
+  }
+
+  &:focus {
+    border-color: var(--black);
+  }
 }
 
-.login-input::placeholder {
-  color: var(--dark-gray);
-}
-
-.login-input:focus {
-  border-color: var(--black);
-}
-
-.login-btn {
+.loginBtn {
   padding: 16px 28px;
   background-color: var(--black);
   color: var(--white);
@@ -41,53 +41,52 @@
   border-radius: 4px;
   cursor: pointer;
   white-space: nowrap;
+
+  &:hover {
+    background-color: var(--black);
+  }
 }
 
-.login-btn:hover {
-  background-color: var(--black);
-}
-
-.login-footer {
+.loginFooter {
   font-size: var(--subtitle);
+
+  & button {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: inherit;
+    cursor: pointer;
+    color: var(--black);
+    text-decoration: underline;
+    text-underline-offset: 5px;
+  }
+
+  & a:hover {
+    opacity: 0.6;
+  }
 }
 
-.login-footer button {
-  background: none;
-  border: none;
-  padding: 0;
-  font-size: inherit;
-  cursor: pointer;
-  color: var(--black);
-  text-decoration: underline;
-  text-underline-offset: 5px;
-}
-
-.login-footer a:hover {
-  opacity: 0.6;
-}
-
-.login-error {
+.loginError {
   color: red;
   font-size: var(--text);
 }
 
-.mobile-login-wrapper {
+.mobileLoginWrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   width: 100%;
+
+  & p {
+    width: 80%;
+    margin-top: 5vh;
+    margin-bottom: 2.5vh;
+  }
 }
 
-.mobile-login-wrapper p{
-  width: 80%;
-  margin-top: 5vh;
-  margin-bottom: 2.5vh;
-}
-
-
-.mobile-login-tabs {
+.mobileLoginTabs {
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -96,7 +95,7 @@
   margin-bottom: 4vh;
 }
 
-.mobile-login-tab {
+.mobileLoginTab {
   width: 40%;
   border: none;
   background: transparent;
@@ -106,36 +105,36 @@
   padding: 1vw;
   border-bottom: 0.35vw solid transparent;
   cursor: pointer;
+
+  &.active {
+    border-bottom-color: var(--black);
+  }
 }
 
-.mobile-login-tab.active {
-  border-bottom-color: var(--black);
-}
-
-.mobile-login-form {
+.mobileLoginForm {
   width: 80%;
   display: flex;
   flex-direction: column;
   gap: 3vh;
 }
 
-.mobile-login-field {
+.mobileLoginField {
   display: flex;
   flex-direction: column;
   gap: 1vh;
   text-align: left;
 }
 
-.mobile-login-label {
+.mobileLoginLabel {
   font-size: var(--text);
   font-weight: bold;
   color: var(--dark-gray);
   line-height: 1;
 }
 
-.mobile-login-input {
+.mobileLoginInput {
   width: 100%;
-  padding: 0 0 .75vh;
+  padding: 0 0 0.75vh;
   border: none;
   border-bottom: 0.25vw solid var(--dark-gray);
   border-radius: 0;
@@ -145,13 +144,13 @@
   box-sizing: border-box;
   outline: none;
   letter-spacing: 1px;
+
+  &:focus {
+    border-bottom-color: var(--black);
+  }
 }
 
-.mobile-login-input:focus {
-  border-bottom-color: var(--black);
-}
-
-.mobile-login-forgot {
+.mobileLoginForgot {
   border: none;
   background: transparent;
   padding: 0;
@@ -160,18 +159,18 @@
   cursor: pointer;
 }
 
-.mobile-login-error {
+.mobileLoginError {
   color: red;
   font-size: 3.4vw;
   text-align: left;
   margin-bottom: 2vh;
+
+  & p {
+    margin: 0 0 1vh;
+  }
 }
 
-.mobile-login-error p {
-  margin: 0 0 1vh;
-}
-
-.mobile-login-btn {
+.mobileLoginBtn {
   width: 100%;
   margin-top: 1.5vh;
   padding: 2vh 4vw;

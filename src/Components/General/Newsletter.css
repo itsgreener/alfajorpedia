@@ -6,7 +6,6 @@
 
 .footer-newsletter-input {
   display: flex;
-  align-items: stretch;
   width: 16vw;
   height: 4.2vh;
   font-size: var(--text);

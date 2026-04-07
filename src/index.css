@@ -60,10 +60,10 @@ html {
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease;
-}
 
-.hover:hover {
-  transform: translateY(-4px);
+  &:hover {
+    transform: translateY(-4px);
+  }
 }
 
 .title {

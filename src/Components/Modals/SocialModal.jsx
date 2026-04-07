@@ -1,4 +1,4 @@
-import "./SocialModal.css";
+import "./SocialModal.module.css";
 
 function SocialModal() {
   return (

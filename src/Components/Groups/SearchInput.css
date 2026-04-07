@@ -12,7 +12,6 @@
 
 .desktop-catalog-search input {
   width: 90%;
-  height: stretch;
   border: none;
   outline: none;
   background: transparent;
@@ -24,13 +23,13 @@
 
 .desktop-catalog-search-divider {
   width: 1px;
-  height: stretch;
+  height: -webkit-fill-available;
   background: var(--black);
 }
 
 .desktop-catalog-search button {
   width: 10%;
-  height: stretch;
+  height: -webkit-fill-available;
   border: none;
   background: var(--light-gray);
   display: flex;

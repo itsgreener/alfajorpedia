@@ -5,7 +5,7 @@ import { validate } from "../../Hooks/useValidation.js";
 import { useModalStack } from "../../Hooks/useModalStack.js";
 import { useBreakpoint } from "../../Hooks/useBreakpoint.js";
 import LoginModal from "./LoginModal.jsx";
-import "./RegisterModal.css";
+import styles from "./RegisterModal.module.css";
 
 function RegisterModal({ protectedNode = null }) {
   const { register } = useAuthActions();
@@ -47,29 +47,29 @@ function RegisterModal({ protectedNode = null }) {
   return (
     <>
       {isMobile ? (
-        <div className="mobile-register-wrapper">
+        <div className={styles.mobileRegisterWrapper}>
           <p className="small-title">
             Crea tu cuenta para empezar a guardar tus alfajores
           </p>
-          <div className="mobile-register-tabs">
+          <div className={styles.mobileRegisterTabs}>
             <button
               type="button"
-              className="mobile-register-tab"
+              className={styles.mobileRegisterTab}
               onClick={() =>
                 pushModal(<LoginModal protectedNode={protectedNode} />)
               }
             >
               Login
             </button>
-            <button type="button" className="mobile-register-tab active">
+            <button type="button" className={`${styles.mobileRegisterTab} ${styles.active}`}>
               Regístrate
             </button>
           </div>
-          <form noValidate className="mobile-register-form" onSubmit={onSubmit}>
-            <div className="mobile-register-field">
-              <label className="mobile-register-label">Email address</label>
+          <form noValidate className={styles.mobileRegisterForm} onSubmit={onSubmit}>
+            <div className={styles.mobileRegisterField}>
+              <label className={styles.mobileRegisterLabel}>Email address</label>
               <input
-                className="mobile-register-input"
+                className={styles.mobileRegisterInput}
                 type="email"
                 autoComplete="email"
                 value={email}
@@ -77,10 +77,10 @@ function RegisterModal({ protectedNode = null }) {
                 disabled={loading}
               />
             </div>
-            <div className="mobile-register-field">
-              <label className="mobile-register-label">Password</label>
+            <div className={styles.mobileRegisterField}>
+              <label className={styles.mobileRegisterLabel}>Password</label>
               <input
-                className="mobile-register-input"
+                className={styles.mobileRegisterInput}
                 type="password"
                 autoComplete="current-password"
                 value={password}
@@ -88,9 +88,9 @@ function RegisterModal({ protectedNode = null }) {
                 disabled={loading}
               />
             </div>
-            <label className="mobile-register-privacy">
+            <label className={styles.mobileRegisterPrivacy}>
               <input
-                className="register-checkbox"
+                className={styles.mobileRegisterCheckbox}
                 type="checkbox"
                 checked={checked}
                 onChange={(e) => setChecked(e.target.checked)}
@@ -102,7 +102,7 @@ function RegisterModal({ protectedNode = null }) {
               </button>
             </label>
             {(errors.email || errors.password || serverError) && (
-              <div className="mobile-register-error">
+              <div className={styles.mobileRegisterError}>
                 {errors.email && <p>{errors.email}</p>}
                 {errors.password && <p>{errors.password}</p>}
                 {serverError && <p>{serverError}</p>}
@@ -110,7 +110,7 @@ function RegisterModal({ protectedNode = null }) {
             )}
             <button
               type="submit"
-              className="mobile-register-btn"
+              className={styles.mobileRegisterBtn}
               disabled={loading}
             >
               {loading ? "Entrando..." : "Regístrate"}
@@ -118,7 +118,7 @@ function RegisterModal({ protectedNode = null }) {
           </form>
         </div>
       ) : (
-        <div className="register-wrapper">
+        <div className={styles.registerWrapper}>
           <p className="title">
             Crea tu cuenta
             <br />
@@ -126,10 +126,10 @@ function RegisterModal({ protectedNode = null }) {
               para empezar a guardar tus alfajores.
             </span>
           </p>
-          <form noValidate className="register-form" onSubmit={onSubmit}>
-            <section className="register-input-section">
+          <form noValidate className={styles.registerForm} onSubmit={onSubmit}>
+            <section className={styles.registerInputSection}>
               <input
-                className="register-input"
+                className={styles.registerInput}
                 type="email"
                 placeholder="email"
                 autoComplete="email"
@@ -138,7 +138,7 @@ function RegisterModal({ protectedNode = null }) {
                 disabled={loading}
               />
               <input
-                className="register-input"
+                className={styles.registerInput}
                 type="password"
                 placeholder="contraseña"
                 autoComplete="new-password"
@@ -146,13 +146,13 @@ function RegisterModal({ protectedNode = null }) {
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={loading}
               />
-              <button type="submit" className="register-btn" disabled={loading}>
+              <button type="submit" className={styles.registerBtn} disabled={loading}>
                 {loading ? "Creando..." : "Crear cuenta"}
               </button>
             </section>
-            <label className="register-privacy">
+            <label className={styles.registerPrivacy}>
               <input
-                className="register-checkbox"
+                className={styles.registerCheckbox}
                 type="checkbox"
                 checked={checked}
                 onChange={(e) => setChecked(e.target.checked)}
@@ -168,7 +168,7 @@ function RegisterModal({ protectedNode = null }) {
             errors.password ||
             errors.checked ||
             serverError) && (
-            <div className="register-error">
+            <div className={styles.registerError}>
               {errors.email && <p>{errors.email}</p>}
               {errors.password && <p>{errors.password}</p>}
               {errors.checked && <p>{errors.checked}</p>}

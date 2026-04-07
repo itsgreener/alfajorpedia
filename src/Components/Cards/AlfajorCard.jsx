@@ -52,10 +52,8 @@ const AlfajorCard = memo(({ alfajor, onClick }) => {
               alt={pais}
               className="card-flag"
             />
-            {gramos != null && <span className="card-weight">{gramos}g</span>}
-            {calorias != null && (
-              <span className="card-calories">{calorias} Cal</span>
-            )}
+            {gramos && <span className="card-weight">{gramos}g</span>}
+            {calorias && <span className="card-calories">{calorias} kcal</span>}
           </div>
 
           <p className="card-description">{tagline}</p>

@@ -4,7 +4,7 @@ import { validate } from "../../Hooks/useValidation";
 import { useModalStack } from "../../Hooks/useModalStack";
 import { useBreakpoint } from "../../Hooks/useBreakpoint";
 import RegisterModal from "./RegisterModal";
-import "./LoginModal.css";
+import styles from "./LoginModal.module.css";
 
 function LoginModal({ protectedNode = null }) {
   const { pushModal, clearModalStack } = useModalStack();
@@ -47,17 +47,17 @@ function LoginModal({ protectedNode = null }) {
   return (
     <>
       {isMobile ? (
-        <div className="mobile-login-wrapper">
+        <div className={styles.mobileLoginWrapper}>
           <p className="small-title">
             Ingresa a tu cuenta <br /> y guarda tus alfajores favoritos
           </p>
-          <div className="mobile-login-tabs">
-            <button type="button" className="mobile-login-tab active">
+          <div className={styles.mobileLoginTabs}>
+            <button type="button" className={`${styles.mobileLoginTab} ${styles.active}`}>
               Login
             </button>
             <button
               type="button"
-              className="mobile-login-tab"
+              className={styles.mobileLoginTab}
               onClick={() =>
                 pushModal(<RegisterModal protectedNode={protectedNode} />)
               }
@@ -65,11 +65,11 @@ function LoginModal({ protectedNode = null }) {
               Regístrate
             </button>
           </div>
-          <form noValidate className="mobile-login-form" onSubmit={onSubmit}>
-            <div className="mobile-login-field">
-              <label className="mobile-login-label">Email address</label>
+          <form noValidate className={styles.mobileLoginForm} onSubmit={onSubmit}>
+            <div className={styles.mobileLoginField}>
+              <label className={styles.mobileLoginLabel}>Email address</label>
               <input
-                className="mobile-login-input"
+                className={styles.mobileLoginInput}
                 type="email"
                 autoComplete="email"
                 value={email}
@@ -77,10 +77,10 @@ function LoginModal({ protectedNode = null }) {
                 disabled={loading}
               />
             </div>
-            <div className="mobile-login-field">
-              <label className="mobile-login-label">Password</label>
+            <div className={styles.mobileLoginField}>
+              <label className={styles.mobileLoginLabel}>Password</label>
               <input
-                className="mobile-login-input"
+                className={styles.mobileLoginInput}
                 type="password"
                 autoComplete="current-password"
                 value={password}
@@ -94,7 +94,7 @@ function LoginModal({ protectedNode = null }) {
             </button>
             */}
             {(errors.email || errors.password || serverError) && (
-              <div className="mobile-login-error">
+              <div className={styles.mobileLoginError}>
                 {errors.email && <p>{errors.email}</p>}
                 {errors.password && <p>{errors.password}</p>}
                 {serverError && <p>{serverError}</p>}
@@ -102,7 +102,7 @@ function LoginModal({ protectedNode = null }) {
             )}
             <button
               type="submit"
-              className="mobile-login-btn"
+              className={styles.mobileLoginBtn}
               disabled={loading}
             >
               {loading ? "Entrando..." : "Login"}
@@ -110,7 +110,7 @@ function LoginModal({ protectedNode = null }) {
           </form>
         </div>
       ) : (
-        <div className="login-wrapper">
+        <div className={styles.loginWrapper}>
           <p className="title">
             Ingresa a tu cuenta
             <br />
@@ -119,9 +119,9 @@ function LoginModal({ protectedNode = null }) {
             </span>
           </p>
 
-          <form noValidate className="login-form" onSubmit={onSubmit}>
+          <form noValidate className={styles.loginForm} onSubmit={onSubmit}>
             <input
-              className="login-input"
+              className={styles.loginInput}
               type="email"
               placeholder="email"
               autoComplete="email"
@@ -130,7 +130,7 @@ function LoginModal({ protectedNode = null }) {
               disabled={loading}
             />
             <input
-              className="login-input"
+              className={styles.loginInput}
               type="password"
               placeholder="contraseña"
               autoComplete="current-password"
@@ -139,20 +139,20 @@ function LoginModal({ protectedNode = null }) {
               disabled={loading}
             />
 
-            <button type="submit" className="login-btn" disabled={loading}>
+            <button type="submit" className={styles.loginBtn} disabled={loading}>
               {loading ? "Entrando..." : "Ingresar"}
             </button>
           </form>
 
           {(errors.email || errors.password || serverError) && (
-            <div className="login-error">
+            <div className={styles.loginError}>
               {errors.email && <p>{errors.email}</p>}
               {errors.password && <p>{errors.password}</p>}
               {serverError && <p>{serverError}</p>}
             </div>
           )}
 
-          <p className="login-footer">
+          <p className={styles.loginFooter}>
             o{" "}
             <button
               type="button"
