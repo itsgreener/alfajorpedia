@@ -5,7 +5,7 @@ import { useBreakpoint } from "../../Hooks/useBreakpoint";
 import AlfajorModal from "../Modals/AlfajorModal";
 import Catalog from "./Catalog";
 import SearchInput from "./SearchInput";
-import "./CatalogSection.css";
+import styles from "./CatalogSection.module.css";
 
 function shuffleArray(array) {
   const copy = [...array];
@@ -22,11 +22,10 @@ function CatalogSection({ alfajores, fromFavorite = false, randomSeed }) {
   const { pushModal } = useModalStack();
   const { isMobile } = useBreakpoint();
   const [randomOrder, setRandomOrder] = useState([]);
-  {/*const initializedRef = useRef(false); */}
 
-    const shuffleSignature = useMemo(
+  const shuffleSignature = useMemo(
     () => alfajores.map((a) => `${a.id}:${a.foto_url}`).join("|"),
-    [alfajores]
+    [alfajores],
   );
 
   useEffect(() => {
@@ -35,40 +34,39 @@ function CatalogSection({ alfajores, fromFavorite = false, randomSeed }) {
       return;
     }
 
- if (alfajores.length > 0) {
-    setRandomOrder(shuffleArray(alfajores));
-  } else {
-    setRandomOrder([]);
-  }
-}, [shuffleSignature, fromFavorite, randomSeed]);
+    if (alfajores.length > 0) {
+      setRandomOrder(shuffleArray(alfajores));
+    } else {
+      setRandomOrder([]);
+    }
+  }, [shuffleSignature, fromFavorite, randomSeed]);
 
-useEffect(() => {
-  if (fromFavorite) {
-    setRandomOrder(alfajores);
-    return;
-  }
+  useEffect(() => {
+    if (fromFavorite) {
+      setRandomOrder(alfajores);
+      return;
+    }
 
-  setRandomOrder((prev) =>
-    prev.map((item) => {
-      const actual = alfajores.find((a) => Number(a.id) === Number(item.id));
-      return actual ? { ...item, isFav: actual.isFav } : item;
-    })
-  );
-}, [alfajores, fromFavorite]);
-
+    setRandomOrder((prev) =>
+      prev.map((item) => {
+        const actual = alfajores.find((a) => Number(a.id) === Number(item.id));
+        return actual ? { ...item, isFav: actual.isFav } : item;
+      }),
+    );
+  }, [alfajores, fromFavorite]);
 
   const sourceData = fromFavorite ? alfajores : randomOrder;
   const { filteredData, setSearchContent } = useFilteredData(sourceData);
 
   return (
-    <section className="catalog-section">
+    <section className={styles.catalogSection}>
       {isMobile && fromFavorite ? (
-        <p className="small-title mobile-catalog-title">
+        <p className={`${styles.mobileCatalogTitle} small-title`}>
           {alfajores.length} {fromFavorite ? "Favoritos" : "Alfajores"}
         </p>
       ) : (
-        <div className="catalog-header" id="catalog">
-          <p className="big-title white-text catalog-title">
+        <div className={styles.catalogHeader} id="catalog">
+          <p className={`${styles.catalogTitle} big-title white-text`}>
             {alfajores.length} {fromFavorite ? "Favoritos" : "Alfajores"}
           </p>
           <SearchInput onChange={setSearchContent} />
@@ -77,7 +75,9 @@ useEffect(() => {
 
       <div
         className={
-          fromFavorite ? "catalog-content" : "catalog-padding catalog-content"
+          fromFavorite
+            ? styles.catalogContent
+            : `${styles.catalogPadding} ${styles.catalogContent}`
         }
       >
         <Catalog

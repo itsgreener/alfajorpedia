@@ -1,4 +1,4 @@
-.media-carousel {
+.mediaCarousel {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -7,7 +7,7 @@
   overflow: hidden;
 }
 
-.carousel-track-social {
+.carouselTrackSocial {
   position: relative;
   aspect-ratio: 9 / 16;
   height: 70vh;
@@ -17,9 +17,13 @@
   align-items: center;
   justify-content: center;
   cursor: grab;
+
+  &:active {
+    cursor: grabbing;
+  }
 }
 
-.carousel-track-nostalgia {
+.carouselTrackNostalgia {
   position: relative;
   aspect-ratio: 4/3;
   width: 22.5vw;
@@ -28,26 +32,26 @@
   align-items: center;
   justify-content: center;
   cursor: grab;
+
+  &:active {
+    cursor: grabbing;
+  }
 }
 
-.carousel-track:active {
-  cursor: grabbing;
-}
-
-.carousel-slot {
+.carouselSlot {
   position: absolute;
   width: 100%;
   transform-origin: center center;
   will-change: transform, filter;
 }
 
-.carousel-controls {
+.carouselControls {
   display: flex;
   align-items: center;
   gap: 1vw;
 }
 
-.carousel-btn-nostalgia {
+.carouselBtnNostalgia {
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 25px;
@@ -61,20 +65,20 @@
   transition:
     background 0.2s,
     border-color 0.2s;
+
+  &:hover {
+    background: var(--light-gray);
+    border-color: rgba(0, 0, 0, 0.3);
+  }
 }
 
-.carousel-btn-nostalgia:hover {
-  background: var(--light-gray);
-  border-color: rgba(0, 0, 0, 0.3);
-}
-
-.carousel-dots-nostalgia {
+.carouselDotsNostalgia {
   display: flex;
   gap: 0.5rem;
   align-items: center;
 }
 
-.carousel-dot-nostalgia {
+.carouselDotNostalgia {
   width: 6px;
   height: 6px;
   border-radius: 25px;
@@ -87,12 +91,12 @@
     transform 0.25s;
 }
 
-.carousel-dot-nostalgia--active {
+.carouselDotNostalgia__active {
   background: var(--black);
   transform: scale(1.4);
 }
 
-.carousel-btn-social {
+.carouselBtnSocial {
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 25px;
@@ -106,20 +110,20 @@
   transition:
     background 0.2s,
     border-color 0.2s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
 }
 
-.carousel-btn-social:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.3);
-}
-
-.carousel-dots-social {
+.carouselDotsSocial {
   display: flex;
   gap: 0.5rem;
   align-items: center;
 }
 
-.carousel-dot-social {
+.carouselDotSocial {
   width: 6px;
   height: 6px;
   border-radius: 25px;
@@ -132,7 +136,7 @@
     transform 0.25s;
 }
 
-.carousel-dot-social--active {
+.carouselDotSocial__active {
   background: var(--white);
   transform: scale(1.4);
 }

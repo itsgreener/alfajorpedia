@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { socialPosts } from "../../Assets/Data.js";
 import SocialPost from "../Cards/SocialPost";
-import "./MediaCarousel.css";
+import styles from "./MediaCarousel.module.css";
 
 function getCardStyle(offset) {
   const absOffset = Math.abs(offset);
@@ -85,10 +85,10 @@ function SocialCarousel({ isNostalgia }) {
   };
 
   return (
-    <div className="media-carousel">
+    <div className={styles.mediaCarousel}>
       <div
         className={
-          isNostalgia ? "carousel-track-nostalgia" : "carousel-track-social"
+          isNostalgia ? styles.carouselTrackNostalgia : styles.carouselTrackSocial
         }
         onMouseDown={handlePointerDown}
         onMouseMove={handlePointerMove}
@@ -105,7 +105,7 @@ function SocialCarousel({ isNostalgia }) {
           return (
             <div
               key={item.id}
-              className="carousel-slot"
+              className={styles.carouselSlot}
               style={getCardStyle(offset)}
               onClick={() => {
                 if (!isDragging.current && offset !== 0) {
@@ -126,10 +126,10 @@ function SocialCarousel({ isNostalgia }) {
         })}
       </div>
 
-      <div className="carousel-controls">
+      <div className={styles.carouselControls}>
         <button
           className={
-            isNostalgia ? "carousel-btn-nostalgia" : "carousel-btn-social"
+            isNostalgia ? styles.carouselBtnNostalgia : styles.carouselBtnSocial
           }
           onClick={prev}
           aria-label="Anterior"
@@ -150,7 +150,7 @@ function SocialCarousel({ isNostalgia }) {
 
         <div
           className={
-            isNostalgia ? "carousel-dots-nostalgia" : "carousel-dots-social"
+            isNostalgia ? styles.carouselDotsNostalgia : styles.carouselDotsSocial
           }
         >
           {socialPosts.map((_, i) => (
@@ -158,8 +158,8 @@ function SocialCarousel({ isNostalgia }) {
               key={i}
               className={
                 isNostalgia
-                  ? `carousel-dot-nostalgia${i === centerIndex ? " carousel-dot-nostalgia--active" : ""}`
-                  : `carousel-dot-social${i === centerIndex ? " carousel-dot-social--active" : ""}`
+                  ? `${styles.carouselDotNostalgia} ${i === centerIndex ? styles.carouselDotNostalgia__active : ""}`
+                  : `${styles.carouselDotSocial} ${i === centerIndex ? styles.carouselDotSocial__active : ""}`
               }
               onClick={() => setCenterIndex(i)}
               aria-label={`Ir a ${i + 1}`}
@@ -169,7 +169,7 @@ function SocialCarousel({ isNostalgia }) {
 
         <button
           className={
-            isNostalgia ? "carousel-btn-nostalgia" : "carousel-btn-social"
+            isNostalgia ? styles.carouselBtnNostalgia : styles.carouselBtnSocial
           }
           onClick={next}
           aria-label="Siguiente"

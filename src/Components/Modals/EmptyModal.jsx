@@ -1,17 +1,17 @@
 import { useBreakpoint } from "../../Hooks/useBreakpoint";
 import { useModalStack } from "../../Hooks/useModalStack";
-import "./EmptyModal.css";
+import styles from "./EmptyModal.module.css";
 
 function EmptyModal({ children }) {
   const { stack, popModal, clearModalStack } = useModalStack();
   const { isMobile } = useBreakpoint();
 
   return (
-    <div className="modal-overlay" onClick={() => clearModalStack()}>
-      <div className="modal-container" onClick={(e) => e.stopPropagation()}>
+    <div className={styles.modalOverlay} onClick={() => clearModalStack()}>
+      <div className={styles.modalContainer} onClick={(e) => e.stopPropagation()}>
         {stack.length > 1 ? (
           <button
-            className={isMobile ? "mobile-modal-close hover" : "modal-close hover"}
+            className={isMobile ? `${styles.mobileModalClose} hover` : `${styles.modalClose} hover`}
             onClick={() => popModal()}
             aria-label="Atrás"
           >
@@ -19,14 +19,14 @@ function EmptyModal({ children }) {
           </button>
         ) : (
           <button
-            className={isMobile ? "mobile-modal-close hover" : "modal-close hover"}
+            className={isMobile ? `${styles.mobileModalClose} hover` : `${styles.modalClose} hover`}
             onClick={() => clearModalStack()}
             aria-label="Cerrar"
           >
             ✕
           </button>
         )}
-        <div className="modal-content">{children}</div>
+        <div className={styles.modalContent}>{children}</div>
       </div>
     </div>
   );

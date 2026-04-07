@@ -1,18 +1,18 @@
 import { useBreakpoint } from "../../Hooks/useBreakpoint";
-import "./SearchInput.css";
+import styles from "./SearchInput.module.css";
 
 function SearchInput({ onChange }) {
   const { isMobile } = useBreakpoint();
   return (
     <>
       {!isMobile ? (
-        <div className="desktop-catalog-search">
+        <div className={styles.desktopCatalogSearch}>
           <input
             type="text"
             placeholder="Busca tu match"
             onChange={(e) => onChange(e.target.value)}
           />
-          <span className="desktop-catalog-search-divider" />
+          <span className={styles.desktopCatalogSearchDivider} />
           <button>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -31,7 +31,7 @@ function SearchInput({ onChange }) {
           </button>
         </div>
       ) : (
-        <div className="mobile-catalog-search">
+        <div className={styles.mobileCatalogSearch}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="25"

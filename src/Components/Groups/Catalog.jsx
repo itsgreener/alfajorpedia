@@ -1,6 +1,6 @@
 import { useState, useRef, useLayoutEffect } from "react";
 import AlfajorCard from "../Cards/AlfajorCard";
-import "./Catalog.css";
+import styles from "./Catalog.module.css";
 
 export default function Catalog({ alfajores, onClick, items }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -44,7 +44,7 @@ export default function Catalog({ alfajores, onClick, items }) {
       {totalPages > 0 && (
         <div
           ref={ref}
-          className="catalog-list"
+          className={styles.catalogList}
           style={{ "--repeat": `${items / 4}` }}
         >
           {currentItems.map((alfajor) => (
@@ -57,7 +57,7 @@ export default function Catalog({ alfajores, onClick, items }) {
         </div>
       )}
 
-      <div className="pagination">
+      <div className={styles.pagination}>
         {totalPages ? (
           <>
             <button
@@ -94,7 +94,7 @@ export default function Catalog({ alfajores, onClick, items }) {
             </button>
           </>
         ) : (
-          <p className="no-results">No se encontraron resultados</p>
+          <p className={styles.noResults}>No se encontraron resultados</p>
         )}
       </div>
     </>

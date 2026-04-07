@@ -1,7 +1,7 @@
 import { useModalStack } from "../../Hooks/useModalStack";
 import AlfajorCard from "../Cards/AlfajorCard";
 import AlfajorModal from "../Modals/AlfajorModal";
-import "./AlfajorGroup.css";
+import styles from  "./AlfajorGroup.module.css";
 
 function AlfajorGroup({ alfajores, amount }) {
   const { pushModal } = useModalStack();
@@ -10,7 +10,7 @@ function AlfajorGroup({ alfajores, amount }) {
 
 
   return (
-    <div className="alfajor-group" style={style}>
+    <div className={styles.alfajorGroup} style={style}>
       {alfajores.slice(0, amount).map((alfajor) => (
         <div className="card hover" key={alfajor.id}>
           <AlfajorCard
