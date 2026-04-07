@@ -42,28 +42,27 @@ async function toggleFavoriteAlfajor(id, like) {
     throw new Error("No autenticado");
   }
 
-  const res = await fetch(`https://app.alfajorpedia.com/api/favorites/${id}`, {
+ const targetId = Number(id);
+
+  const res = await fetch(`https://app.alfajorpedia.com/api/favorites/${targetId}`, {
     method: like ? "POST" : "DELETE",
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
-    
   });
 
   const data = await res.json().catch(() => ({}));
-  console.log("toggleFavoriteAlfajor", {
-    id,
-    like,
-    status: res.status,
-    data,
-  });
 
   if (!res.ok) {
     throw new Error(data.message || data.error || "Error actualizando favorito");
   }
 
-  await fetchAlfajores();
+  setAlfajores((prev) =>
+    prev.map((a) =>
+      Number(a.id) === targetId ? { ...a, isFav: like } : a
+    )
+  );
 }
 
   const value = useMemo(
@@ -99,9 +98,9 @@ export function useAlfajoresActions() {
   const ctx = useContext(AlfajoresContext);
   if (!ctx) throw new Error("useAlfajoresActions fuera del provider");
 
-  function alfajorById(id) {
-    return ctx.alfajores.find((a) => a.id === id);
-  }
+function alfajorById(id) {
+  return ctx.alfajores.find((a) => Number(a.id) === Number(id));
+}
 
   function favoriteAlfajores() {
     return ctx.alfajores.filter((a) => a.isFav);

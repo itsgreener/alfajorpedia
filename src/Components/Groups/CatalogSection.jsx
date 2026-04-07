@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useFilteredData } from "../../Hooks/useFilteredData";
 import { useModalStack } from "../../Hooks/useModalStack";
 import { useBreakpoint } from "../../Hooks/useBreakpoint";
@@ -24,6 +24,11 @@ function CatalogSection({ alfajores, fromFavorite = false, randomSeed }) {
   const [randomOrder, setRandomOrder] = useState([]);
   {/*const initializedRef = useRef(false); */}
 
+    const shuffleSignature = useMemo(
+    () => alfajores.map((a) => `${a.id}:${a.foto_url}`).join("|"),
+    [alfajores]
+  );
+
   useEffect(() => {
     if (fromFavorite) {
       setRandomOrder(alfajores);
@@ -35,7 +40,22 @@ function CatalogSection({ alfajores, fromFavorite = false, randomSeed }) {
   } else {
     setRandomOrder([]);
   }
-}, [alfajores, fromFavorite, randomSeed]);
+}, [shuffleSignature, fromFavorite, randomSeed]);
+
+useEffect(() => {
+  if (fromFavorite) {
+    setRandomOrder(alfajores);
+    return;
+  }
+
+  setRandomOrder((prev) =>
+    prev.map((item) => {
+      const actual = alfajores.find((a) => Number(a.id) === Number(item.id));
+      return actual ? { ...item, isFav: actual.isFav } : item;
+    })
+  );
+}, [alfajores, fromFavorite]);
+
 
   const sourceData = fromFavorite ? alfajores : randomOrder;
   const { filteredData, setSearchContent } = useFilteredData(sourceData);

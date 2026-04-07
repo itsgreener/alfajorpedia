@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import { useFilteredData } from "../../Hooks/useFilteredData";
 import { useModalStack } from "../../Hooks/useModalStack";
 import AlfajorModal from "../Modals/AlfajorModal";
@@ -21,7 +21,6 @@ function shuffleArray(array) {
 
   return copy;
 }
-
 
 function normalizeCategory(category) {
   if (!category) return "";
@@ -46,25 +45,44 @@ function MobileCatalog({ alfajores, randomSeed }) {
   const categoriesRef = useRef(null);
   const [burgerOpen, setBurgerOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState(null);
+  const [mobileOrder, setMobileOrder] = useState([]);
 
-const shuffledAlfajores = useMemo(() => {
-  return shuffleArray(alfajores);
-}, [alfajores, randomSeed]);
-const { filteredData, setSearchContent } = useFilteredData(shuffledAlfajores);
+  const shuffleSignature = useMemo(
+    () => alfajores.map((a) => `${a.id}:${a.foto_url}`).join("|"),
+    [alfajores],
+  );
+  useEffect(() => {
+    if (alfajores.length > 0) {
+      setMobileOrder(shuffleArray(alfajores));
+    } else {
+      setMobileOrder([]);
+    }
+  }, [shuffleSignature, randomSeed]);
+
+  useEffect(() => {
+    setMobileOrder((prev) =>
+      prev.map((item) => {
+        const actual = alfajores.find((a) => Number(a.id) === Number(item.id));
+        return actual ? { ...item, isFav: actual.isFav } : item;
+      }),
+    );
+  }, [alfajores]);
+
+  const { filteredData, setSearchContent } = useFilteredData(mobileOrder);
 
   const categories = useMemo(() => {
-  const counts = shuffledAlfajores.reduce((acc, alfajor) => {
-    const category = normalizeCategory(alfajor.categorias);
-    if (!category) return acc;
+    const counts = mobileOrder.reduce((acc, alfajor) => {
+      const category = normalizeCategory(alfajor.categorias);
+      if (!category) return acc;
 
-    acc[category] = (acc[category] || 0) + 1;
-    return acc;
-  }, {});
+      acc[category] = (acc[category] || 0) + 1;
+      return acc;
+    }, {});
 
-  return Object.entries(counts)
-    .sort((a, b) => b[1] - a[1])
-    .map(([category]) => category);
-}, [shuffledAlfajores]);
+    return Object.entries(counts)
+      .sort((a, b) => b[1] - a[1])
+      .map(([category]) => category);
+  }, [mobileOrder]);
 
   const finalFilteredData = useMemo(() => {
     if (!activeCategory) return filteredData;
@@ -242,7 +260,13 @@ const { filteredData, setSearchContent } = useFilteredData(shuffledAlfajores);
               <Newsletter />
 
               <div className="burger-footer">
-                <img src="logoGreener.svg" alt="logo greener" />
+                <a
+                  href="https://itsgreener.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img src="logoGreener.svg" alt="logo greener" />
+                </a>
 
                 <div className="burger-social">
                   <a
