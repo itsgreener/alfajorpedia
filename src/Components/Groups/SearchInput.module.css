@@ -2,11 +2,10 @@
   display: flex;
   flex-direction: row;
   width: 50%;
-  min-height: 50px;
-  align-items: center;
   background: var(--white);
   border-radius: 20px;
   justify-content: space-between;
+  align-items: stretch;
   overflow: hidden;
 
   & input {
@@ -22,7 +21,6 @@
 
   & button {
     width: 10%;
-    height: -webkit-fill-available;
     border: none;
     background: var(--light-gray);
     display: flex;
@@ -34,16 +32,14 @@
 
 .desktopCatalogSearchDivider {
   width: 1px;
-  height: -webkit-fill-available;
   background: var(--black);
 }
 
 .mobileCatalogSearch {
   width: 85%;
   align-self: flex-start;
-  min-height: 25px;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   padding: 4%;
   background: var(--light-gray);
   border-radius: 10px;
