@@ -8,23 +8,22 @@ nav {
 }
 
 .navLeft {
+  height: 100%;
   display: flex;
   align-items: center;
   gap: 2vw;
 }
 
 .navRight {
+  height: 100%;
   display: flex;
   align-items: center;
   gap: 1.5vw;
 }
 
 .navBrand {
-  color: var(--white);
-  font-size: var(--small-text);
-  font-weight: bold;
-  letter-spacing: 0.5px;
-  text-transform: lowercase;
+  height: 8vh;
+  width: auto;
 }
 
 .navLink {

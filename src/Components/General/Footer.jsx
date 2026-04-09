@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import Newsletter from "./Newsletter";
 import styles from "./Footer.module.css";
+import { useHeaderFooterActions } from "../../Hooks/useHeaderFooterActions";
 
-function Footer({ onSubscribeClick, onFavoriteClick }) {
+function Footer() {
+  const { onFavoriteClick, onSubscribeClick, isHome } =
+    useHeaderFooterActions();
   return (
     <footer className={styles.footerBg}>
       <div className={styles.footer}>
@@ -73,14 +76,22 @@ function Footer({ onSubscribeClick, onFavoriteClick }) {
               <p className="white-text">
                 <strong>Menú</strong>
               </p>
-              <a href="#catalog">Catálogo</a>
+              {isHome ? (
+                <a href="#catalog">Catálogo</a>
+              ) : (
+                <Link to="/">Catálogo</Link>
+              )}
               <button
                 className={styles.footerLinkBtn}
                 onClick={onFavoriteClick}
               >
                 Favoritos
               </button>
-              <a href="#contact">Contacto</a>
+              {isHome ? (
+                <a href="#contact">Contacto</a>
+              ) : (
+                <Link to="/">Contacto</Link>
+              )}
               <button
                 className={styles.footerLinkBtn}
                 onClick={onSubscribeClick}
@@ -92,10 +103,30 @@ function Footer({ onSubscribeClick, onFavoriteClick }) {
               <p className="white-text">
                 <strong>Información</strong>
               </p>
-              <Link to="/privacy">Condiciones Generales</Link>
-              <Link to="/privacy">Aviso Legal</Link>
-              <Link to="/privacy">Política de Cookies</Link>
-              <Link to="/privacy">Política de Privacidad</Link>
+              <Link
+                to={isHome && "/privacy"}
+                onClick={() => window.scrollTo(0, 0)}
+              >
+                Condiciones Generales
+              </Link>
+              <Link
+                to={isHome && "/privacy"}
+                onClick={() => window.scrollTo(0, 0)}
+              >
+                Aviso Legal
+              </Link>
+              <Link
+                to={isHome && "/privacy"}
+                onClick={() => window.scrollTo(0, 0)}
+              >
+                Política de Cookies
+              </Link>
+              <Link
+                to={isHome && "/privacy"}
+                onClick={() => window.scrollTo(0, 0)}
+              >
+                Política de Privacidad
+              </Link>
             </div>
           </div>
         </div>

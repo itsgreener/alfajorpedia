@@ -1,15 +1,29 @@
 import styles from "./Header.module.css";
+import { useHeaderFooterActions } from "../../Hooks/useHeaderFooterActions";
+import { Link } from "react-router-dom";
 
-function Header({ onFavoriteClick, onSubscribeClick }) {
+function Header() {
+  const { onFavoriteClick, onSubscribeClick, isHome } =
+    useHeaderFooterActions();
   return (
     <nav>
       <div className={styles.navLeft}>
-        <a href="/" className={styles.navLink}>
-          <img src="/logo-blanco.svg" className={styles.navLink} />
-        </a>
-        <a href="#catalog" className={styles.navLink}>
-          CATÁLOGO
-        </a>
+        <Link
+          to={!isHome && "/"}
+          onClick={() => isHome && window.scrollTo(0, 0)}
+          className={styles.navLink}
+        >
+          <img src="/logo-blanco.svg" className={styles.navBrand} />
+        </Link>
+        {isHome ? (
+          <a href="#catalog" className={styles.navLink}>
+            CATÁLOGO
+          </a>
+        ) : (
+          <Link to="/" className={styles.navLink}>
+            CATÁLOGO
+          </Link>
+        )}
       </div>
       <div className={styles.navRight}>
         <div className={styles.navRightText}>

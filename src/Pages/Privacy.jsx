@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { useBreakpoint } from "../Hooks/useBreakpoint";
 import Footer from "../Components/General/Footer";
 import MobileFooter from "../Components/General/MobileFooter";
@@ -7,16 +6,10 @@ import styles from "./Privacy.module.css";
 
 function Privacy() {
   const { isMobile } = useBreakpoint();
-  const navigate = useNavigate();
 
   return (
     <div className={styles.legalPage}>
-      {!isMobile && (
-        <Header
-          onFavoriteClick={() => navigate("/")}
-          onSubscribeClick={() => navigate("/")}
-        />
-      )}
+      {!isMobile && <Header />}
       <main className={styles.legalMain}>
         <section id="s1" className={styles.legalSection}>
           <div className={styles.legalSection__header}>
@@ -264,14 +257,7 @@ function Privacy() {
           </div>
         </section>
       </main>
-      {isMobile ? (
-        <MobileFooter />
-      ) : (
-        <Footer
-          onFavoriteClick={() => navigate("/")}
-          onSubscribeClick={() => navigate("/")}
-        />
-      )}
+      {isMobile ? <MobileFooter /> : <Footer />}
     </div>
   );
 }

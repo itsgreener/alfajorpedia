@@ -10,12 +10,9 @@ import MediaCarousel from "../Components/Groups/MediaCarousel.jsx";
 import AlfajorGroup from "../Components/Groups/AlfajorGroup.jsx";
 import AlfajorModal from "../Components/Modals/AlfajorModal.jsx";
 import EmptyModal from "../Components/Modals/EmptyModal.jsx";
-import FavoriteModal from "../Components/Modals/FavoriteModal.jsx";
-import LoginModal from "../Components/Modals/LoginModal.jsx";
 import CatalogSection from "../Components/Groups/CatalogSection.jsx";
 import MobileCatalog from "../Components/General/MobileCatalog.jsx";
 import Contact from "../Components/General/Contact.jsx";
-import ProtectedPath from "../Context/ProtectedRoute.jsx";
 import styles from "./Home.module.css";
 
 function Home() {
@@ -133,16 +130,7 @@ function Home() {
         />
       ) : (
         <>
-          <Header
-            onFavoriteClick={() =>
-              pushModal(
-                <ProtectedPath>
-                  <FavoriteModal />
-                </ProtectedPath>,
-              )
-            }
-            onSubscribeClick={() => pushModal(<LoginModal />)}
-          />
+          <Header />
 
           <div className={styles.body} id="home">
             <section className="card hover">
@@ -249,20 +237,7 @@ function Home() {
         </>
       )}
 
-      {isMobile ? (
-        <MobileFooter />
-      ) : (
-        <Footer
-          onFavoriteClick={() =>
-            pushModal(
-              <ProtectedPath>
-                <FavoriteModal />
-              </ProtectedPath>,
-            )
-          }
-          onSubscribeClick={() => pushModal(<LoginModal />)}
-        />
-      )}
+      {isMobile ? <MobileFooter /> : <Footer />}
       {currentModal && <EmptyModal>{currentModal}</EmptyModal>}
     </>
   );
