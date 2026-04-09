@@ -76,22 +76,14 @@ function Footer() {
               <p className="white-text">
                 <strong>Menú</strong>
               </p>
-              {isHome ? (
-                <a href="#catalog">Catálogo</a>
-              ) : (
-                <Link to="/">Catálogo</Link>
-              )}
+              <a href={isHome ? "#catalog" : "/#catalog"}>Catálogo</a>
               <button
                 className={styles.footerLinkBtn}
                 onClick={onFavoriteClick}
               >
                 Favoritos
               </button>
-              {isHome ? (
-                <a href="#contact">Contacto</a>
-              ) : (
-                <Link to="/">Contacto</Link>
-              )}
+              <a href={isHome ? "#contact" : "/#contact"}>Contacto</a>
               <button
                 className={styles.footerLinkBtn}
                 onClick={onSubscribeClick}

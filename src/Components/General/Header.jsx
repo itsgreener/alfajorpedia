@@ -15,15 +15,9 @@ function Header() {
         >
           <img src="/logo-blanco.svg" className={styles.navBrand} />
         </Link>
-        {isHome ? (
-          <a href="#catalog" className={styles.navLink}>
-            CATÁLOGO
-          </a>
-        ) : (
-          <Link to="/" className={styles.navLink}>
-            CATÁLOGO
-          </Link>
-        )}
+        <a href={isHome ? "#catalog" : "/#catalog"} className={styles.navLink}>
+          CATÁLOGO
+        </a>
       </div>
       <div className={styles.navRight}>
         <div className={styles.navRightText}>
