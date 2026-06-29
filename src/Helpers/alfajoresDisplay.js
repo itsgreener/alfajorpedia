@@ -1,4 +1,4 @@
-function hasImage(alfajor) {
+/*function hasImage(alfajor) {
   return typeof alfajor?.foto_url === "string" && alfajor.foto_url.trim() !== "";
 }
 
@@ -27,14 +27,9 @@ function shuffleWithSeed(items, seedString) {
   }
 
   return arr;
-}
+}*/
 
-export function getCloudinaryImageUrl(fotoUrl) {
-  if (!fotoUrl || typeof fotoUrl !== "string") return null;
-
-  return `https://res.cloudinary.com/dnvp65swm/image/upload/f_auto,q_auto/v1774009977/${fotoUrl}.webp`;
-}
-
+/*
 export async function filtrarAlfajoresConImagenReal(alfajores) {
   const checks = await Promise.all(
     alfajores.map(async (alfajor) => {
@@ -55,10 +50,19 @@ export async function filtrarAlfajoresConImagenReal(alfajores) {
 
   return checks.filter(Boolean);
 }
+
+
 export function getAlfajoresConImagenAleatoriosPorHora(alfajores, tick = Date.now()) {
   const now = new Date(tick);
   const seed = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}-${now.getHours()}`;
   const soloConImagen = alfajores.filter(hasImage);
 
   return shuffleWithSeed(soloConImagen, seed);
+}
+*/
+
+export function getCloudinaryImageUrl(fotoUrl) {
+  if (!fotoUrl || typeof fotoUrl !== "string") return null;
+
+  return `https://res.cloudinary.com/dnvp65swm/image/upload/f_auto,q_auto/v1774009977/${fotoUrl}.webp`;
 }

@@ -1,5 +1,5 @@
-import { useEffect, useState, useMemo } from "react";
-import { filtrarAlfajoresConImagenReal } from "../Helpers/alfajoresDisplay.js";
+import { useEffect, useState } from "react";
+//import { filtrarAlfajoresConImagenReal } from "../Helpers/alfajoresDisplay.js";
 import { useAlfajoresData } from "../Hooks/useAlfajores.jsx";
 import { useModalStack } from "../Hooks/useModalStack.js";
 import { useBreakpoint } from "../Hooks/useBreakpoint.js";
@@ -19,9 +19,9 @@ function Home() {
   const { alfajores, loading, error } = useAlfajoresData();
   const { isMobile } = useBreakpoint();
 
-  const [hourTick, setHourTick] = useState(Date.now());
-  const [alfajoresConImagenReal, setAlfajoresConImagenReal] = useState([]);
-  const [imagenesLoading, setImagenesLoading] = useState(true);
+  const [hourTick, setHourTick] = useState(() => Date.now());
+  //const [alfajoresConImagenReal, setAlfajoresConImagenReal] = useState([]);
+  //const [imagenesLoading, setImagenesLoading] = useState(true);
 
   useEffect(() => {
     function scheduleNextHourUpdate() {
@@ -42,25 +42,27 @@ function Home() {
     return () => clearTimeout(timeoutId);
   }, [hourTick]);
 
+  /*
   const imageSignature = useMemo(
     () => alfajores.map((a) => `${a.id}:${a.foto_url}`).join("|"),
     [alfajores],
   );
 
+
   useEffect(() => {
-    let cancelled = false;
+    //let cancelled = false;
 
     async function validarImagenes() {
       try {
-        setImagenesLoading(true);
+        //setImagenesLoading(true);
         const validos = await filtrarAlfajoresConImagenReal(alfajores);
 
         if (!cancelled) {
-          setAlfajoresConImagenReal(validos);
+          //setAlfajoresConImagenReal(validos);
         }
       } finally {
         if (!cancelled) {
-          setImagenesLoading(false);
+          //setImagenesLoading(false);
         }
       }
     }
@@ -68,14 +70,15 @@ function Home() {
     if (alfajores.length > 0) {
       //validarImagenes();
     } else {
-      setAlfajoresConImagenReal([]);
-      setImagenesLoading(false);
+      //setAlfajoresConImagenReal([]);
+      //setImagenesLoading(false);
     }
 
     return () => {
       cancelled = true;
     };
   }, [imageSignature]);
+
 
   useEffect(() => {
     setAlfajoresConImagenReal((prev) =>
@@ -85,6 +88,7 @@ function Home() {
       }),
     );
   }, [alfajores]);
+  */
 
   function filterByUrl(fotoUrl) {
     return alfajores.filter((item) => item.foto_url === fotoUrl);
@@ -112,7 +116,7 @@ function Home() {
     ...filterByUrl("alfajorpedia-1014"),
   ];
 
-  if (loading || imagenesLoading) {
+  if (loading) {
     return <p className={`${styles.loading} text`}>Cargando alfajores...</p>;
   }
 
