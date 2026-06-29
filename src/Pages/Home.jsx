@@ -66,7 +66,7 @@ function Home() {
     }
 
     if (alfajores.length > 0) {
-      validarImagenes();
+      //validarImagenes();
     } else {
       setAlfajoresConImagenReal([]);
       setImagenesLoading(false);
@@ -124,7 +124,7 @@ function Home() {
     <>
       {isMobile ? (
         <MobileCatalog
-          alfajores={alfajoresConImagenReal}
+          alfajores={alfajores}
           randomSeed={hourTick}
         />
       ) : (
@@ -228,7 +228,7 @@ function Home() {
           </section>
 
           <CatalogSection
-            alfajores={alfajoresConImagenReal}
+            alfajores={alfajores}
             randomSeed={hourTick}
           />
 
