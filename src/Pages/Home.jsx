@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-//import { filtrarAlfajoresConImagenReal } from "../Helpers/alfajoresDisplay.js";
 import { useAlfajoresData } from "../Hooks/useAlfajores.jsx";
 import { useModalStack } from "../Hooks/useModalStack.js";
 import { useBreakpoint } from "../Hooks/useBreakpoint.js";
@@ -20,8 +19,6 @@ function Home() {
   const { isMobile } = useBreakpoint();
 
   const [hourTick, setHourTick] = useState(() => Date.now());
-  //const [alfajoresConImagenReal, setAlfajoresConImagenReal] = useState([]);
-  //const [imagenesLoading, setImagenesLoading] = useState(true);
 
   useEffect(() => {
     function scheduleNextHourUpdate() {
@@ -41,54 +38,6 @@ function Home() {
 
     return () => clearTimeout(timeoutId);
   }, [hourTick]);
-
-  /*
-  const imageSignature = useMemo(
-    () => alfajores.map((a) => `${a.id}:${a.foto_url}`).join("|"),
-    [alfajores],
-  );
-
-
-  useEffect(() => {
-    //let cancelled = false;
-
-    async function validarImagenes() {
-      try {
-        //setImagenesLoading(true);
-        const validos = await filtrarAlfajoresConImagenReal(alfajores);
-
-        if (!cancelled) {
-          //setAlfajoresConImagenReal(validos);
-        }
-      } finally {
-        if (!cancelled) {
-          //setImagenesLoading(false);
-        }
-      }
-    }
-
-    if (alfajores.length > 0) {
-      //validarImagenes();
-    } else {
-      //setAlfajoresConImagenReal([]);
-      //setImagenesLoading(false);
-    }
-
-    return () => {
-      cancelled = true;
-    };
-  }, [imageSignature]);
-
-
-  useEffect(() => {
-    setAlfajoresConImagenReal((prev) =>
-      prev.map((item) => {
-        const actual = alfajores.find((a) => Number(a.id) === Number(item.id));
-        return actual ? { ...item, isFav: actual.isFav } : item;
-      }),
-    );
-  }, [alfajores]);
-  */
 
   function filterByUrl(fotoUrl) {
     return alfajores.filter((item) => item.foto_url === fotoUrl);
