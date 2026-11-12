@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useAlfajoresData } from "../Hooks/useAlfajores.jsx";
 import { useModalStack } from "../Hooks/useModalStack.js";
 import { useBreakpoint } from "../Hooks/useBreakpoint.js";
+import { getCloudinaryImageUrl } from "../Helpers/alfajoresDisplay.js";
 import MobileFooter from "../Components/General/MobileFooter.jsx";
 import Footer from "../Components/General/Footer.jsx";
 import Header from "../Components/General/Header.jsx";
@@ -108,7 +109,7 @@ function Home() {
                 <div>
                   <img
                     className={styles.headerImageContent}
-                    src={`https://res.cloudinary.com/dnvp65swm/image/upload/f_auto,q_auto/v1774009977/${featuredAlfajor.foto_url}.webp`}
+                    src={getCloudinaryImageUrl(featuredAlfajor.foto_url)}
                     alt="featured alfajor"
                   />
                 </div>
