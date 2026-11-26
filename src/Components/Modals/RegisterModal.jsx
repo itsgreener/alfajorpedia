@@ -14,6 +14,7 @@ function RegisterModal({ protectedNode = null }) {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
+  const [nombre, setNombre] = useState("");
   const [password, setPassword] = useState("");
   const [checked, setChecked] = useState(false);
   const [errors, setErrors] = useState({});
@@ -24,6 +25,7 @@ function RegisterModal({ protectedNode = null }) {
     e.preventDefault();
 
     const newErrors = validate(email, password, checked);
+    if (!nombre.trim()) newErrors.nombre = "Introduce tu nombre";
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
@@ -34,7 +36,7 @@ function RegisterModal({ protectedNode = null }) {
       setErrors({});
       setServerError("");
 
-      await register({ email, password });
+      await register({ email, password, nombre: nombre.trim() });
 
       protectedNode ? pushModal(protectedNode) : clearModalStack();
     } catch (err) {
@@ -66,6 +68,10 @@ function RegisterModal({ protectedNode = null }) {
             </button>
           </div>
           <form noValidate className={styles.mobileRegisterForm} onSubmit={onSubmit}>
+            <div className={styles.mobileRegisterField}>
+              <label className={styles.mobileRegisterLabel}>Nombre</label>
+              <input className={styles.mobileRegisterInput} value={nombre} onChange={(e) => setNombre(e.target.value)} disabled={loading} />
+            </div>
             <div className={styles.mobileRegisterField}>
               <label className={styles.mobileRegisterLabel}>Email address</label>
               <input
@@ -101,8 +107,9 @@ function RegisterModal({ protectedNode = null }) {
                 <strong>Política de Privacidad</strong>
               </button>
             </label>
-            {(errors.email || errors.password || serverError) && (
+            {(errors.email || errors.password || errors.nombre || serverError) && (
               <div className={styles.mobileRegisterError}>
+                {errors.nombre && <p>{errors.nombre}</p>}
                 {errors.email && <p>{errors.email}</p>}
                 {errors.password && <p>{errors.password}</p>}
                 {serverError && <p>{serverError}</p>}
@@ -127,6 +134,7 @@ function RegisterModal({ protectedNode = null }) {
             </span>
           </p>
           <form noValidate className={styles.registerForm} onSubmit={onSubmit}>
+            <label>Nombre <input type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} disabled={loading} required /></label>
             <section className={styles.registerInputSection}>
               <input
                 className={styles.registerInput}
@@ -169,7 +177,8 @@ function RegisterModal({ protectedNode = null }) {
             errors.checked ||
             serverError) && (
             <div className={styles.registerError}>
-              {errors.email && <p>{errors.email}</p>}
+              {errors.nombre && <p>{errors.nombre}</p>}
+                {errors.email && <p>{errors.email}</p>}
               {errors.password && <p>{errors.password}</p>}
               {errors.checked && <p>{errors.checked}</p>}
               {serverError && <p>{serverError}</p>}

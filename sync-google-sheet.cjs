@@ -1,21 +1,12 @@
 require("dotenv").config();
-const mysql = require("mysql2/promise");
 const csv = require("csv-parser");
 const { Readable } = require("stream");
 
 const SHEET_CSV_URL =
   "https://docs.google.com/spreadsheets/d/1iUU4tknZHILXca-98ELPsririKAllZlun2fkX3mCXqo/export?format=csv&gid=0";
 
-const pool = mysql.createPool({
-  host: process.env.DB_HOST || "127.0.0.1",
-  port: process.env.DB_PORT || 3306,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME,
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0,
-});
+const pool = require("./db.cjs");
+const { upsertAlfajores } = require("./lib/upsert-alfajores.cjs");
 
 function toNumber(value) {
   if (value == null) return null;
@@ -95,73 +86,10 @@ async function syncRows(rows) {
 
   console.log("Primer registro limpio:", clean[0]);
 
-  const values = clean.map((r) => [
-    r.foto_url,
-    r.marca,
-    r.variedad,
-    r.empresa,
-    r.pais,
-    r.descripcion,
-    r.tagline,
-    r.gramos,
-    r.calorias,
-    r.puntuacion,
-    r.categorias,
-    r.website,
-    r.instagram,
-    r.tiktok,
-    r.empresa_proc,
-    r.empresa_imp,
-  ]);
-
-  const sql = `
-    INSERT INTO alfajores (
-      foto_url,
-      marca,
-      variedad,
-      empresa,
-      pais,
-      descripcion,
-      tagline,
-      gramos,
-      calorias,
-      puntuacion,
-      categorias,
-      website,
-      instagram,
-      tiktok,
-      empresa_proc,
-      empresa_imp
-    )
-    VALUES ?
-    ON DUPLICATE KEY UPDATE
-      marca = VALUES(marca),
-      variedad = VALUES(variedad),
-      empresa = VALUES(empresa),
-      pais = VALUES(pais),
-      descripcion = VALUES(descripcion),
-      tagline = VALUES(tagline),
-      gramos = VALUES(gramos),
-      calorias = VALUES(calorias),
-      puntuacion = VALUES(puntuacion),
-      categorias = VALUES(categorias),
-      website = VALUES(website),
-      instagram = VALUES(instagram),
-      tiktok = VALUES(tiktok),
-      empresa_proc = VALUES(empresa_proc),
-      empresa_imp = VALUES(empresa_imp),
-      updated_at = CURRENT_TIMESTAMP
-  `;
-
-  const conn = await pool.getConnection();
-
-  try {
-    await conn.query(sql, [values]);
-    console.log(`OK. Filas CSV leídas: ${rows.length}`);
-    console.log(`OK. Filas insertadas/actualizadas: ${clean.length}`);
-  } finally {
-    conn.release();
-  }
+  const { unique, upserted } = await upsertAlfajores(pool, clean);
+  console.log(`OK. Filas CSV leídas: ${rows.length}`);
+  console.log(`OK. Filas únicas: ${unique}`);
+  console.log(`OK. Filas insertadas/actualizadas: ${upserted}`);
 }
 
 async function main() {

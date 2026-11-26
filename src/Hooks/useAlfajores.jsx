@@ -15,7 +15,7 @@ export function AlfajoresProvider({ children }) {
       setLoading(true);
       setError("");
 
-      const res = await fetch("https://app.alfajorpedia.com/api/alfajores", {
+      const res = await fetch("/api/alfajores", {
         headers: token ? { Authorization: `Bearer ${token}` } : {},
       });
 
@@ -44,7 +44,7 @@ async function toggleFavoriteAlfajor(id, like) {
 
  const targetId = Number(id);
 
-  const res = await fetch(`https://app.alfajorpedia.com/api/favorites/${targetId}`, {
+  const res = await fetch(`/api/favorites/${targetId}`, {
     method: like ? "POST" : "DELETE",
     headers: {
       Authorization: `Bearer ${token}`,

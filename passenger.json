@@ -1,8 +1,0 @@
-{
-  "app_type": "node",
-  "startup_file": "app.js",
-  "node_version": "20.x",
-  "environment_variables": {
-    "NODE_ENV": "production"
-  }
-}

@@ -16,7 +16,7 @@ export function AuthProvider({ children }) {
       }
 
       try {
-        const res = await fetch("https://app.alfajorpedia.com/api/auth/me", {
+        const res = await fetch("/api/auth/me", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -47,7 +47,7 @@ export function AuthProvider({ children }) {
     setAuthLoading(true);
 
     try {
-      const res = await fetch("https://app.alfajorpedia.com/api/auth/login", {
+      const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -73,18 +73,18 @@ export function AuthProvider({ children }) {
     }
   }
 
-  async function register({ email, password }) {
+  async function register({ email, password, nombre }) {
     setAuthLoading(true);
 
     try {
       const res = await fetch(
-        "https://app.alfajorpedia.com/api/auth/register",
+        "/api/auth/register",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ email, password }),
+          body: JSON.stringify({ email, password, nombre }),
         },
       );
 

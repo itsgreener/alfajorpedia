@@ -1,12 +1,13 @@
 require("dotenv").config();
-const mysql = require("mysql2/promise");
+const pool = require("./db.cjs");
+const { upsertAlfajores } = require("./lib/upsert-alfajores.cjs");
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const nodemailer = require("nodemailer");
-const { requireApiKey } = require("./middleware/auth");
-const authRoutes = require("./routes/auth.routes");
-const alfajoresRoutes = require("./routes/alfajores.routes");
-const favoritesRoutes = require("./routes/favorites.routes");
+const { requireApiKey } = require("./middleware/auth.cjs");
+const authRoutes = require("./routes/auth.routes.cjs");
+const alfajoresRoutes = require("./routes/alfajores.routes.cjs");
+const favoritesRoutes = require("./routes/favorites.routes.cjs");
 
 const MAILCHIMP_API_KEY = process.env.MAILCHIMP_API_KEY;
 const MAILCHIMP_LIST_ID = process.env.MAILCHIMP_LIST_ID;
@@ -63,16 +64,6 @@ function escapeHtml(text) {
   return String(text).replace(/[&<>"'/]/g, (char) => map[char]);
 }
 
-const pool = mysql.createPool({
-  host: process.env.DB_HOST || "127.0.0.1",
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME,
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0,
-});
-
 app.locals.pool = pool;
 
 app.get("/", (_req, res) => {
@@ -83,6 +74,7 @@ app.get("/api/health", requireApiKey, (_req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
+// Sincronización externa (Google Sheets / Apps Script) → PostgreSQL.
 app.post("/api/sync-alfajores", requireApiKey, async (req, res) => {
   try {
     const rows = req.body?.rows;
@@ -132,80 +124,17 @@ app.post("/api/sync-alfajores", requireApiKey, async (req, res) => {
       return res.status(400).json({ error: "no valid rows" });
     }
 
-    const values = clean.map((r) => [
-      r.foto_url,
-      r.marca,
-      r.variedad,
-      r.empresa,
-      r.pais,
-      r.descripcion,
-      r.tagline,
-      r.gramos,
-      r.calorias,
-      r.puntuacion,
-      r.categorias,
-      r.website,
-      r.instagram,
-      r.tiktok,
-      r.empresa_proc,
-      r.empresa_imp,
-    ]);
-
-    const sql = `
-      INSERT INTO alfajores (
-        foto_url,
-        marca,
-        variedad,
-        empresa,
-        pais,
-        descripcion,
-        tagline,
-        gramos,
-        calorias,
-        puntuacion,
-        categorias,
-        website,
-        instagram,
-        tiktok,
-        empresa_proc,
-        empresa_imp
-      )
-      VALUES ?
-      ON DUPLICATE KEY UPDATE
-        foto_url = VALUES(foto_url),
-        empresa = VALUES(empresa),
-        pais = VALUES(pais),
-        descripcion = VALUES(descripcion),
-        tagline = VALUES(tagline),
-        gramos = VALUES(gramos),
-        calorias = VALUES(calorias),
-        puntuacion = VALUES(puntuacion),
-        categorias = VALUES(categorias),
-        website = VALUES(website),
-        instagram = VALUES(instagram),
-        tiktok = VALUES(tiktok),
-        empresa_proc = VALUES(empresa_proc),
-        empresa_imp = VALUES(empresa_imp),
-        updated_at = CURRENT_TIMESTAMP
-    `;
-
-    const conn = await pool.getConnection();
-    try {
-      await conn.query(sql, [values]);
-    } finally {
-      conn.release();
-    }
+    const { unique, upserted } = await upsertAlfajores(pool, clean);
 
     return res.json({
       ok: true,
       received: rows.length,
-      upserted: clean.length,
+      unique,
+      upserted,
     });
   } catch (e) {
-    return res.status(500).json({
-      error: "server error",
-      detail: e.message,
-    });
+    console.error(e);
+    return res.status(500).json({ error: "server error" });
   }
 });
 
@@ -511,8 +440,8 @@ app.post("/api/test-post", (req, res) => {
   });
 });
 
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+if (require.main === module) {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => console.log(`API en puerto ${PORT}`));
+}
+module.exports = app;

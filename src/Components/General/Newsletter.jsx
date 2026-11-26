@@ -11,7 +11,7 @@ function Newsletter() {
     e.preventDefault();
 
     try {
-      const res = await fetch("https://app.alfajorpedia.com/api/subscribe", {
+      const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

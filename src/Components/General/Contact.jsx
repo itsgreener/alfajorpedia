@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useBreakpoint } from "../../Hooks/useBreakpoint";
-import styles from "./contact.module.css";
+import styles from "./Contact.module.css";
 
 function Contact() {
   const [userName, setUserName] = useState("");
@@ -12,7 +12,7 @@ function Contact() {
 
   const sendEmail = async () => {
     try {
-      const response = await fetch("https://app.alfajorpedia.com/api/email", {
+      const response = await fetch("/api/email", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
