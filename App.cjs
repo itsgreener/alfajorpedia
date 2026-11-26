@@ -250,10 +250,13 @@ app.post("/api/email", async (req, res) => {
       });
     }
 
+    // 465 = SSL directo (secure: true); 587 = STARTTLS (secure: false).
+    // Con secure: true fijo, el puerto 587 falla siempre al conectar.
+    const mailPort = parseInt(process.env.MAIL_PORT) || 465;
     const transporter = nodemailer.createTransport({
       host: process.env.MAIL_HOST,
-      port: parseInt(process.env.MAIL_PORT) || 465,
-      secure: true,
+      port: mailPort,
+      secure: mailPort === 465,
       auth: {
         user: process.env.MAIL_USER,
         pass: process.env.MAIL_PASS,
@@ -261,7 +264,7 @@ app.post("/api/email", async (req, res) => {
     });
 
     await transporter.sendMail({
-      from: `<${process.env.MAIL_USER}> "Alfajorpedia"`,
+      from: `"Alfajorpedia" <${process.env.MAIL_USER}>`,
       to: process.env.MAIL_TO,
       subject: `[Web] New message from ${escapeHtml(name)}`,
       text: `
@@ -406,7 +409,7 @@ ${new Date().toLocaleString("en-US")}
     </div>
     
     <div class="footer">
-      <p>Sent from the contact form at <strong>tr.itsgreener.com</strong></p>
+      <p>Sent from the contact form at <strong>alfajorpedia.com</strong></p>
       <p>${new Date().toLocaleString("en-US", { dateStyle: "full", timeStyle: "short" })}</p>
     </div>
   </div>
@@ -421,7 +424,7 @@ ${new Date().toLocaleString("en-US")}
       message: "Email sent successfully",
     });
   } catch (error) {
-    console.error("Error:", error.message);
+    console.error("Error enviando email:", error.code, error.message);
     return res.status(500).json({
       success: false,
       message: "Error sending email",
